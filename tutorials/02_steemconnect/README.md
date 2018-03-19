@@ -51,3 +51,10 @@ Now that `sc2-sdk` is initialized we can start authentication and perform simple
 > In order to logout, you can use `revokeToken` function from sc2-sdk.
 
 Learn more about [Steemconnect operations here](https://github.com/steemit/steemconnect-sdk)
+
+### To run
+
+* clone this repo
+* `cd tutorials/02-steemconnect`
+* `npm i`
+* `npm run start`
