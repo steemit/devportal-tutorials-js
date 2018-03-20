@@ -14,15 +14,23 @@ let link = api.getLoginURL();
 let access_token = new URLSearchParams(document.location.search).get("access_token");
 let username = new URLSearchParams(document.location.search).get("username");
 
-let t = ''; 
+let lt = '', ut = '', lo = '', jt = '', t = ''; 
 if (access_token) {
     // set access token after login
     api.setAccessToken(access_token);
 
-    // Link Logout and Get user details functions
-    t = `<a href="#" onclick='logOut()'>Log Out</a><p>User: <b>${username}</b> <a href="#" onclick='getUser()'>Get User details</a></p><pre id="json"></pre>`
+    // Logout button
+    lt = `<a href="#" onclick='logOut()'>Log Out</a>`
+    // User name after successfull login
+    ut = `<p>User: <b>${username}</b></p>`
+    // Get user details button
+    lo = `<a href="#" onclick='getUserDetails()'>Get User details</a>`
+    // User details JSON output
+    jt = `<pre id="userDetailsJSON"></pre>`
+    
+    t = lt + ut + lo + jt;
 } else {
-    // Login URL link
+    // Login button
     t = `<a href=${link}>Log In</a>`;
 }
 
@@ -41,11 +49,11 @@ window.logOut = () => {
 }
 
 // Get User details function, returns user data via Steemconnect API
-window.getUser = () => { 
+window.getUserDetails = () => { 
     api.me(function(err,res){
         if (res) {
             user = JSON.stringify(res, undefined, 2);
-            document.getElementById("json").innerHTML = user;
+            document.getElementById("userDetailsJSON").innerHTML = user;
         }
     }); 
 };
