@@ -91,3 +91,9 @@ The result returned form the service is a `JSON` object with the following prope
 ```
 
 From this result you have access to everything associated to the post including additional metadata which is a `JSON` string that must be decoded to use. This `JSON` object has additional information and properties for the post including a reference to the image uploaded.
+
+## To run
+* clone this repo
+* cd tutorials/01_blog_feed
+* npm i
+* npm run start
