@@ -34,3 +34,27 @@ const query = {
 
 This will return the next five posts, from `start_permlink`, inclusive.
 
+## Troubleshooting
+
+### The results are blank.
+
+* Ensure the author mentioned in the `tag` value is a valid author.
+* Double-check that the author has posts.  This method does not retrieve replies (comments).
+* Ensure the size of `limit` is not larger than 100.
+
+### I got an error in the console: `Cannot read property '0' of undefined`
+
+This tutorial is simple and assumes a certain format of `json_metadata` in each post.  The contents of `json_metadata` is not enforced when the post is created so a robust client needs to consider all of these situations.
+
+Try a different author, or change:
+
+```javascript
+const image = JSON.parse(post.json_metadata).image[0];
+```
+
+... to:
+
+```javascript
+const image = null;
+```
+This tutorial will explain and show you how to access the **Steemit** blockchain using the **steemjs** library to build a basic blog list of posts filtered by a *tag*
