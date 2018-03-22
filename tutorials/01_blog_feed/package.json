@@ -4,13 +4,25 @@
   "description": "Pull the list of a user's posts from steem",
   "main": "server.js",
   "scripts": {
-    "start": "node ./index.js",
+    "start": "webpack && node ./index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bootstrap": "^4.0.0",
     "koa": "^2.5.0",
-    "koa-static": "^4.0.2"
+    "koa-static": "^4.0.2",
+    "steem": "^0.7.1",
+    "webpack-serve": "^0.2.0"
+  },
+  "devDependencies": {
+    "css-loader": "^0.28.11",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "node-sass": "^4.7.2",
+    "sass-loader": "^6.0.7",
+    "style-loader": "^0.20.3",
+    "webpack": "^4.1.1",
+    "webpack-cli": "^2.0.12"
   }
 }

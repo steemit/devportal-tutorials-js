@@ -1,32 +1,8 @@
 <html>
 <head><title>User blog</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://cdn.steemjs.com/lib/latest/steem.min.js"></script>
-    <script>
-        function fetchBlog()
-        {
-            const query = {
-                tag: 'steemitblog',
-                limit: 5
-            };
-            steem.api.getDiscussionsByBlog(query, function(err, result) {
-                var posts = [];
-                result.forEach( (post) => {
-                    const image = JSON.parse(post.json_metadata).image[0];
-                    const title = post.title;
-                    const author = post.author;
-                    const created = new Date(post.created).toDateString();
-                    posts.push(
-                        `<a href="#" class="list-group-item"><h4 class="list-group-item-heading">${title}</h4><p>by ${author}</p><center><img src="${image}" class="img-responsive center-block" style="max-width: 450px"/></center><p class="list-group-item-text text-right text-nowrap">${created}</p></a>`
-                    )
-                });
-
-                document.getElementById('postList').innerHTML = posts.join();
-            });
-        }
-    </script>
+    <script src="bundle.js"></script>
 </head>
-<body onload="fetchBlog()">
+<body>
 <div class="container">
     <h2>Welcome to my blog!</h2>
     <div class="list-group" id="postList"></div>
