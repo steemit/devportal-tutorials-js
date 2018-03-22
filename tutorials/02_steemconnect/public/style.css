@@ -1,0 +1,11 @@
+a:link, a:visited {
+    background-color: gray;
+    color: white;
+    padding: 7px 12px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+a:hover, a:active {
+    background-color: blue;
+}
