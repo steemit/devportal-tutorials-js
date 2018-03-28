@@ -1,0 +1,57 @@
+<html>
+    <head>
+        <title>Client-side transaction signing</title>
+        <script src="bundle.js"></script>
+    </head>
+    <body>
+    	<div class="container" id="content">
+			<div class="p-3">
+				<div class="pt-3">
+					<!--List of accounts with their posting privateKey on Testnet-->
+					<select class="custom-select" id="account" onchange="accountChange()">
+					  <option selected>Select account to operate with</option>
+					  <option value="5Jtbfge4Pk5RyhgzvmZhGE5GeorC1hbaHdwiM7pb5Z5CZz2YKUC">demo</option>
+					  <option value="5Ju3fhTY25Tsseyk4c1PUpH2bTLC8eLbdFRjytmnvU9ZLEQBmsf">demo1</option>
+					  <option value="5JZDEAXjANq9isYa66g9tYbeuo4wWXhwXPfujwt9s4DaK4b38R9">demo2</option>
+					  <option value="5J6bzy9TM3kBRibXmFi7ZvThrWGMN3epg7aCXLKazTLsJnmw6Mq">demo3</option>
+					  <option value="5KQQKVHJBpygcBrqKF6TLQSBX5zHbPRgNEAuojb6fK2C94NX3kJ">demo4</option>
+					  <option value="5K7QWGuAAX27yvQRPBMBDA4BbXVpdtmALxoM8CoRdZAsPew5hJd">demo5</option>
+					</select>		
+				</div>
+				<div class="pt-3">
+					<!--List of operations-->
+					<select class="custom-select" id="optype" onchange="opChange()">
+					  <option selected>Select operation type</option>
+					  <option value="vote">Vote</option>
+					  <option value="follow">Follow</option>
+					  <option value="reblog">Reblog</option>
+					</select>		
+				</div>
+				<div class="input-group pt-3">
+				  <div class="input-group-prepend">
+				    <span class="input-group-text">Operation</span>
+				  </div>
+				  <pre class="form-control" aria-label="OpInput" style="display: inline-block;" id="OpInput"></pre>
+				</div>
+				<div class="input-group pt-3">
+				  <div class="input-group-prepend">
+				    <span class="input-group-text">Transaction</span>
+				  </div>
+				  <pre class="form-control" aria-label="TxOutput" style="display: inline-block;" id="TxOutput"></pre>
+				</div>
+				<div class="input-group pt-3">
+				  <div class="input-group-prepend">
+				    <span class="input-group-text">Result</span>
+				  </div>
+				  <pre class="form-control" aria-label="ResOutput" style="display: inline-block;" id="ResOutput"></pre>
+				</div>
+				<div class="pt-3">
+					<button type="button" class="btn btn-primary" onclick="generateTx()">Generate Transaction</button>
+					<button type="button" class="btn btn-secondary" onclick="signTx()">Sign Transaction</button>
+					<button type="button" class="btn btn-info" onclick="verifyTx()" id="verifyBtn">Verify Signature</button>
+					<button type="button" class="btn btn-success" onclick="broadcastTx()">Broadcast Transaction</button>
+				</div>
+			</div>
+    	</div>
+    </body>
+</html>
