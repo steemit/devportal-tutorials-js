@@ -1,4 +1,6 @@
-const steem = require('steem');
+const { Client } = require('dsteem');
+
+const client = new Client('https://api.steemit.com');
 
 function fetchBlog()
 {
@@ -6,7 +8,7 @@ function fetchBlog()
         tag: 'steemitblog',
         limit: 5
     };
-    steem.api.getDiscussionsByBlogAsync(query).then((result) => {
+    client.database.getDiscussions('trending', query).then((result) => {
         var posts = [];
         result.forEach( (post) => {
             const image = JSON.parse(post.json_metadata).image[0];
