@@ -6,17 +6,20 @@ All blockchain accessing code runs in the browser.
 
 This tutorial will explain and show you how to access the **Steemit** blockchain using the **steemjs** library to build a basic blog list of posts filtered by a *tag*
 
-## Filtering Query
+## Pagination
 
-* You can add a tag to filter the blog posts that you receive from the server
-* You can also limit the amount of results you would like to receive from the query
+To get the next *n* results, use the last `permlink` in the result as `start_permlink`, e.g.:
 
-``` javascript
-var query = {
-  tag: 'steemitblog', // This tag is used to filter the results by a specific post tag
-  limit: 5 // This limit allows us to limit the overall results returned to 5
+```javascript
+const query = {
+    tag: 'steemitblog',
+    limit: 5,
+    start_author: 'steemitblog',
+    start_permlink: 'the-new-steemit-logo-is-here'
 };
 ```
+
+This will return the next five posts, from `start_permlink`, inclusive.
 
 ## Query Result
 
@@ -93,7 +96,32 @@ The result returned form the service is a `JSON` object with the following prope
 From this result you have access to everything associated to the post including additional metadata which is a `JSON` string that must be decoded to use. This `JSON` object has additional information and properties for the post including a reference to the image uploaded.
 
 ## To run
+
 * clone this repo
 * cd tutorials/01_blog_feed
 * npm i
 * npm run start
+
+## Troubleshooting
+
+### The results are blank.
+
+* Ensure the author mentioned in the `tag` value is a valid author.
+* Double-check that the author has posts.  This method does not retrieve replies (comments).
+* Ensure the size of `limit` is not larger than 100.
+
+### I got an error in the console: `Cannot read property '0' of undefined`
+
+This tutorial is simple and assumes a certain format of `json_metadata` in each post.  The contents of `json_metadata` is not enforced when the post is created so a robust client needs to consider all of these situations.
+
+Try a different author, or change:
+
+```javascript
+const image = JSON.parse(post.json_metadata).image[0];
+```
+
+... to:
+
+```javascript
+const image = null;
+```
