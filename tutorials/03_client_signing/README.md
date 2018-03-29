@@ -1,10 +1,10 @@
 ### Goal
 
 The application in this tutorial gives you overview of how client side transaction signing works under the hood.
+
 Purpose is to guide you through the steps required so that you could adapt this in your own applications.
 
 We have predefined accounts to select for you to quickly use and few transaction types to test the process.
-
 
 ### Overview
 
@@ -14,7 +14,7 @@ Client side signing of transaction is yet another way of interacting with Steem 
 
 Testnet and Production networks only differ with few settings which helps developers to switch their application from testnet to production. One of these settings is `addressPrefix` - string that is defined and will be in front of every public address on that chain/network. Another one is `chainId` - id of that network. By defining those parameters we are selecting Testnet and connecting to publicly available server with help of `dsteem` library. First few lines of code in `public/app.js` gives you example of connection to different networks, testnet and production.
 
-```
+```javascript
 opts.addressPrefix = 'TST'
 opts.chainId = '46d82ab7d8db682eb1959aed0ada039a6d49afa1602491f93dde9cac3e8e6c32'
 //connect to server which is connected to the network/testnet
@@ -34,7 +34,9 @@ To test connection as well as to get parameters of the connected network, we can
 
 We have predefined list of accounts to help you with generate, sign, verify and broadcast transaction on testnet. Select list has posting private key for each account and `onchange` selection event we keep account name and credentials in memory. `accountChange` function shows example of turning plain posting private key into private key buffer format that is understandable by **dsteem**. 
 
-```privateKey = dsteem.PrivateKey.fromString(document.getElementById("account").value)```
+```javascript
+privateKey = dsteem.PrivateKey.fromString(document.getElementById("account").value)
+```
 
 Account and its credentials should belong to specified testnet/mainnet network to sign/verify/broadcast transactions properly.
 
@@ -45,7 +47,7 @@ Number of operations are also predefined to show you example of operation format
 ### Generate transaction
 
 Next we have button which helps us to generate operation object. Depending on selected operation type we have different structure for operation object. Typically, each transaction object has following fields: 
-* `ref_block_num` - references block number in past, in this example we have chosen head block number. This is required in tapos (transaction as proof of stake) to avoid network forks.
+* `ref_block_num` - references block number in past, in this example we have chosen head block number, but it is possible to use a block number from up to 65,536 blocks ago.  This is required in TaPoS (Transaction as Proof of Stake) to avoid network forks.
 * `ref_block_prefix` - reference buffer of block id of `ref_block_num` as prefix
 * `expiration` - transaction expiration date in future, in our example we have set it +1 minute into future
 * `operations` - array of operations, this field holds main information about transaction type and its structure which is recognized by the network
