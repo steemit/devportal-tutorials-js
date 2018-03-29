@@ -2,18 +2,18 @@ const dsteem = require('dsteem')
 
 let opts = {}
 
-//connect to official testnet
+//connect to community testnet
+opts.addressPrefix = 'STX'
+opts.chainId = '79276aea5d4877d9a25892eaa01b0adf019d3e5cb12a97478df3298ccdd01673'
+//connect to server which is connected to the network/testnet
+const client = new dsteem.Client('https://testnet.steem.vc', opts)
 
+//connect to official testnet
 //opts.addressPrefix = 'TST'
 //opts.chainId = '46d82ab7d8db682eb1959aed0ada039a6d49afa1602491f93dde9cac3e8e6c32'
 //connect to server which is connected to the network/testnet
 //const client = new dsteem.Client('https://testnet.steemitdev.com', opts)
 
-//connect to johan's testnet
-opts.addressPrefix = 'STX'
-opts.chainId = '79276aea5d4877d9a25892eaa01b0adf019d3e5cb12a97478df3298ccdd01673'
-//connect to server which is connected to the network/testnet
-const client = new dsteem.Client('https://testnet.steem.vc', opts)
 
 //connect to production server
 //opts.addressPrefix = 'STM'

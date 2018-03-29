@@ -22,6 +22,8 @@ const client = new dsteem.Client('https://testnet.steemitdev.com', opts)
 
 ```
 
+* *Disclaimer: In this tutorial we are using testnet powered by community member (`@almost-digital`) and predefined accounts reside on this network only.*
+
 ### Network globals
 
 To test connection as well as to get parameters of the connected network, we can use `getDynamicGlobalProperties` function from **dsteem** library. Only 2 fields are in our interesting for this tutorial, `head_block_number` - returns head or latest block number of the network, `head_block_id` - returns id of head block.
@@ -30,9 +32,11 @@ To test connection as well as to get parameters of the connected network, we can
 
 ### Account selection
 
-We have predefined list of accounts to help you with generate, sign, verify and broadcast transaction on testnet. Select list has posting private key for each account and `onchange` selection event we keep account name and credentials in memory. `accountChange` function shows example of turning plain posting private key into private key buffer format that is understandable by **dsteem**.
+We have predefined list of accounts to help you with generate, sign, verify and broadcast transaction on testnet. Select list has posting private key for each account and `onchange` selection event we keep account name and credentials in memory. `accountChange` function shows example of turning plain posting private key into private key buffer format that is understandable by **dsteem**. 
 
 ```privateKey = dsteem.PrivateKey.fromString(document.getElementById("account").value)```
+
+Account and its credentials should belong to specified testnet/mainnet network to sign/verify/broadcast transactions properly.
 
 ### Operation selection
 
