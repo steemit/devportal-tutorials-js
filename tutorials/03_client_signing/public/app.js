@@ -70,7 +70,7 @@ window.generateTx = () => {
                 permlink: 'test',
                 weight: 10000
             }]],//example of operation object for vote
-            'extensions': [],//extensions for this transaction
+            extensions: [],//extensions for this transaction
         }
         //set operation output
         document.getElementById("OpInput").innerHTML = JSON.stringify(op, undefined, 2)
@@ -87,7 +87,7 @@ window.generateTx = () => {
                 id: 'follow',
                 json: '["follow",{"follower":"'+account+'","following":"test","what":["blog"]}]'
             }]], //example of custom_json for follow operation
-            'extensions': [],
+            extensions: [],
         }
         document.getElementById("OpInput").innerHTML = JSON.stringify(op, undefined, 2)
            
@@ -104,7 +104,7 @@ window.generateTx = () => {
                 id: 'follow',
                 json: '["reblog",{"account":"'+account+'","author":"test","permlink":"test"}]'
             }]], //example of custom_json for reblog operation
-            'extensions': [],
+            extensions: [],
         }
         document.getElementById("OpInput").innerHTML = JSON.stringify(op, undefined, 2)
     }   
