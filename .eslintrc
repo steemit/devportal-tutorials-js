@@ -9,6 +9,6 @@
   "rules": {
     "no-unused-vars": 1,
     "no-redeclare": 1,
-    "no-console": 1
+    "no-console": 0
   }
 }
