@@ -4,7 +4,7 @@ This tutorial pulls a list of the most recent five user's posts from the blockch
 
 All blockchain accessing code runs in the browser.
 
-This tutorial will explain and show you how to access the **Steemit** blockchain using the [dsteem](https://github.com/jnordberg/dsteem) library to build a basic blog list of posts filtered by a _tag_
+This tutorial will explain and show you how to access the **Steem** blockchain using the [dsteem](https://github.com/jnordberg/dsteem) library to build a basic blog list of posts filtered by a _tag_
 
 ## Filtering Query
 
