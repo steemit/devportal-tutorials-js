@@ -1,12 +1,14 @@
 {
     "scripts": {
-        "lint":
-            "eslint -c .eslintrc —ext .js --ignore-path .gitignore --fix ./tutorials/",
+        "lint": "eslint -c .eslintrc —ext .js --ignore-path .gitignore --fix ./tutorials/",
         "fmt": "prettier --write ./tutorials/*/*",
         "precommit": "lint-staged"
     },
     "lint-staged": {
-        "*.{js,json,css,md}": ["prettier --write ./tutorials/*/*", "git add"]
+        "*.{js,json,css,md}": [
+            "prettier --write ./tutorials/*/*",
+            "git add"
+        ]
     },
     "devDependencies": {
         "eslint-config-airbnb-base": "^12.1.0",
