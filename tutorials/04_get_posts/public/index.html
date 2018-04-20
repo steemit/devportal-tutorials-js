@@ -1,0 +1,23 @@
+<html>
+    <head>
+        <title>Get posts via filters</title>
+        <script src="bundle.js"></script>
+    </head>
+    <body>
+    	<div class="container" id="content">
+			<div class="p-3">
+				<div class="pt-3">
+					<!--List of filters-->
+					<select class="custom-select" id="filters" onchange="filtersChange()">
+					  <option selected>Select filter</option>
+					  <option value="trending">Trending</option>
+					  <option value="hot">Hot</option>
+					  <option value="created">New</option>
+					  <option value="promoted">Promoted</option>
+					</select>		
+				</div>
+			</div>
+			<div class="list-group" id="postList"></div>
+    	</div>
+    </body>
+</html>
