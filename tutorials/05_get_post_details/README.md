@@ -1,24 +1,24 @@
-# Post details
+# How to Get Post Details
 
-This tutorial pulls a list of the trending posts from the blockchain and displays them. And fetches content of the selected post, displays title and body of the post. 
+The purpose of this tutorial is to **a)** demonstrate how to get a list of articles from the trending list on the blockchain, and **b)** fetch the contents of the selected post to display its title and body. 
 
-It will explain most commonly used fields from returned object and parses body of the post.
+We will also explain the most commonly used fields from the response object as well as parse body of the post.
 
 ## Fetching trending posts
 
-As mentioned in previous tutorial you can fetch any list of posts with different filter. We are reusing some parts of previous tutorial to list 5 trending posts.
+As mentioned in our previous tutorial we can fetch various lists of posts with different filters.  Here, we are reusing some parts of that tutorial to list the top 5 trending posts.
 
 ```javascript
 var query = {
-    tag: '', // This tag is used to filter the results by a specific post tag
-    limit: 5, // This limit allows us to limit the overall results returned to 5
-    truncate_body: 1 // This will truncate body of each post to 1 character, useful if you want to work with lighter array
+    tag: '', // This tag is used to filter the results by a specific post tag.
+    limit: 5, // This allows us to limit the total to 5 items.
+    truncate_body: 1 // This will truncate the body of each post to 1 character, which is useful if you want to work with lighter array.
 };
 ```
 
 ## Post content
 
-On selection of particular post from list, `openPost` function is fired. This function will call `get_content` function to fetch content of the post. `get_content` requires author and permlink of the post to fetch its data. 
+On selection of a particular post from the list, `openPost` function is fired.  This function will call the `get_content` function to fetch content of the post. `get_content` requires author and permlink of the post to fetch its data.
 
 ```javascript
 client.database.call('get_content',[author,permlink]).then((result)=>{
@@ -34,18 +34,18 @@ client.database.call('get_content',[author,permlink]).then((result)=>{
 });
 ```
 
-Steem can store any format of the data, but majority of the apps follow standard markdown with mix of few html tags. After content is fetched, we use `remarkable` library to parse body of post in readable format. Post title, body is displayed with button on top right corner to go back to post list.
+Steem allows any text-based format for the body, but apps often follow standard markdown with mix of few html tags. After we have fetched the content, we can use the `remarkable` library to parse the body of the post into a readable format.  The title and body of the post are then displayed with a button at the top right corner to switch back to the post list.
 
 ```javascript
 	document.getElementById('postList').style.display='block';
     document.getElementById('postBody').style.display='none';
 ```
 
-Go back function simply hides and shows post list.
+The "go back" function simply hides and shows the post list.
 
 ## Query Result from post content
 
-The result returned form the post content is a `JSON` object with the following properties:
+The result is returned from the post content as a `JSON` object with the following properties:
 
 ```json
 {
@@ -115,57 +115,56 @@ The result returned form the post content is a `JSON` object with the following 
 }
 ```
 
-From this result you have access to everything associated to the post including additional metadata which is a `JSON` string that must be decoded to use. 
+From this result, you have access to everything associated with the selected post, including additional metadata which is a `JSON` string that must be decoded to use.
 
-* id - unique identifier
-* author - author of the post
-* permlink - permanent link of the post
-* category - main category/tag this post belongs to
-* parent_author - parent author, in case if content is comment it will be parent post author
-* parent_permlink - parent permanent link, for comment content
-* title - title of the post
-* body - post content or body
-* json_metadata - json data that holds extra information about post
-* last_update - last updated time of the post
-* created - created time of the post
-* active - if this post is active or archived
-* last_payout - time of last payout
-* depth - depth of the post
-* children - number of comments/children for this post
-* net_rshares - net reward shares (positive and negative reward sum)
-* abs_rshares - abs reward shares
-* vote_rshares -  vote reward shares
-* children_abs_rshares - comments abs reward shares
-* cashout_time - post reward payout time
-* max_cashout_time - maximum reward payout time
-* total_vote_weight - total weight of votes
-* reward_weight - weight/percent of reward
-* total_payout_value - total paid out amount
-* curator_payout_value - curation paid out amount
-* author_rewards - author reward
-* net_votes - net positive votes
-* root_comment - payout amount for root comment of the post
-* max_accepted_payout - maximum accepted payout in SBD
-* percent_steem_dollars - percentage of the reward in SBD
-* allow_replies - allow replies to the post
-* allow_votes - allow votes to the post
-* allow_curation_rewards - allow curation reward
-* beneficiaries - beneficiary accounts for this post
-* url - url of the post
-* root_title - root title of the post 
-* pending_payout_value - pending payout amount
-* total_pending_payout_value - total pending payout amount 
-* active_votes - voter's list array
-* replies - replies (depricated)
-* author_reputation - author's reputation
-* promoted - if post is promoted, its amount
-* body_length - content length
-* reblogged_by - users list who reblogged this post
+* `id` - Unique identifier that is mostly an implementation detail (best to ignore).  To uniquely identify content, it's best to use `author/permlink`.
+* `author` - The author account name of the content.
+* `permlink` - Permanent link of the content, must be unique in the scope of the `author`.
+* `category` - The main category/tag this content belongs to.
+* `parent_author` - Parent author, in case this content is a comment (reply).
+* `parent_permlink` - Parent permanent link, this will be the same as `category` for posts and will contain the `permlink` of the content being replied to in the case of a comment.
+* `title` - Title of the content.
+* `body` - Body of the content.
+* `json_metadata` - JSON metadata that holds extra information about the content.  **Note:** The format for this field is not guaranteed to be valid JSON.
+* `last_update` - The date and time of the last update to this content.
+* `created` - The date and time this content was created.
+* `active` - The last time this content was "touched" by voting or reply.
+* `last_payout` - Time of last payout.
+* `depth` - Used to track max nested depth.
+* `children` - Used to track the total number of children, grandchildren, etc. ...
+* `net_rshares` - Reward is proportional to liniar rshares, this is the sum of all votes (positive and negative reward sum)
+* `abs_rshares` - This was used to track the total absolute weight of votes for the purpose of calculating `cashout_time`.
+* `vote_rshares` - Total positive rshares from all votes.  Used to calculate delta weights.  Needed to handle vote changing and removal.
+* `children_abs_rshares` - This was used to calculate cashout time of a discussion.
+* `cashout_time` - 7 days from the `created` date.
+* `max_cashout_time` - Unused.
+* `total_vote_weight` - The total weight of voting rewards, used to calculate pro-rata share of curation payouts.
+* `reward_weight` - Weight/percent of reward.
+* `total_payout_value` - Tracks the total payout this content has received over time, measured in the debt asset.
+* `curator_payout_value` - Tracks the curator payout this content has received over time, measured in the debt asset.
+* `author_rewards` - Tracks the author payout this content has received over time, measured in the debt asset.
+* `net_votes` - Net positive votes
+* `root_comment` - ID of the original content.
+* `max_accepted_payout` - Value of the maximum payout this content will receive.
+* `percent_steem_dollars` - The percent of Steem Dollars to key, unkept amounts will be received as STEEM Power.
+* `allow_replies` - Allows content to disable replies.
+* `allow_votes` - Allows content to receive votes.
+* `allow_curation_rewards` - Allows curators of this content receive rewards.
+* `beneficiaries` - The list of up to 8 beneficiary accounts for this content as well as the percentage of the author reward they will receive in STEEM Power.
+* `url` - The end of the url to this content.
+* `root_title` - Title of the original content (useful in replies).
+* `pending_payout_value` - Pending payout amount if 7 days has not yet elapsed.
+* `total_pending_payout_value` - Total pending payout amount if 7 days has not yet elapsed.
+* `active_votes` - The entire voting list array, including upvotes, downvotes, and unvotes; used to calculate `net_votes`.
+* `replies` - Unused.
+* `author_reputation` - Author's reputation.
+* `promoted` - If post is promoted, how much has been spent on promotion.
+* `body_length` - Total content length.
+* `reblogged_by` - Unused.
 
 ## To run
 
 *   clone this repo
-*   cd tutorials/01_blog_feed
+*   cd tutorials/05_get_post_details
 *   npm i
 *   npm run start
-
