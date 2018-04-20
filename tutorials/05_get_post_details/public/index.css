@@ -1,0 +1,6 @@
+#postBody img, #postBody iframe {
+	max-width: 100%;
+}
+#postBody .pull-right {
+  float: right !important;
+}
