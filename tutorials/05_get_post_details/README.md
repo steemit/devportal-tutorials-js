@@ -165,6 +165,15 @@ From this result, you have access to everything associated with the selected pos
 ## To run
 
 *   clone this repo
-*   cd tutorials/05_get_post_details
-*   npm i
-*   npm run start
+*   `cd tutorials/05_get_post_details`
+*   `npm i`
+*   `npm run start`
+
+## To run in development mode
+
+> Running in development mode will start a web server accessible from the following address: `http://localhost:8080/`. When you update the code the browser will automatically refresh to see your changes
+
+*   clone this repo
+*   `cd tutorials/05_get_post_details`
+*   `npm i`
+*   `npm run dev-server`
