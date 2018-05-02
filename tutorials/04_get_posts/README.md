@@ -1,22 +1,22 @@
 # Get posts with filter
 
-This tutorial pulls a list of the posts from different category or filters and displays them.
+This tutorial pulls a list of the posts from different tags or filters and displays them.
 
 ## Filters
 
 In Steem there are built-in filters `trending`, `hot`, `new`, `active`, `promoted` etc. which helps us to get list of posts. `client.database.getDiscussions(filter, query)` first argument of this function is one of above filter and library fetches posts from those filters.
 
-## Query
+## Query (tag, limit)
 
 Second argument of `getDisccusions` function is query.
 
 *   You can add a tag to filter the posts that you receive from the server, if this field is empty string it will fetch from full list of posts in that selected filter.
-*   You can also limit the amount of results you would like to receive from the query
+*   You can also limit the number of results you would like to receive from the query
 
 ```javascript
 var query = {
     tag: 'steem', // This tag is used to filter the results by a specific post tag
-    limit: 5, // This limit allows us to limit the overall results returned to 5
+    limit: 5, // This limit allows us to limit the number of results returned to 5
 };
 ```
 
