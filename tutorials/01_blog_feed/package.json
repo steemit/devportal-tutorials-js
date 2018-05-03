@@ -7,7 +7,7 @@
         "start": "webpack && node ./index.js",
         "test": "echo \"Error: no test specified\" && exit 1",
         "dev-server":
-            "./node_modules/.bin/webpack-dev-server --mode development --content-base ./public"
+            "./node_modules/.bin/webpack-dev-server --mode development --content-base ./public --port 3000"
     },
     "author": "",
     "license": "ISC",

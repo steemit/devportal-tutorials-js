@@ -94,7 +94,7 @@ Now that `sc2-sdk` is initialized we can start authentication and perform simple
 
 ## To run in development mode
 
-> Running in development mode will start a web server accessible from the following address: `http://localhost:8080/`. When you update the code the browser will automatically refresh to see your changes
+> Running in development mode will start a web server accessible from the following address: `http://localhost:3000/`. When you update the code the browser will automatically refresh to see your changes
 
 *   clone this repo
 *   `cd tutorials/02_steemconnect`

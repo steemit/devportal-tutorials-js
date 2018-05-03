@@ -171,7 +171,7 @@ From this result, you have access to everything associated with the selected pos
 
 ## To run in development mode
 
-> Running in development mode will start a web server accessible from the following address: `http://localhost:8080/`. When you update the code the browser will automatically refresh to see your changes
+> Running in development mode will start a web server accessible from the following address: `http://localhost:3000/`. When you update the code the browser will automatically refresh to see your changes
 
 *   clone this repo
 *   `cd tutorials/05_get_post_details`
