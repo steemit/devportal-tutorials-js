@@ -38,7 +38,7 @@ Setting up Steemconnect in your app is straight-forward process and never been t
 
 Account creation fee will be deducted from your balance, make sure you have enough funds to complete account creation. Next step is to login with account which has enough balance to pay for account creation fee.
 
-![steemconnect_signin](./images/steemconnect_signin)
+![steemconnect_signin](./images/steemconnect_signin.png)
 
 4.  Give your app name, description, icon image link, website (if available) and Redirect URI(s)
 
