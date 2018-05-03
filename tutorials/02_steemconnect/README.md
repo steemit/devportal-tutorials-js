@@ -22,6 +22,8 @@ Setting up Steemconnect in your app is straight-forward process and never been t
 
 ### Step I
 
+Here are the steps that helps you to setup new app:
+
 1.  Visit [Steemconnect Dashboard](https://steemconnect.com/dashboard) and login with your Steem credentials
 
 ![steemconnect_login](https://steemitimages.com/DQmRpjPgR3BTtFCrL553AxZ6CDswPRdbNAAo9CMRxoCdBZV/Screen%20Shot%202018-03-20%20at%2012.31.37.png)
@@ -36,15 +38,24 @@ Setting up Steemconnect in your app is straight-forward process and never been t
 
 ![steemconnect_account_create](https://steemitimages.com/DQmcQvuYJ5wo9xwxmYUHtCkvazfhLHEjwKi8GaNGyZnNSQh/Screen%20Shot%202018-03-20%20at%2012.32.28.png)
 
-Account creation fee will be deducted from your balance, make sure you have enough funds to complete account creation. Next step is to login with account which has enough balance to pay for account creation fee.
+Account creation fee will be deducted from your balance, make sure you have enough funds to complete account creation. 
+
+Next step is to login with account which has enough balance to pay for account creation fee.
 
 ![](https://steemitimages.com/DQmUtrbpujdNRft5hdEgzMPbGZfgLvXJyRZH9WzKfAWp93p/Screen%20Shot%202018-03-20%20at%2012.32.57.png)
 
 4.  Give your app name, description, icon image link, website (if available) and Redirect URI(s)
 
-![steemconnect_myapps](https://steemitimages.com/DQmYkbHUFC6iorEJv6iCC2CB6oG1TigEE9SxuQrZAkTEYJW/FireShot%20Capture%206%20-%20SteemConnect%20-%20https___v2.steemconnect.com_apps_%40demo-app_edit.png)
+![myapps.png](https://steemitimages.com/DQmTMRbV25e4PRLv1tPVADXer4GCTDUmsonuDVmZfjKojFn/myapps.png)
 
-Redirect URI(s) will be used within your application to forward user after authentification is successful. This is typical backend web development, we hope you know how to set up.
+Application name and description should give users clear understanding what permissions it requires and what is the purpose of the app.
+
+App Icon field should be publicly accessible and available link to your logo or icon.
+
+Website field is homepage for the application if exist.
+
+Redirect URI(s) will be used within your application to forward user after authentification is successful. You can specify multiple callback URLs with each new line. Callback in Steemconnect SDK should match exactly one of URI(s) specified on this page. Due to security reasons if redirect URI(s) used in SDK is other than you specified, it will not work.
+This is typical backend web development, we hope you know how to set up your backend/app to handle callback URLs.
 
 *   Disclaimer: All images/screenshots of user interface may change as Steemconnect evolves
 
@@ -62,7 +73,7 @@ Now that `sc2-sdk` is initialized we can start authentication and perform simple
 
 ##### Login URL
 
-> Returns login URL which will redirect user to sign in with Steem connect screen. Successfull login will redirect user to Redirect URI or `callbackURL`. Result of successful login will return `access_token`, `expires_in` and `username` information, which application will start utilizing.
+> `getLoginURL` function you see on the right side, returns login URL which will redirect user to sign in with Steem connect screen. Successfull login will redirect user to Redirect URI or `callbackURL`. Result of successful login will return `access_token`, `expires_in` and `username` information, which application will start utilizing.
 
 ##### Request link
 
