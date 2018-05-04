@@ -97,6 +97,15 @@ From this result you have access to everything associated to the post including 
 ## To run
 
 *   clone this repo
-*   cd tutorials/01_blog_feed
-*   npm i
-*   npm run start
+*   `cd tutorials/01_blog_feed`
+*   `npm i`
+*   `npm run start`
+
+## To run in development mode
+
+> Running in development mode will start a web server accessible from the following address: `http://localhost:3000/`. When you update the code the browser will automatically refresh to see your changes
+
+*   clone this repo
+*   `cd tutorials/01_blog_feed`
+*   `npm i`
+*   `npm run dev-server`

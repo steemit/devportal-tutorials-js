@@ -28,7 +28,7 @@ const client = new dsteem.Client('https://testnet.steemitdev.com', opts);
 
 To test connection as well as to get parameters of the connected network, we can use `getDynamicGlobalProperties` function from **dsteem** library. Only 2 fields are in our interesting for this tutorial, `head_block_number` - returns head or latest block number of the network, `head_block_id` - returns id of head block.
 
-![Overview](https://steemitimages.com/DQmXzwhPB7TVKYWsxGoUg6u9mtWTizty5ij8CyKxjuTUHS6/2018-03-29_16-40-02.png)
+![Overview](./images/overview.png)
 
 ### Account selection
 
@@ -103,3 +103,12 @@ That's it!
 *   `cd tutorials/03_client_signing`
 *   `npm i`
 *   `npm run start`
+
+## To run in development mode
+
+> Running in development mode will start a web server accessible from the following address: `http://localhost:3000/`. When you update the code the browser will automatically refresh to see your changes
+
+*   clone this repo
+*   `cd tutorials/03_client_signing`
+*   `npm i`
+*   `npm run dev-server`

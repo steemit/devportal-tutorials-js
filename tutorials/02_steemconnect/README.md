@@ -26,27 +26,27 @@ Here are the steps that helps you to setup new app:
 
 1.  Visit [Steemconnect Dashboard](https://steemconnect.com/dashboard) and login with your Steem credentials
 
-![steemconnect_login](https://steemitimages.com/DQmRpjPgR3BTtFCrL553AxZ6CDswPRdbNAAo9CMRxoCdBZV/Screen%20Shot%202018-03-20%20at%2012.31.37.png)
+![steemconnect_login](./images/steemconnect_login.png)
 
 2.  You will see Applications and Developers section, in Developers section click on `My Apps`
 
-![steemconnect_dashboard](https://steemitimages.com/DQmZub5Tt8ZuqpDqYYFCP89ypjeFbePWd63Gud9pouSA34S/Screen%20Shot%202018-03-20%20at%2012.31.58.png)
+![steemconnect_dashboard](./images/steemconnect_dashboard.png)
 
-![steemconnect_new_app](https://steemitimages.com/DQmaShy9S6wRMzUMfiULebdB7KsrdTpQn4HNgaWtfFyVL3E/Screen%20Shot%202018-03-20%20at%2012.32.15.png)
+![steemconnect_new_app](./images/steemconnect_new_app.png)
 
 3.  Create New App using Steemconnect, which will help you create new Steem account for your application. Let's call it `demo-app` for this tutorial purpose.
 
-![steemconnect_account_create](https://steemitimages.com/DQmcQvuYJ5wo9xwxmYUHtCkvazfhLHEjwKi8GaNGyZnNSQh/Screen%20Shot%202018-03-20%20at%2012.32.28.png)
+![steemconnect_account_create](./images/steemconnect_account_create.png)
 
 Account creation fee will be deducted from your balance, make sure you have enough funds to complete account creation. 
 
 Next step is to login with account which has enough balance to pay for account creation fee.
 
-![](https://steemitimages.com/DQmUtrbpujdNRft5hdEgzMPbGZfgLvXJyRZH9WzKfAWp93p/Screen%20Shot%202018-03-20%20at%2012.32.57.png)
+![steemconnect_signin](./images/steemconnect_signin.png)
 
 4.  Give your app name, description, icon image link, website (if available) and Redirect URI(s)
 
-![myapps.png](https://steemitimages.com/DQmTMRbV25e4PRLv1tPVADXer4GCTDUmsonuDVmZfjKojFn/myapps.png)
+![steemconnect_myapps](./images/steemconnect_myapps.png)
 
 Application name and description should give users clear understanding what permissions it requires and what is the purpose of the app.
 
@@ -102,3 +102,12 @@ Now that `sc2-sdk` is initialized we can start authentication and perform simple
 *   `cd tutorials/02_steemconnect`
 *   `npm i`
 *   `npm run start`
+
+## To run in development mode
+
+> Running in development mode will start a web server accessible from the following address: `http://localhost:3000/`. When you update the code the browser will automatically refresh to see your changes
+
+*   clone this repo
+*   `cd tutorials/02_steemconnect`
+*   `npm i`
+*   `npm run dev-server`

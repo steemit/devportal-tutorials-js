@@ -5,7 +5,9 @@
     "main": "server.js",
     "scripts": {
         "start": "webpack && node ./index.js",
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "dev-server":
+            "./node_modules/.bin/webpack-dev-server --mode development --content-base ./public --port 3000"
     },
     "author": "",
     "license": "ISC",
@@ -23,6 +25,7 @@
         "sass-loader": "^6.0.7",
         "style-loader": "^0.20.3",
         "webpack": "^4.1.1",
-        "webpack-cli": "^2.0.12"
+        "webpack-cli": "^2.0.12",
+        "webpack-dev-server": "^3.1.3"
     }
 }
