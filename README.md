@@ -12,6 +12,8 @@ The tutorials build on each other. It's suggested you go through them in-order.
 1. [Blog Feed](tutorials/01_blog_feed) - Pull the list of a user's posts from the blockchain
 2. [Steemconnect](tutorials/02_steemconnect) - Getting started with setting up Steemconnect
 3. [Client-side signing](tutorials/03_client_signing) - Generate, sign, verify and broadcast transactions via client-side without Steemconnect
+4. [Get posts with filters](tutorials/04_get_posts) - How to query for posts with specific filters & tags
+5. [Get post details](tutorials/05_get_post_details) - How to get details of each post
 
 ## Running Tutorials
 
