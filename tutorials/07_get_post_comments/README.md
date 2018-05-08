@@ -10,7 +10,7 @@ As mentioned in our previous tutorials we can fetch various lists of posts with 
 
 ## Post comments
 
-On selection of a particular post from the list, `openPost` function is fired as it is explained in [Get post details]() tutorial. This function will call the `get_content` function to fetch content of the post. Right after root post is displayed properly, we use `get_content_replies` function to fetch comments made on that post, function requires author and permlink of the root post to fetch its comments.
+On selection of a particular post from the list, `openPost` function is fired as it is explained in [**Get Post Details**]() tutorial. This function will call the `get_content` function to fetch content of the post. Right after root post is displayed properly, we use `get_content_replies` function to fetch comments made on that post, function requires author and permlink of the root post to fetch its comments.
 
 ```javascript
 client.database.call('get_content_replies', [author, permlink]).then(result => {
@@ -35,7 +35,7 @@ client.database.call('get_content_replies', [author, permlink]).then(result => {
 });
 ```
 
-We iterate each comment and format them properly in `comments` array. As mentioned in Get post details tutorial, we use `remarkable` library to parse the body of each comment into a readable format. Author, comment body, created time and number of votes on that comment is displayed with simple user interface.
+We iterate each comment and format them properly in `comments` array. As mentioned in **Get Post Details** tutorial, we use `remarkable` library to parse the body of each comment into a readable format. Author, comment body, created time and number of votes on that comment is displayed with simple user interface.
 
 ```javascript
 document.getElementById('postList').style.display = 'block';
