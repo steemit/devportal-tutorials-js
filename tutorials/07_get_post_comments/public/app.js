@@ -9,7 +9,6 @@ opts.chainId =
     '0000000000000000000000000000000000000000000000000000000000000000';
 //connect to server which is connected to the network/production
 const client = new dsteem.Client('https://api.steemit.com');
-let list = [];
 
 //fetch list of trending posts
 async function main() {
