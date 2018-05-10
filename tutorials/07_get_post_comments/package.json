@@ -1,5 +1,5 @@
 {
-    "name": "05_get_post_details",
+    "name": "07_get_post_comments",
     "version": "1.0.0",
     "description": "",
     "main": "index.js",

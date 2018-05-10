@@ -38,7 +38,7 @@ Here are the steps that helps you to setup new app:
 
 ![steemconnect_account_create](./images/steemconnect_account_create.png)
 
-Account creation fee will be deducted from your balance, make sure you have enough funds to complete account creation. 
+Account creation fee will be deducted from your balance, make sure you have enough funds to complete account creation.
 
 Next step is to login with account which has enough balance to pay for account creation fee.
 

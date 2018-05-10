@@ -1,6 +1,3 @@
-var webpack = require('webpack');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
-
 var path = require('path');
 module.exports = {
     entry: ['./public/app.js', './public/app.scss'],
