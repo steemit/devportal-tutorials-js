@@ -5,3 +5,7 @@
 #postBody .pull-right {
     float: right !important;
 }
+
+.list-group-item-heading {
+    cursor:pointer;
+}
