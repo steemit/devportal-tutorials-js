@@ -16,6 +16,7 @@ async function main() {
     client.database
         .call('get_state', [query])
         .then(result => {
+            console.log(result);
             if (
                 !(
                     Object.keys(result.content).length === 0 &&

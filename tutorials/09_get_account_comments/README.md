@@ -32,21 +32,21 @@ const md = new Remarkable({ html: true, linkify: true });
 Next, we have `main` function which fires when page is loaded.
 
 ```javascript
-// query string, fetching recent replies for @steemitblog account
-const query = '/@steemitblog/recent-replies';
+// query string, fetching comments made by @steemitblog account
+const query = '/@steemitblog/comments';
 
 client.database.call('get_state', [query]).then(result => {
     // work with state object
 });
 ```
 
-Query is the path which we want to extract from Steem blockchain state. In our example we are using `@steemitblog` account and `recent-replies` to its content. Result will be current state object with various information as well as `content` object property holding content of the query.
+Query is the path which we want to extract from Steem blockchain state. In our example we are using `@steemitblog` account and `comments` to its content. Result will be current state object with various information as well as `content` object property holding content of the query.
 
 Following is example of returned object:
 
 ```json
 {
-    "current_route":"/@steemitblog/recent-replies",
+    "current_route":"/@steemitblog/comments",
     "props":{
         "head_block_number":22307429,
         "head_block_id":"01546265c9dc3e761add4c4b652743e3c640fa19",
@@ -82,12 +82,12 @@ Following is example of returned object:
     },
     "tags":{},
     "content":{
-        "afm007/afm007-re-steemitblog-devportal-update-3-ux-improvements-more-javascript-tutorials-and-more-20180509t050215510z":{
+        "steemitblog/afm007-re-steemitblog-devportal-update-3-ux-improvements-more-javascript-tutorials-and-more-20180509t050215510z":{
             "id":47669989,
-            "author":"afm007",
+            "author":"steemitblog",
             "permlink":"afm007-re-steemitblog-devportal-update-3-ux-improvements-more-javascript-tutorials-and-more-20180509t050215510z",
             "category":"steem",
-            "parent_author":"steemitblog",
+            "parent_author":"afm007",
             "parent_permlink":"devportal-update-3-ux-improvements-more-javascript-tutorials-and-more","title":"","body":"I want to learn the Python language.",
             "json_metadata":"{''}",
             "last_update":"2018-05-09T05:02:15",
@@ -127,12 +127,12 @@ Following is example of returned object:
             "body_length":0,
             "reblogged_by":[]
         },
-        "andreina89/re-steemitblog-devportal-update-3-ux-improvements-more-javascript-tutorials-and-more-20180509t045305223z":{
+        "steemitblog/re-steemitblog-devportal-update-3-ux-improvements-more-javascript-tutorials-and-more-20180509t045305223z":{
             "id":47669080,
-            "author":"andreina89",
+            "author":"steemitblog",
             "permlink":"re-steemitblog-devportal-update-3-ux-improvements-more-javascript-tutorials-and-more-20180509t045305223z",
             "category":"steem",
-            "parent_author":"steemitblog",
+            "parent_author":"andreina89",
             "parent_permlink":"devportal-update-3-ux-improvements-more-javascript-tutorials-and-more",
             "title":"",
             "body":"Excellent post very interesting friend, thanks",
@@ -176,8 +176,8 @@ Following is example of returned object:
         {"etc.":"etc."}
     },
     "accounts":{
-        "afm007/afm007-re-steemitblog-devportal-update-3-ux-improvements-more-javascript-tutorials-and-more-20180509t050215510z":{
-            {"etc.":"etc."}
+        "steemitblog:{
+            "etc.":"etc."
         },
     },
     "witnesses":{},
@@ -220,35 +220,36 @@ if (
         result.content.constructor === Object
     )
 ) {
-    var replies = [];
+    var comments = [];
     Object.keys(result.content).forEach(key => {
-        const reply = result.content[key];
-        const author = reply.author;
-        const created = new Date(reply.created).toDateString();
-        const body = md.render(reply.body);
-        const netvotes = reply.net_votes;
-        replies.push(
+        const comment = result.content[key];
+        const parent_author = comment.parent_author;
+        const parent_permlink = comment.parent_permlink;
+        const created = new Date(comment.created).toDateString();
+        const body = md.render(comment.body);
+        const netvotes = comment.net_votes;
+        comments.push(
             `<div class="list-group-item list-group-item-action flex-column align-items-start">\
-                <div class="d-flex w-100 justify-content-between">\
-                  <h5 class="mb-1">@${author}</h5>\
-                  <small class="text-muted">${created}</small>\
-                </div>\
-                <p class="mb-1">${body}</p>\
-                <small class="text-muted">&#9650; ${netvotes}</small>\
-              </div>`
+            <div class="d-flex w-100 justify-content-between">\
+              <h6 class="mb-1">@${comment.author}</h6>\
+              <small class="text-muted">${created}</small>\
+            </div>\
+            <p class="mb-1">${body}</p>\
+            <small class="text-muted">&#9650; ${netvotes}, Replied to: @${parent_author}/${parent_permlink}</small>\
+          </div>`
         );
     });
-    document.getElementById('replies').style.display = 'block';
-    document.getElementById('replies').innerHTML = replies.join('');
+    document.getElementById('comments').style.display = 'block';
+    document.getElementById('comments').innerHTML = comments.join('');
 }
 ```
 
-We check if `content` is not an empty object and we iterate through each object via its key and extract, `author`, format `created` date and time, parse `body` markdown, get `net_votes` on that reply. Pushing each list item separately and displaying it. That's it!
+We check if `content` is not an empty object and we iterate through each object via its key and extract, `parent_author`, `parent_permlink`, to which post/comment `@steemitblog` account is replying to, format `created` date and time, parse `body` markdown, get `net_votes` on that comment. Pushing each list item separately and displaying it. That's it!
 
 ## How To run
 
 *   clone this repo
-*   `cd tutorials/08_get_account_replies`
+*   `cd tutorials/09_get_account_comments`
 *   `npm i`
 *   `npm run start`
 
@@ -257,6 +258,6 @@ We check if `content` is not an empty object and we iterate through each object 
 > Running in development mode will start a web server accessible from the following address: `http://localhost:3000/`. When you update the code the browser will automatically refresh to see your changes
 
 *   clone this repo
-*   `cd tutorials/08_get_account_replies`
+*   `cd tutorials/09_get_account_comments`
 *   `npm i`
 *   `npm run dev-server`
