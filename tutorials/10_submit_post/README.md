@@ -1,16 +1,16 @@
 # Purpose
 
-The purpose of this tutorial is **How to submit a post** and demonstrate typical process of preparing post and using broadcast operation.
+**How to Submit a Post** by demonstrating the typical process of preparing content and then using the broadcast operation.
 
-We focus on formatting content properly and broadcasting transaction with `demo` account.
+We will focus on properly formatting the content followed by broadcasting the transaction with a `demo` account.
 
 ## Description
 
-We are using `broadcast.comment` function with `dsteem`, which is generates, signs and broadcast transaction to the network. On Steem each content considered comment only with small distinction between top/root post and comments. We will explain that and steps below on how to properly prepare transaction and submit to the testnet.
+We are using the `broadcast.comment` function provided by `dsteem` which generates, signs, and broadcast the transaction to the network.  On the Steem platform, posts and comments are all internally stored as a `comment` object, differentiated by whether or not a `parent_author` exists.  When there is no `parent_author`, the it's a post, when there is, it's a comment.
 
 ## Tutorial steps
 
-As usual, we have `public/app.js` file which holds the Javascript part of the tutorial. In first few lines we define, configure library and packages.
+As usual, we have a `public/app.js` file which holds the Javascript segment of the tutorial.  In the first few lines we define the configured library and packages:
 
 ```javascript
 const dsteem = require('dsteem');
@@ -23,10 +23,9 @@ opts.chainId =
 const client = new dsteem.Client('https://testnet.steem.vc', opts);
 ```
 
-`dsteem` is pointing to the test network with proper chain_id, addressPrefix and connection server.
-Because this tutorial is interactive, publishing test content to main network is not suggested, for that reason we have testnet and predefined account to try out post publishing.
+Above, we have `dsteem` pointing to the test network with the proper chainId, addressPrefix, and endpoint.  Because this tutorial is interactive, we will not publish test content to the main network.  Instead, we're using testnet and a predefined account to demonstrate post publishing.
 
-Next, we have `submitPost` function which fires when Submit post button is clicked.
+Next, we have the `submitPost` function which executes when the Submit post button is clicked.
 
 ```javascript
 //get private key
@@ -82,11 +81,11 @@ client.broadcast
     );
 ```
 
-As you can see from above function, we get relevant values from defined fields. Tags are separated with space in this example, but structure of how to enter tags is totally depends on your need. We have separated tags with whitespace and stored them into array list `taglist` for later use. Post on blockchain can hold additional information in `json_metadata` field, one of which is tags list which we have assigned. Post should also have unique permanent link for each account, in this case we just creating random character string.
+As you can see from the above function, we get the relevant values from the defined fields.  Tags are separated by spaces in this example, but the structure of how to enter tags totally depends on your needs.  We have separated tags with whitespaces and stored them in an array list called `taglist`, for later use. Posts on the blockchain can hold additional information in the `json_metadata` field, such as the `tags` list which we have assigned.  Posts must also have a unique permanent link scoped to each account.  In this case we are just creating a random character string.
 
-Next step is to pass all parameters to `client.broadcast.comment` function. Note in parameters you can see `parent_author` and `parent_permlink` fields, these are used for replies or comments. In our example we are publishing post instead of comment/reply, we will have to leave `parent_author` empty string and can assign `parent_permlink` as first tag.
+The next step is to pass all of these parameters to the `client.broadcast.comment` function.  Note that in parameters you can see the `parent_author` and `parent_permlink` fields, which are used for replies (also known as comments).  In our example, since we are publishing a post instead of a comment/reply, we will have to leave `parent_author` as an empty string and assign `parent_permlink` from the first tag.
 
-After post is broadcasted to the network, we simply set all fields to empty string and show link of the post to check it from condenser instance running on selected testnet. That's it!
+After the post has been broadcasted to the network, we can simply set all the fields to empty strings and show the post link to check it from a condenser instance running on the selected testnet.  That's it!
 
 ## How To run
 
@@ -97,7 +96,7 @@ After post is broadcasted to the network, we simply set all fields to empty stri
 
 **To run in development mode**
 
-> Running in development mode will start a web server accessible from the following address: `http://localhost:3000/`. When you update the code the browser will automatically refresh to see your changes
+> Running in development mode will start a web server accessible from the following address: `http://localhost:3000/`.  When you update your code, the browser will automatically refresh to see your changes.
 
 *   clone this repo
 *   `cd tutorials/10_submit_post`
