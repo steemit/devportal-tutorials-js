@@ -1,0 +1,20 @@
+<html>
+    <head>
+        <title>Submit post</title>
+        <script src="bundle.js"></script>
+    </head>
+    <body>
+    	<div class="container" id="content"><br/>
+    		<h4>Submit a post to the Steem blockchain</h4>
+            Username: <input id="username" type="text" size="65" disabled="true" value="demo" class="form-control"><br/>
+            Posting private key: <input id="postingKey" type="password" size="65" value="5Jtbfge4Pk5RyhgzvmZhGE5GeorC1hbaHdwiM7pb5Z5CZz2YKUC" disabled="true" class="form-control"><br/>
+            Title of post: <input id="title" type="text" size="65" class="form-control" value="Here goes title"><br/>
+            Post body:<br/>
+            <textarea id="body" class="form-control" rows="3">Content of the post</textarea><br/>
+            Tags: <input id="tags" type="text" size="65" class="form-control" value="tag1 tag2 tag3"><br/>
+            <input id="submitPostBtn" type="button" value="Submit post!" onclick="submitPost()" class="btn btn-primary">
+            <div id="postLink" style="display: none;">
+            </div>
+		</div>
+    </body>
+</html>
