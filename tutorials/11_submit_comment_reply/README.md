@@ -25,7 +25,15 @@ const client = new dsteem.Client('https://testnet.steem.vc', opts);
 
 Above, we have `dsteem` pointing to the test network with the proper chainId, addressPrefix, and endpoint.  Because this tutorial is interactive, we will not publish test content to the main network.  Instead, we're using testnet and a predefined account to demonstrate post publishing.
 
-Next, we have the `submitPost` function which executes when the Submit post button is clicked.
+To get the parent author and parent permlink you can browse to an existing post and look at the url. 
+
+```
+http://condenser.steem.vc/qbvxoy72qfc/@demo/dsf0yxlox2d
+```
+
+In this case. `dsf0yxlox2d` is the parent permlink and `@demo` is the parent author.
+
+Next, we have the `submitComment` function which executes when the Submit comment button is clicked.
 
 ```javascript
     //get private key
