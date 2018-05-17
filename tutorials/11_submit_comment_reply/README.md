@@ -1,14 +1,26 @@
-# Purpose
+# Submit a Comment
 
-**How to Submit a Post** by demonstrating the typical process of preparing content and then using the broadcast operation.
+_By the end of this tutorial you should know how to post a simple comment to Steem._
 
-We will focus on properly formatting the content followed by broadcasting the transaction with a `demo` account.
+This tutorial will take you through the process of preparing and posting comment using the `broadcast.comment` operation.
+Being able to post a comment is critical to most social applications built on Steem.
 
-## Description
+## Intro
 
-We are using the `broadcast.comment` function provided by `dsteem` which generates, signs, and broadcast the transaction to the network.  On the Steem platform, posts and comments are all internally stored as a `comment` object, differentiated by whether or not a `parent_author` exists.  When there is no `parent_author`, the it's a post, when there is, it's a comment.
+We are using the `broadcast.comment` function provided by the `dsteem` library which generates, signs, and broadcasts the transaction to the network.  On the Steem platform, posts and comments are all internally stored as a `comment` object, differentiated by whether or not a `parent_author` exists.  When there is no `parent_author`, the it's a post, when there is, it's a comment.
 
-## Tutorial steps
+
+## Steps
+1. **App Setup** Import `dsteem` into `app.js` and prepare it to communicate with a Steem blockchain
+1. **Choose Parent Post** Choose a parent post on which to comment. Parse the author and permlink from it.
+1. **Add Content** Add `body` content to your comment 
+1. **Get Comment Data** Collect values from the UI
+1. **Create Comment Permlink** Create a permlink for your comment
+1. **Build Comment Object** Assemble the information into a valid comment object
+1. **Post Comment** Send the new comment to the blockchain & render the result.
+
+
+#### 1. App Setup
 
 As usual, we have a `public/app.js` file which holds the Javascript segment of the tutorial.  In the first few lines we define the configured library and packages:
 
@@ -23,17 +35,28 @@ opts.chainId =
 const client = new dsteem.Client('https://testnet.steem.vc', opts);
 ```
 
-Above, we have `dsteem` pointing to the test network with the proper chainId, addressPrefix, and endpoint.  Because this tutorial is interactive, we will not publish test content to the main network.  Instead, we're using testnet and a predefined account to demonstrate post publishing.
+Above, we have `dsteem` pointing to the test network with the proper chainId, addressPrefix, and endpoint.  
+Because this tutorial modifies the blockchain, we will use a testnet and a predefined account to demonstrate comment publishing.
 
-To get the parent author and parent permlink you can browse to an existing post and look at the url. 
+#### 2. Choose Parent Post
+We need to choose a parent post and parse out the parent author and parent permlink.
+Below is a url that uses an instance of condenser pointed at our testnet.
 
 ```
 http://condenser.steem.vc/qbvxoy72qfc/@demo/dsf0yxlox2d
 ```
 
-In this case. `dsf0yxlox2d` is the parent permlink and `@demo` is the parent author.
+In this case. `dsf0yxlox2d` will be our parent permlink and `@demo` will be the the parent author.
 
-Next, we have the `submitComment` function which executes when the Submit comment button is clicked.
+#### 3. Add Content
+We've added the parent post info and `Some amazing content` in our UI via the keyboard.
+![comment_reply_user_input.png](./images/comment_reply_user_input.png)
+
+
+#### 4. Get Comment Data
+In the `submitComment` function, (runs when "Submit comment!" is clicked)
+We gather information from the UI.
+
 
 ```javascript
     //get private key
@@ -48,31 +71,48 @@ Next, we have the `submitComment` function which executes when the Submit commen
     const parent_author = document.getElementById('parent_author').value;
     //get parent author permalink
     const parent_permlink = document.getElementById('parent_permlink').value;
+```
+
+#### 5. Create Comment Permlink
+
+Every post needs a unique permalink. 
+Because comments don't typically have a title, we recommend using a random number for ours.
+
+*Note: **Take care of your users:** Because permlinks are unique within an author's scope, we recommend random numbers for comments; or at least making it a default in your settings.* 
+```javascript
 
     //generate random permanent link for post
     const permlink = Math.random()
         .toString(36)
         .substring(2);
+```
 
+#### 6. Build Comment Object
+We take the information we gathered from the UI and put it into a well structured comment object.
+```javascript
+    const comment = {
+        author: account,
+        title: '',
+        body: body,
+        parent_author: parent_author,
+        parent_permlink: parent_permlink,
+        permlink: permlink,
+        json_metadata: '',
+    };
+```
+#### 7. Post Comment
+We post the comment to the blockchain and render the resulting block number if successful, 
+or output an error to the console if there's a failure.
+```javascript
+    console.log('comment broadcast object', comment);
     client.broadcast
         .comment(
-            {
-                author: account,
-                title: '',
-                body: body,
-                parent_author: parent_author,
-                parent_permlink: parent_permlink,
-                permlink: permlink,
-                json_metadata: '',
-            },
+            comment,
             privateKey
         )
         .then(
             function(result) {
-                document.getElementById('body').value = '';
-                document.getElementById('parent_author').value = '';
-                document.getElementById('parent_permlink').value = '';
-                document.getElementById('postLink').style.display = 'block';
+                console.log('comment broadcast result', result);
                 document.getElementById(
                     'postLink'
                 ).innerHTML = `<br/><p>Included in block: ${
@@ -85,24 +125,15 @@ Next, we have the `submitComment` function which executes when the Submit commen
         );
 ```
 
-As you can see from the above function, we get the relevant values from the defined fields. Posts must also have a unique permanent link scoped to each account. In this case we are just creating a random character string.
+A successful comment will output something like the following to the console:
+![successful console output](./images/comment_reply_successful_console_output.png)
 
-The next step is to pass all of these parameters to the `client.broadcast.comment` function.  Note that in parameters you can see the `parent_author` and `parent_permlink` fields, which are used for replies (also known as comments). In our example, since we are publishing a comment we will have to enter a `parent_author` and assign `parent_permlink` from a valid existing post.
+That's all there is to it.
 
-After the post has been broadcasted to the network, we can simply set all the fields to empty strings and show the post link to check it from a condenser instance running on the selected testnet.  That's it!
+### To Run the tutorial
 
-## How To run
-
-*   clone this repo
-*   `cd tutorials/11_submit_comment_reply`
-*   `npm i`
-*   `npm run start`
-
-**To run in development mode**
-
-> Running in development mode will start a web server accessible from the following address: `http://localhost:3000/`.  When you update your code, the browser will automatically refresh to see your changes.
-
-*   clone this repo
-*   `cd tutorials/11_submit_comment_reply`
-*   `npm i`
-*   `npm run dev-server`
+1.   clone this repo
+1.   `cd tutorials/11_submit_comment_reply`
+1.   `npm i`
+1.   `npm run dev-server` or `npm run start`
+1.   After a few moments, the server should be running at [http://localhost:3000/](http://localhost:3000/)

@@ -1,3 +1,4 @@
+//Step 1.
 const dsteem = require('dsteem');
 let opts = {};
 
@@ -8,8 +9,13 @@ opts.chainId =
 //connect to server which is connected to the network/testnet
 const client = new dsteem.Client('https://testnet.steem.vc', opts);
 
+//Step 2. user fills in the values for 'parent_author' and 'parent_permlink'
+//Step 3. user adds content for the comment in the 'body' textarea
+
 //submit post function
 window.submitComment = async () => {
+    //Step 4. get all values from the UI
+
     //get private key
     const privateKey = dsteem.PrivateKey.fromString(
         document.getElementById('postingKey').value
@@ -28,24 +34,25 @@ window.submitComment = async () => {
         .toString(36)
         .substring(2);
 
+    const comment = {
+        author: account,
+        title: '',
+        body: body,
+        parent_author: parent_author,
+        parent_permlink: parent_permlink,
+        permlink: permlink,
+        json_metadata: '',
+    };
+
+    console.log('comment broadcast object', comment);
     client.broadcast
         .comment(
-            {
-                author: account,
-                title: '',
-                body: body,
-                parent_author: parent_author,
-                parent_permlink: parent_permlink,
-                permlink: permlink,
-                json_metadata: '',
-            },
+            comment,
             privateKey
         )
         .then(
             function(result) {
-                document.getElementById('body').value = '';
-                document.getElementById('parent_author').value = '';
-                document.getElementById('parent_permlink').value = '';
+                console.log('comment broadcast result', result);
                 document.getElementById('postLink').style.display = 'block';
                 document.getElementById(
                     'postLink'
@@ -58,3 +65,9 @@ window.submitComment = async () => {
             }
         );
 };
+
+window.clearFields = function() {
+    document.getElementById('body').value = '';
+    document.getElementById('parent_author').value = '';
+    document.getElementById('parent_permlink').value = '';
+}
