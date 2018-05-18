@@ -1,5 +1,3 @@
-**Results**
-
 # Tutorial & Recipe Structure
 
 This document describes the general structure of the README.md portion of the tutorials found in this repository.
