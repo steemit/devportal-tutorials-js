@@ -46,5 +46,5 @@ Use the command line/terminal for the following instructions
     
 ## Contributing
 If you're interested in contributing a tutorial to this repo. Please have a look at 
-[the guidelines](./tutorial_structure.md) for the text portion of the tutorial..
+[the guidelines](./tutorials/tutorial_structure.md) for the text portion of the tutorial..
 
