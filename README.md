@@ -24,16 +24,27 @@ The tutorials build on each other. It's suggested you go through them in-order.
 11. [Submit comment](tutorials/11_submit_comment_reply) - How to submit reply to particular post
 12. [Edit content](tutorials/12_edit_content_patching) - How to properly patch edited content and submit edits
 
-## Running Tutorials
 
-Each of these tutorials comes with an option to run as a once off bundle -> build -> host option which allows you to then browse and few.
+## To Run one of the tutorials
 
-```
-npm run start
-```
+Use the command line/terminal for the following instructions
 
-However there is an option to run each of these tutorials in a dev-server mode which will allow you to host the web server and then make changes to code. As you make changes to the code the browser will automatically update and show your latest code changes. This allows you to quickly update snippets of code and see the results immediately without having to rebuild the code.
+1.  clone this repo
 
-```
-npm run dev-server
-```
+    `git clone git@github.com:steemit/devportal.git`
+1.  cd into the tutorial you wish to run
+
+    ex: `cd tutorials/11_submit_comment_reply`
+1.  Use npm or yarn to install dependencies
+    
+    ex: `npm i`
+1.  Run the tutorial
+ 
+    `npm run dev-server` or `npm run start`
+1.   After a few moments, the server should be running at 
+    [http://localhost:3000/](http://localhost:3000/)
+    
+## Contributing
+If you're interested in contributing a tutorial to this repo. Please have a look at 
+[the guidelines](./tutorial_structure.md) for the text portion of the tutorial..
+
