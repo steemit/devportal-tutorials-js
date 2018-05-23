@@ -28,7 +28,7 @@ Here are the steps that helps you to setup new app:
 
 ![steemconnect_login](./images/steemconnect_login.png)
 
-2.  You will see Applications and Developers section, in Developers section click on `My Apps`
+3.  You will see Applications and Developers section, in Developers section click on `My Apps`
 
 ![steemconnect_dashboard](./images/steemconnect_dashboard.png)
 
