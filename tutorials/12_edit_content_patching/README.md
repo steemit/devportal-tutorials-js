@@ -1,16 +1,16 @@
 # Purpose
 
-**How to edit a Post** by demonstrating the typical process of editing content and then using the broadcast operation. Resubmitting content again and again creates redundant copy of the data and it is waste of resources, storage on blockchain.
+**How to edit a Post** by demonstrating the typical process of editing content that has been previously posted on the blockchain.  Instead of replacing the entire body of the post, the Steem blockchain offers an alternative strategy.
 
-We will focus on properly patching the content followed by broadcasting the transaction with a `demo` account.
+In this tutorial, we will focus on properly patching existing content and then broadcasting the patch with a `demo` account on a testnet.
 
 ## Description
 
-We are using the `broadcast.comment` function provided by `dsteem` which generates, signs, and broadcast the transaction to the network. On the Steem platform, posts and comments are all internally stored as a `comment` object, differentiated by whether or not a `parent_author` exists. When there is no `parent_author`, the it's a post, when there is, it's a comment. When editing post, we need to make sure that we don't resubmit same post over and over again, which will spam the network and adds additional weight. Instead we use package called: `diff-match-patch` package helps to patch old content with new one and saving up a lot of storage on Steem platform.
+We are using the `broadcast.comment` function provided by `dsteem` which generates, signs, and broadcast the transaction to the network. On the Steem platform, posts and comments are all internally stored as a `comment` object, differentiated by whether or not a `parent_author` exists. When there is no `parent_author`, it's a post, when there is, it's a comment.  When editing a post, we need to make sure that we don't resubmit the same post over and over again, which will spam the network and adds additional cost to operate the platform. Instead we will use a package called `diff-match-patch`, which allows us to only apply changes and save resources on the Steem platform.
 
 ## Tutorial steps
 
-As usual, we have a `public/app.js` file which holds the Javascript segment of the tutorial. In the first few lines we define the configured library and packages:
+As usual, we have a file called `public/app.js`, which holds the Javascript segment of the tutorial. In the first few lines, we have defined the configured library and packages:
 
 ```javascript
 const dsteem = require('dsteem');
@@ -23,9 +23,9 @@ opts.chainId =
 const client = new dsteem.Client('https://testnet.steem.vc', opts);
 ```
 
-Above, we have `dsteem` pointing to the test network with the proper chainId, addressPrefix, and endpoint. Because this tutorial is interactive, we will not publish test content to the main network. Instead, we're using testnet and a predefined account to demonstrate post publishing.
+Above, we have `dsteem` pointing to the test network with the proper chainId, addressPrefix, and endpoint. Because this tutorial is interactive, we will not publish test content to the main network. Instead, we're using testnet and a predefined account to demonstrate post patching.
 
-Next, we have `main` function which fires on load and fetches latest blog post of `@demo` account and fills up form with relevant information.
+Next, we have a `main` function which fires at on-load and fetches latest blog post of `@demo` account and fills in the form with relevant information.
 
 ```javascript
 const query = { tag: 'demo', limit: '1' };
@@ -46,7 +46,7 @@ client.database
     });
 ```
 
-Notice, we only fetching 1 blog post with `limit` and we filling all necessary fields/variables with old content. We have created small function called `createPatch` to patch edits to old content.
+Notice, we are only fetching a single blog post by specifying a `limit` and we have filled all necessary fields/variables with the old content.  We have created a small function called `createPatch` to patch edits to the old content.
 
 ```javascript
 function createPatch(text, out) {
@@ -59,9 +59,9 @@ function createPatch(text, out) {
 }
 ```
 
-`createPatch` function computes a list of patches to turn old content to edited content.
+The `createPatch` function computes a list of patches to turn old content to edited content.
 
-Next, we have the `submitPost` function which executes when the Submit post button is clicked.
+Next, we have the `submitPost` function, which executes when the Submit button is clicked.
 
 ```javascript
 //get private key
@@ -130,7 +130,7 @@ client.broadcast
 
 As you can see from the above function, we get the relevant values from the defined fields. Tags are separated by spaces in this example, but the structure of how to enter tags totally depends on your needs. We have separated tags with whitespaces and stored them in an array list called `taglist`, for later use. Posts on the blockchain can hold additional information in the `json_metadata` field, such as the `tags` list which we have assigned. Posts must also have a unique permanent link scoped to each account. In this case we are just creating a random character string.
 
-Below part of the code where we patch old content with new or edited content and make sure that patch size is smaller than original content, otherwise patching is unnecessary.
+In the follow code, we patch the old content with new (or edited) content and make sure that the patch size is smaller than original content, otherwise patching is unnecessary.
 
 ```javascript
 //computes a list of patches to turn o_body to edited_body
@@ -151,7 +151,7 @@ After the post has been broadcasted to the network, we can simply set all the fi
 ## How To run
 
 *   clone this repo
-*   `cd tutorials/10_submit_post`
+*   `cd tutorials/12_edit_content_patching`
 *   `npm i`
 *   `npm run start`
 
@@ -160,6 +160,6 @@ After the post has been broadcasted to the network, we can simply set all the fi
 > Running in development mode will start a web server accessible from the following address: `http://localhost:3000/`. When you update your code, the browser will automatically refresh to see your changes.
 
 *   clone this repo
-*   `cd tutorials/10_submit_post`
+*   `cd tutorials/12_edit_content_patching`
 *   `npm i`
 *   `npm run dev-server`
