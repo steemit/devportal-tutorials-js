@@ -1,14 +1,24 @@
-# Purpose
+# How to edit a Post
 
-**How to edit a Post** by demonstrating the typical process of editing content that has been previously posted on the blockchain.  Instead of replacing the entire body of the post, the Steem blockchain offers an alternative strategy.
+_By the end of this tutorial you should know how to patch post edits to Steem._
 
+This tutorial will take you through the process of preparing and patching post using the b`roadcast.comment` operation. Being able to patch a post is critical to save resources on Steem.
+
+## Intro
+
+Tutorial is demonstrating the typical process of editing content that has been previously posted on the blockchain. Instead of replacing the entire body of the post, the Steem blockchain offers an alternative strategy.
 In this tutorial, we will focus on properly patching existing content and then broadcasting the patch with a `demo` account on a testnet.
 
-## Description
+We are using the `broadcast.comment` function provided by `dsteem` which generates, signs, and broadcast the transaction to the network. On the Steem platform, posts and comments are all internally stored as a `comment` object, differentiated by whether or not a `parent_author` exists. When there is no `parent_author`, it's a post, when there is, it's a comment. When editing a post, we need to make sure that we don't resubmit the same post over and over again, which will spam the network and adds additional cost to operate the platform. Instead we will use a package called `diff-match-patch`, which allows us to only apply changes and save resources on the Steem platform.
 
-We are using the `broadcast.comment` function provided by `dsteem` which generates, signs, and broadcast the transaction to the network. On the Steem platform, posts and comments are all internally stored as a `comment` object, differentiated by whether or not a `parent_author` exists. When there is no `parent_author`, it's a post, when there is, it's a comment.  When editing a post, we need to make sure that we don't resubmit the same post over and over again, which will spam the network and adds additional cost to operate the platform. Instead we will use a package called `diff-match-patch`, which allows us to only apply changes and save resources on the Steem platform.
+## Steps
 
-## Tutorial steps
+1.  **Configure testnet** Testnet connection should be established with proper configurations
+1.  **Get latest post** Get @demo's latest post for editing
+1.  **Creating patch** Creating patch with new edited text
+1.  **Submit a patch** Submit newly formatted post
+
+#### 1. Configure testnet
 
 As usual, we have a file called `public/app.js`, which holds the Javascript segment of the tutorial. In the first few lines, we have defined the configured library and packages:
 
@@ -24,6 +34,8 @@ const client = new dsteem.Client('https://testnet.steem.vc', opts);
 ```
 
 Above, we have `dsteem` pointing to the test network with the proper chainId, addressPrefix, and endpoint. Because this tutorial is interactive, we will not publish test content to the main network. Instead, we're using testnet and a predefined account to demonstrate post patching.
+
+#### 2. Get latest post
 
 Next, we have a `main` function which fires at on-load and fetches latest blog post of `@demo` account and fills in the form with relevant information.
 
@@ -46,7 +58,11 @@ client.database
     });
 ```
 
-Notice, we are only fetching a single blog post by specifying a `limit` and we have filled all necessary fields/variables with the old content.  We have created a small function called `createPatch` to patch edits to the old content.
+Notice, we are only fetching a single blog post by specifying a `limit` and we have filled all necessary fields/variables with the old content.
+
+#### 3. Creating patch
+
+We have created a small function called `createPatch` to patch edits to the old content.
 
 ```javascript
 function createPatch(text, out) {
@@ -60,6 +76,8 @@ function createPatch(text, out) {
 ```
 
 The `createPatch` function computes a list of patches to turn old content to edited content.
+
+#### 4. Submit a patch
 
 Next, we have the `submitPost` function, which executes when the Submit button is clicked.
 
