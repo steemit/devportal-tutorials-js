@@ -1,16 +1,28 @@
-### Goal
+# Client sign
 
-The application in this tutorial gives you overview of how client side transaction signing works under the hood.
+_By the end of this tutorial you would know how to sign, verify broadcast transactions locally on Steem._
+
+This tutorial gives you overview of how client side transaction signing works under the hood.
 
 Purpose is to guide you through the steps required so that you could adapt this in your own applications.
 
 We have predefined accounts to select for you to quickly use and few transaction types to test the process.
 
-### Overview
+## Intro
 
 Client side signing of transaction is yet another way of interacting with Steem blockchain. Compare to [Steemconnect](https://github.com/steemit/devportal-tutorials-js/tree/master/tutorials/02_steemconnect) method, client signing doesn't rely on other servers to generate and verify transaction, except when transaction is broadcasted to the network, it should be routed through one of the servers connected to that network or blockchain. It can be your own local machine running Steem blockchain or it could be any other publicly accessible servers.
 
-### Connect
+## Steps
+
+1.  **App setup** Import `dsteem` into `app.js` and prepare it to communicate with a Testnet instance of Steem blockchain
+1.  **Get globals** Network globals
+1.  **Account selection** Select predefined account
+1.  **Operation selection** Select common operations
+1.  **Generate transaction** Generate transaction with selected account and operation
+1.  **Sign and verify transaction** Sign and verify signature of the transaction
+1.  **Broadcast transaction** Broadcast signed transaction to the network
+
+#### 1. App setup
 
 Testnet and Production networks only differ with few settings which helps developers to switch their application from testnet to production. One of these settings is `addressPrefix` - string that is defined and will be in front of every public address on that chain/network. Another one is `chainId` - id of that network. By defining those parameters we are selecting Testnet and connecting to publicly available server with help of `dsteem` library. First few lines of code in `public/app.js` gives you example of connection to different networks, testnet and production.
 
@@ -24,13 +36,13 @@ const client = new dsteem.Client('https://testnet.steemitdev.com', opts);
 
 *   _Disclaimer: In this tutorial we are using testnet powered by community member (`@almost-digital`) and predefined accounts reside on this network only._
 
-### Network globals
+#### 2. Get globals
 
 To test connection as well as to get parameters of the connected network, we can use `getDynamicGlobalProperties` function from **dsteem** library. Only 2 fields are in our interesting for this tutorial, `head_block_number` - returns head or latest block number of the network, `head_block_id` - returns id of head block.
 
 ![Overview](./images/overview.png)
 
-### Account selection
+#### 3. Account selection
 
 We have predefined list of accounts to help you with generate, sign, verify and broadcast transaction on testnet. Select list has posting private key for each account and `onchange` selection event we keep account name and credentials in memory. `accountChange` function shows example of turning plain posting private key into private key buffer format that is understandable by **dsteem**.
 
@@ -42,11 +54,11 @@ privateKey = dsteem.PrivateKey.fromString(
 
 Account and its credentials should belong to specified testnet/mainnet network to sign/verify/broadcast transactions properly.
 
-### Operation selection
+#### 4. Operation selection
 
 Number of operations are also predefined to show you example of operation format. `opChange` also keeps selected operation name in memory.
 
-### Generate transaction
+#### 5. Generate transaction
 
 Next we have button which helps us to generate operation object. Depending on selected operation type we have different structure for operation object. Typically, each transaction object has following fields:
 
@@ -77,19 +89,17 @@ First item, operation type, `vote` and second item object with `voter` - account
 
 And output of operation object/json is set to `OpInput` element.
 
-### Sign transaction
+#### 6. Sign and verify transaction
 
 Each operation needs to be signed before they can be sent to the network, transactions without signature will not be accepted by network. Because someone has to identify operation and sign it with their private keys. Sign transaction button calls for `signTx` function which is job is to sign selected operation and its obkect with selected account. And output result into `TxOutput` element.
 
 `stx = client.broadcast.sign(op, privateKey)`
 
-### Verify signature
-
-This process is mostly done automatically but to show every step, we have included this process to check validity of the transaction signature. Verify transaction button calls `verifyTx` function. Function then verify authority of the signature in signed transaction, if it was signed with correct private key and authority. If verification is successful user interfaces adds checkmark next to button otherwise adds crossmark to indicate state of the signature.
+Verifying transaction process is mostly done automatically but to show every step, we have included this process to check validity of the transaction signature. Verify transaction button calls `verifyTx` function. Function then verify authority of the signature in signed transaction, if it was signed with correct private key and authority. If verification is successful user interfaces adds checkmark next to button otherwise adds crossmark to indicate state of the signature.
 
 `const rv = await client.database.verifyAuthority(stx)`
 
-### Broadcast transaction
+#### 7. Broadcast transaction
 
 Final step is to broadcast our signed transction to the selected server. Server chosen in Connect section will handle propagating transction to the network. After network accepts transaction it will return result with transaction `id`, `block_num` that this transaction is included to, `trx_num` transaction number, and if it is `expired` or not.
 
@@ -97,18 +107,10 @@ Final step is to broadcast our signed transction to the selected server. Server 
 
 That's it!
 
-### To run
+### To Run the tutorial
 
-*   clone this repo
-*   `cd tutorials/03_client_signing`
-*   `npm i`
-*   `npm run start`
-
-## To run in development mode
-
-> Running in development mode will start a web server accessible from the following address: `http://localhost:3000/`. When you update the code the browser will automatically refresh to see your changes
-
-*   clone this repo
-*   `cd tutorials/03_client_signing`
-*   `npm i`
-*   `npm run dev-server`
+1.  clone this repo
+1.  `cd tutorials/03_client_signing`
+1.  `npm i`
+1.  `npm run dev-server` or `npm run start`
+1.  After a few moments, the server should be running at [http://localhost:3000/](http://localhost:3000/)
