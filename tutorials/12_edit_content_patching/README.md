@@ -2,7 +2,7 @@
 
 _By the end of this tutorial you should know how to patch post edits to Steem._
 
-This tutorial will take you through the process of preparing and patching post using the b`roadcast.comment` operation. Being able to patch a post is critical to save resources on Steem.
+This tutorial will take you through the process of preparing and patching post using the `broadcast.comment` operation. Being able to patch a post is critical to save resources on Steem.
 
 ## Intro
 
@@ -169,7 +169,7 @@ After the post has been broadcasted to the network, we can simply set all the fi
 ### To Run the tutorial
 
 1.  clone this repo
-1.  `cd tutorials/11_submit_comment_reply`
+1.  `cd tutorials/12_edit_content_patching`
 1.  `npm i`
 1.  `npm run dev-server` or `npm run start`
 1.  After a few moments, the server should be running at [http://localhost:3000/](http://localhost:3000/)
