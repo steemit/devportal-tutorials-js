@@ -8,13 +8,13 @@ We will also explain the most commonly used fields from the response object as w
 
 ## Intro
 
-Accounts have unique `permlink` - permanent link for each of their posts. And Steem blockchain provides API to directly fetch current state of the post and its details. We can easily reformat data in a way that fits out application.
+Accounts have unique `permlink` - permanent link for each of their posts. And Steem blockchain provides API to directly fetch current state of the post and its details. We will be using `get_content` to retrieve additional details. We can easily reformat data in a way that fits out application.
 
 ## Steps
 
 1.  **Fetching posts** Trending posts list
 1.  **Post content** Extract content of the selected post
-1.  **Details output** Returned data
+1.  **Query result** Returned data
 
 #### 1. Fetching posts
 
@@ -57,7 +57,7 @@ document.getElementById('postBody').style.display = 'none';
 
 The "go back" function simply hides and shows the post list.
 
-#### 3. Details output
+#### 3. Query result
 
 The result is returned from the post content as a `JSON` object with the following properties:
 
