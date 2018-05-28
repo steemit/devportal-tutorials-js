@@ -1,5 +1,7 @@
 # How to Get Voters List on Post
 
+_By the end of this tutorial you would know how to get voters list on any content._
+
 The purpose of this tutorial is to **a)** demonstrate how to get a list of articles from the trending list on the blockchain, and **b)** fetch the voters of the selected post to display the account and date at which they voted.
 
 We will also explain the most commonly used fields from the response object.

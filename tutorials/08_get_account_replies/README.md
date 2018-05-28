@@ -1,14 +1,22 @@
-# Purpose
+# Get account replies
+
+_By the end of this tutorial you would know how to get replies made on particular account's content._
 
 The purpose of this tutorial is **How to get account replies** and **a)** demonstrate how to use `get_state` api function call, and **b)** fetch recent replies for the content of specific account, in this case `@steemitblog`.
 
 We focus on listing part of the content with simply UI as well as explain the most commonly used fields from the response object as well as parse body of each comment.
 
-## Description
+## Intro
 
 We are using `get_state` function with `dsteem`, which is straight-forward and this function returns current state of the network as well as additional content given proper query. Each content body, as we described in previous tutorials, is written markdown and submitted to the blockchain by many applications built on top of Steem. For that reason we are using `remarkable` npm package to parse markdown in a readable format.
 
-## Tutorial steps
+## Steps
+
+1.  **Setup app** Setup app packages
+1.  **Query result** Form a proper query and retrieve result
+1.  **Display replies** Parse and display result in user interface
+
+#### 1. Setup app
 
 As usual, we have `public/app.js` file which holds the javascript part of the tutorial. In first few lines we define, configure library and packages.
 
@@ -28,6 +36,8 @@ const md = new Remarkable({ html: true, linkify: true });
 
 `dsteem` is pointing to the main network and proper chain_id, addressPrefix and connection server.
 `remarkable` is assigned to `md` variable with linkify and html options, allowing markdown parsing links and html properly.
+
+#### 2. Query result
 
 Next, we have `main` function which fires when page is loaded.
 
@@ -211,6 +221,8 @@ Following is example of returned object:
 }
 ```
 
+#### 3. Display replies
+
 Next we will format above object properly in simple user interface. From above object, we are only interested in `content` object which holds the data we queried.
 
 ```javascript
@@ -245,18 +257,10 @@ if (
 
 We check if `content` is not an empty object and we iterate through each object via its key and extract, `author`, format `created` date and time, parse `body` markdown, get `net_votes` on that reply. Pushing each list item separately and displaying it. That's it!
 
-## How To run
+### To Run the tutorial
 
-*   clone this repo
-*   `cd tutorials/08_get_account_replies`
-*   `npm i`
-*   `npm run start`
-
-**To run in development mode**
-
-> Running in development mode will start a web server accessible from the following address: `http://localhost:3000/`. When you update the code the browser will automatically refresh to see your changes
-
-*   clone this repo
-*   `cd tutorials/08_get_account_replies`
-*   `npm i`
-*   `npm run dev-server`
+1.  clone this repo
+1.  `cd tutorials/08_get_account_replies`
+1.  `npm i`
+1.  `npm run dev-server` or `npm run start`
+1.  After a few moments, the server should be running at [http://localhost:3000/](http://localhost:3000/)
