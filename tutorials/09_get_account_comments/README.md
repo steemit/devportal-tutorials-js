@@ -1,16 +1,24 @@
-# Purpose
+# Get Account Comments
 
-The purpose of this tutorial is **How to get account comments** and **a)** demonstrate how to use `get_state` api function call, and **b)** fetch comments made by specific account, in this case `@steemitblog`.
+_By the end of this tutorial you should know how to retrieve account comments from the steem blockchain_
 
-We focus on listing part of the content with simply UI as well as explain the most commonly used fields from the response object as well as parse body of each comment.
+This tutorial will show how to fetch comments made by a specific account (in this case `@steemitblog`) by demonstrating how to use the `get_state` api function call. We will also demonstrate the most commonly used fields from the response object as well as how to parse the body of each comment.
 
-## Description
+## Intro
 
-We are using `get_state` function with `dsteem`, which is straight-forward and this function returns current state of the network as well as additional content given proper query. Each content body, as we described in previous tutorials, is written markdown and submitted to the blockchain by many applications built on top of Steem. For that reason we are using `remarkable` npm package to parse markdown in a readable format.
+We are using the `get_state` function with `dsteem` that returns the current state of the network as well as additional content. Each content body is written in markdown and could be submitted to the blockchain by many different applications built on top of Steem. For that reason we are using the `remarkable` npm package to parse markdown in a readable format.
 
-## Tutorial steps
+## Steps
 
-As usual, we have `public/app.js` file which holds the javascript part of the tutorial. In first few lines we define, configure library and packages.
+1.  **Configure connection.** Configuration of `dsteem` to use the proper connection and network.
+
+2.  **Query.** Query the path which we want to extract from Steem blockchain state.
+
+3.  **Formatting.** Formatting the JSON object to be viewed in a simple user interface.
+
+**1. Configure connection**
+Below we have `dsteem` pointing to the main network with the proper chainId, addressPrefix and connection server.
+There is a `public/app.js` file which holds the Javascript segment of this tutorial. In the first few lines we define and configure library and packages.
 
 ```javascript
 const dsteem = require('dsteem');
@@ -26,10 +34,11 @@ const Remarkable = require('remarkable');
 const md = new Remarkable({ html: true, linkify: true });
 ```
 
-`dsteem` is pointing to the main network and proper chain_id, addressPrefix and connection server.
-`remarkable` is assigned to `md` variable with linkify and html options, allowing markdown parsing links and html properly.
+`remarkable` is assigned to the variable `md` with linkify and html options, allowing us to parse markdown links and html properly.
 
-Next, we have `main` function which fires when page is loaded.
+**2. Query**
+
+Next, we have the `main` function which runs when the page is loaded.
 
 ```javascript
 // query string, fetching comments made by @steemitblog account
@@ -40,9 +49,9 @@ client.database.call('get_state', [query]).then(result => {
 });
 ```
 
-Query is the path which we want to extract from Steem blockchain state. In our example we are using `@steemitblog` account and `comments` to its content. Result will be current state object with various information as well as `content` object property holding content of the query.
+`query` is the path from where want to extract Steem blockchain state. In our example we are querying `comments` from the `@steemitblog` account. The result will be the current state object with various information as well as the `content` property holding the content of the query.
 
-Following is example of returned object:
+The following is an example of the returned object:
 
 ```json
 {
@@ -211,7 +220,9 @@ Following is example of returned object:
 }
 ```
 
-Next we will format above object properly in simple user interface. From above object, we are only interested in `content` object which holds the data we queried.
+**3. Formatting**
+
+Next we will format the above object properly to view in a simple user interface. From the above object, we are only interested in the `content` object which holds the data we require.
 
 ```javascript
 if (
@@ -244,20 +255,21 @@ if (
 }
 ```
 
-We check if `content` is not an empty object and we iterate through each object via its key and extract, `parent_author`, `parent_permlink`, to which post/comment `@steemitblog` account is replying to, format `created` date and time, parse `body` markdown, get `net_votes` on that comment. Pushing each list item separately and displaying it. That's it!
+We first check if `content` is not an empty object. We then iterate through each object in `content` and extract:
 
-## How To run
+*   `parent_author`
+*   `parent_permlink`
+*   and the post or comment the `@steemitblog` account is replying to
 
-*   clone this repo
-*   `cd tutorials/09_get_account_comments`
-*   `npm i`
-*   `npm run start`
+We format `created` date and time, parse `body` markdown and get `net_votes` on that comment.
+Each line is then pushed and displayed separately.
 
-**To run in development mode**
+## To run this tutorial
 
-> Running in development mode will start a web server accessible from the following address: `http://localhost:3000/`. When you update the code the browser will automatically refresh to see your changes
+1.  clone this repo
+2.  `cd tutorials/09_get_account_comments`
+3.  `npm i`
+4.  `npm run start`
 
-*   clone this repo
-*   `cd tutorials/09_get_account_comments`
-*   `npm i`
-*   `npm run dev-server`
+To run this tutorial in development mode simply replace the last statement with `npm run dev-server`
+Running in dev mode will start a web server accessible from `http://localhost:3000/` and will automatically refresh your browser with any changes you make to the code.
