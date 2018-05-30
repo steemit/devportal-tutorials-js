@@ -11,15 +11,19 @@ opts.chainId =
 const client = new dsteem.Client('https://api.steemit.com');
 
 //filter change selection function
-window.filtersChange = async () => {
+window.getPosts = async () => {
     const filter = document.getElementById('filters').value;
     const query = {
-        tag: '',
+        tag: document.getElementById('tag').value,
         limit: 5,
     };
+
+    console.log('Post assembled.\nFilter:', filter, '\nQuery:', query);
+
     client.database
         .getDiscussions(filter, query)
         .then(result => {
+            console.log('Response received:', result);
             if (result) {
                 var posts = [];
                 result.forEach(post => {
@@ -34,10 +38,12 @@ window.filtersChange = async () => {
                 });
 
                 document.getElementById('postList').innerHTML = posts.join('');
+            } else {
+                document.getElementById('postList').innerHTML = 'No result.';
             }
         })
         .catch(err => {
             console.log(err);
-            alert('Error occured, try again');
+            alert(`Error:${err}, try again`);
         });
 };
