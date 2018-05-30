@@ -11,10 +11,10 @@ We are using the `client.broadcast.comment` function provided by `dsteem` which 
 ## Steps
 
 1.  **Configure connection.** Configuration of `dsteem` to use the proper connection and network.
-2.  **Fetch Steem Post or Comment data.** Defining information variables with the `submitpost` function.
-3.  **Format and Broadcast.** Formatting the comments and submitting to the blockchain.
+1.  **Fetch Steem Post or Comment data.** Defining information variables with the `submitpost` function.
+1.  **Format and Broadcast.** Formatting the comments and submitting to the blockchain.
 
-**1. Configure connection**
+#### 1. Configure connection
 
 Above, we have `dsteem` pointing to the test network with the proper chainId, addressPrefix, and endpoint. Because this tutorial is interactive, we will not publish test content to the main network. Instead, we're using the testnet and a predefined account to demonstrate post publishing.
 There is a `public/app.js` file which holds the Javascript segment of this tutorial. In the first few lines we define the configured library and packages:
@@ -30,7 +30,7 @@ opts.chainId =
 const client = new dsteem.Client('https://testnet.steem.vc', opts);
 ```
 
-**2. Fetch Steem Post or Comment data.**
+#### 2. Fetch Steem Post or Comment data.
 
 Next, we have the `submitPost` function which executes when the Submit post button is clicked.
 
@@ -58,7 +58,7 @@ const permlink = Math.random()
 
 The `getElementById` function is used to obtain data from the HTML elements and assign them to constants. Tags are separated by spaces in this example and stored in an array list called `taglist` for later use. However, the structure of how to enter tags depends on your needs. Posts on the blockchain can hold additional information in the `json_metadata` field, such as the `tags` list which we have assigned. Posts must also have a unique permanent link scoped to each account. In this case we are just creating a random character string.
 
-**3. Format and Broadcast**
+#### 3. Format and Broadcast
 
 The next step is to pass all of these elements in **2.** to the `client.broadcast.comment` function.
 
@@ -101,12 +101,10 @@ Note that the `parent_author` and `parent_permlink` fields are used for replies 
 
 After the post has been broadcast to the network, we can simply set all the fields to empty strings and show the post link to check it from a condenser instance running on the selected testnet.
 
-## To run this tutorial
+### To Run the tutorial
 
 1.  clone this repo
-2.  `cd tutorials/10_submit_post`
-3.  `npm i`
-4.  `npm run start`
-
-To run this tutorial in development mode simply replace the last statement with `npm run dev-server`
-Running in dev mode will start a web server accessible from `http://localhost:3000/` and will automatically refresh your browser with any changes you make to the code.
+1.  `cd tutorials/10_submit_post`
+1.  `npm i`
+1.  `npm run dev-server` or `npm run start`
+1.  After a few moments, the server should be running at [http://localhost:3000/](http://localhost:3000/)
