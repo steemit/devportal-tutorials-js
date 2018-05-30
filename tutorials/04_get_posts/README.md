@@ -25,8 +25,6 @@ application.
 1.  [**Handle response**](#Handle-response) - Accept the response in a promise callback, then render the results
 1.  [**Example post object**](#Example-post-object) - An example post object from the response list
 
-## <a></a>
-
 #### 1. UI <a name="UI"></a>
 
 The source HTML for our UI can be found in [public/index.html](./public/index.html)
@@ -183,7 +181,7 @@ The result returned from the service is a `JSON` list. This is an example list w
 ### To Run the tutorial
 
 1.  clone this repo
-1.  `cd tutorials/11_submit_comment_reply`
+1.  `cd tutorials/04_get_posts`
 1.  `npm i`
 1.  `npm run dev-server` or `npm run start`
 1.  After a few moments, the server should be running at [http://localhost:3000/](http://localhost:3000/)

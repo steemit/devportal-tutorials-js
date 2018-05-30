@@ -11,10 +11,8 @@ We are using the `get_state` function with `dsteem` that returns the current sta
 ## Steps
 
 1.  **Configure connection.** Configuration of `dsteem` to use the proper connection and network.
-
-2.  **Query.** Query the path which we want to extract from Steem blockchain state.
-
-3.  **Formatting.** Formatting the JSON object to be viewed in a simple user interface.
+1.  **Query.** Query the path which we want to extract from Steem blockchain state.
+1.  **Formatting.** Formatting the JSON object to be viewed in a simple user interface.
 
 **1. Configure connection**
 Below we have `dsteem` pointing to the main network with the proper chainId, addressPrefix and connection server.
@@ -36,7 +34,7 @@ const md = new Remarkable({ html: true, linkify: true });
 
 `remarkable` is assigned to the variable `md` with linkify and html options, allowing us to parse markdown links and html properly.
 
-**2. Query**
+#### 2. Query
 
 Next, we have the `main` function which runs when the page is loaded.
 
@@ -220,7 +218,7 @@ The following is an example of the returned object:
 }
 ```
 
-**3. Formatting**
+#### 3. Formatting
 
 Next we will format the above object properly to view in a simple user interface. From the above object, we are only interested in the `content` object which holds the data we require.
 
@@ -264,12 +262,10 @@ We first check if `content` is not an empty object. We then iterate through each
 We format `created` date and time, parse `body` markdown and get `net_votes` on that comment.
 Each line is then pushed and displayed separately.
 
-## To run this tutorial
+### To Run the tutorial
 
 1.  clone this repo
-2.  `cd tutorials/09_get_account_comments`
-3.  `npm i`
-4.  `npm run start`
-
-To run this tutorial in development mode simply replace the last statement with `npm run dev-server`
-Running in dev mode will start a web server accessible from `http://localhost:3000/` and will automatically refresh your browser with any changes you make to the code.
+1.  `cd tutorials/09_get_account_comments`
+1.  `npm i`
+1.  `npm run dev-server` or `npm run start`
+1.  After a few moments, the server should be running at [http://localhost:3000/](http://localhost:3000/)
