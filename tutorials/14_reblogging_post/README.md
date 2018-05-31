@@ -127,7 +127,7 @@ There is a line in the error log indicating "Account has already reblogged this 
 ## To run this tutorial
 
 1.  clone this repo
-2.  `cd tutorials/13_reblogging_post`
+2.  `cd tutorials/14_reblogging_post`
 3.  `npm i`
 4.  `npm run start`
 
