@@ -1,10 +1,22 @@
-# How to Get Post Details
+# How to Get Voters List on Post
+
+_By the end of this tutorial you would know how to get voters list on any content._
 
 The purpose of this tutorial is to **a)** demonstrate how to get a list of articles from the trending list on the blockchain, and **b)** fetch the voters of the selected post to display the account and date at which they voted.
 
 We will also explain the most commonly used fields from the response object.
 
-## Fetching trending posts
+## Intro
+
+Each post has voters that support content and play big role in reward distribution. Getting details of each voter and their vote value, time, etc. is another crucial information for authors and app developers. We will be using `get_active_votes` API call to retrieve that information right from Steem blockchain.
+
+## Steps
+
+1.  [**Fetching posts**](#fetching-posts) Get trending post list
+1.  [**Voter information**](#voter-info) Voters information on selected post
+1.  [**Query result**](#query-result) Example of result from query
+
+#### 1. Fetching posts<a name="fetching-posts"></a>
 
 As mentioned in our previous tutorial we can fetch various lists of posts with different filters. Here, we are reusing some parts of that tutorial to list the top 5 trending posts.
 
@@ -16,7 +28,7 @@ var query = {
 };
 ```
 
-## Voter information
+#### 2. Voter information<a name="voter-info"></a>
 
 On selection of a particular post from the list, `openPost` function is fired. This function will call the `get_active_votes` function to fetch the voters of the post. `get_active_votes` requires author and permlink of the post to fetch its data.
 
@@ -47,7 +59,7 @@ document.getElementById('postBody').style.display = 'none';
 
 The "go back" function simply hides and shows the post list.
 
-## Query Result from voters
+#### 3. Query result<a name="query-result"></a>
 
 The result is returned from the post content as a `JSON` object with the following properties:
 
@@ -81,18 +93,10 @@ From this result, you have access to everything associated with the selected pos
 *   `reputation` - The [reputation](https://developers.steem.io/glossary/#reputation) of the account that voted.
 *   `time` - Time the vote was submitted.
 
-## To run
+### To Run the tutorial
 
-*   clone this repo
-*   `cd tutorials/06_get_voters_list_on_post`
-*   `npm i`
-*   `npm run start`
-
-## To run in development mode
-
-> Running in development mode will start a web server accessible from the following address: `http://localhost:3000/`. When you update the code the browser will automatically refresh to see your changes
-
-*   clone this repo
-*   `cd tutorials/06_get_voters_list_on_post`
-*   `npm i`
-*   `npm run dev-server`
+1.  clone this repo
+1.  `cd tutorials/06_get_voters_list_on_post`
+1.  `npm i`
+1.  `npm run dev-server` or `npm run start`
+1.  After a few moments, the server should be running at [http://localhost:3000/](http://localhost:3000/)

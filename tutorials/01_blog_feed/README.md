@@ -1,15 +1,37 @@
 # Blog Feed
 
-This tutorial pulls a list of the most recent five user's posts from the blockchain and displays them.
+_By the end of this tutorial you should know how to fetch most recent five posts from particular user on Steem._
 
-All blockchain accessing code runs in the browser.
+This tutorial pulls a list of the most recent five user's posts from the blockchain and displays them in simple list. Also some notes about usage of `client.database.getDiscussions` API.
 
-This tutorial will explain and show you how to access the **Steem** blockchain using the [dsteem](https://github.com/jnordberg/dsteem) library to build a basic blog list of posts filtered by a _tag_
+## Intro
 
-## Filtering Query
+Tutorial is demonstrates the typical process of fetching account blog posts. It is quite useful if you want to embedd your blog posts on your website these tutorial will help you achieve that goal as well. This tutorial will explain and show you how to access the **Steem** blockchain using the [dsteem](https://github.com/jnordberg/dsteem) library to build a basic blog list of posts filtered by a _tag_
 
-*   You can add a tag to filter the blog posts that you receive from the server
-*   You can also limit the amount of results you would like to receive from the query
+## Steps
+
+1.  [**Configure connection**](#Configure-connection) Configuration of dsteem to use proper connection and network
+1.  [**Query format**](#Query-format) Simple query format to help use fetch data
+1.  [**Fetch data and format**](#Fetch-data-and-format) Fetch data and display in proper interface
+
+---
+
+#### 1. Configure connection<a name="Configure-connection"></a>
+
+In order to connect to the live Steem network, all we have to do is provide connection url to a server that runs on the network. `dsteem` by default set up to use live network but it has flexibility to adjust connection to any other testnet or custom networks, more on that in future tutorials.
+
+In first couple lines we require package and define connection server:
+
+```
+const { Client } = require('dsteem');
+
+const client = new Client('https://api.steemit.com');
+```
+
+#### 2. Query format<a name="Query-format"></a>
+
+*   You can add a tag to filter the blog posts that you receive from the server, since we are aiming to fetch blog posts of particular user, we will define username as tag.
+*   You can also limit the number of results you would like to receive from the query
 
 ```javascript
 var query = {
@@ -18,7 +40,32 @@ var query = {
 };
 ```
 
-## Query Result
+#### 3. Fetch data and format<a name="Fetch-data-and-format"></a>
+
+`client.database.getDiscussions` function is used for fetching discussions or posts. The first argument to this function determines which equivalent of the appbase `condenser_api.get_discussions_by_*` api calls it's going to use.  Below is example of query and keyword **'blog'** indicates `condenser_api.get_discussions_by_blog` and somewhat counter-intuitively _query.tag_ indicates the account from which we want to get posts.
+
+```
+    client.database
+        .getDiscussions('blog', query)
+        .then(result => {
+            var posts = [];
+            result.forEach(post => {
+                const json = JSON.parse(post.json_metadata);
+                const image = json.image ? json.image[0] : '';
+                const title = post.title;
+                const author = post.author;
+                const created = new Date(post.created).toDateString();
+                posts.push(
+                    `<div class="list-group-item"><h4 class="list-group-item-heading">${title}</h4><p>by ${author}</p><center><img src="${image}" class="img-responsive center-block" style="max-width: 450px"/></center><p class="list-group-item-text text-right text-nowrap">${created}</p></div>`
+                );
+            });
+
+            document.getElementById('postList').innerHTML = posts.join('');
+        })
+        .catch(err => {
+            alert('Error occured' + err);
+        });
+```
 
 The result returned form the service is a `JSON` object with the following properties:
 
@@ -92,20 +139,14 @@ The result returned form the service is a `JSON` object with the following prope
 ]
 ```
 
-From this result you have access to everything associated to the post including additional metadata which is a `JSON` string that must be decoded to use. This `JSON` object has additional information and properties for the post including a reference to the image uploaded.
+From this result we have access to everything associated to the post including additional metadata which is a `JSON` string that must be decoded to use. This `JSON` object has additional information and properties for the post including a reference to the image uploaded. And we are displaying this data in meaningful user interface. _Note: it is truncated to one element, but you would get five posts in array_
 
-## To run
+That's all there is to it.
 
-*   clone this repo
-*   `cd tutorials/01_blog_feed`
-*   `npm i`
-*   `npm run start`
+### To Run the tutorial
 
-## To run in development mode
-
-> Running in development mode will start a web server accessible from the following address: `http://localhost:3000/`. When you update the code the browser will automatically refresh to see your changes
-
-*   clone this repo
-*   `cd tutorials/01_blog_feed`
-*   `npm i`
-*   `npm run dev-server`
+1.  clone this repo
+1.  `cd tutorials/01_blog_feed`
+1.  `npm i`
+1.  `npm run dev-server` or `npm run start`
+1.  After a few moments, the server should be running at [http://localhost:3000/](http://localhost:3000/)

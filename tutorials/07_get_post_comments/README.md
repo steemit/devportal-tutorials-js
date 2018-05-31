@@ -1,14 +1,26 @@
 # How to Get Post Comments
 
+_By the end of this tutorial you would know how to get comments made by others on any post._
+
 The purpose of this tutorial is to **a)** demonstrate how to get a list of articles from the trending list on the blockchain, and **b)** fetch the contents of the selected post to display its title and body and **c)** fetch comments of the post and display them with author, body, created time and number of votes.
 
 We will also explain the most commonly used fields from the response object as well as parse body of each comment.
 
-## Fetching and content of post
+## Intro
+
+Each post might have comments/replies that is interesting and contributes to the topic and discussion. Steem offers out of box API for pulling replies for particular post with `get_content_replies`. We will fetch replies and list them in simple user interface.
+
+## Steps
+
+1.  [**Fetching posts**](#fetching-posts) Getting trending posts
+1.  [**Post comments**](#post-comments) Open post and fetch comments
+1.  [**Query result**](#query-result) Result of the query
+
+#### 1. Fetching post<a name="fetching-posts"></a>
 
 As mentioned in our previous tutorials we can fetch various lists of posts with different filters. Here, we are reusing some parts of that tutorial to list the top 5 trending posts. And we parse content of selected post to display few fields in a meaningful way.
 
-## Post comments
+#### 2. Post comments<a name="post-comments"></a>
 
 On selection of a particular post from the list, `openPost` function is fired as it is explained in [**Get Post Details**]() tutorial. This function will call the `get_content` function to fetch content of the post. Right after root post is displayed properly, we use `get_content_replies` function to fetch comments made on that post, function requires author and permlink of the root post to fetch its comments.
 
@@ -45,7 +57,7 @@ document.getElementById('postComments').style.display = 'none';
 
 The "go back" function simply hides and shows the post list.
 
-## Query Result from post content
+#### 3. Query result<a name="query-result"></a>
 
 The result is returned from the post content as a `JSON` object with the following properties:
 
@@ -125,18 +137,10 @@ The result is returned from the post content as a `JSON` object with the followi
 
 From this result, you have access to comments made on selected post.
 
-## To run
+### To Run the tutorial
 
-*   clone this repo
-*   `cd tutorials/07_get_post_comments`
-*   `npm i`
-*   `npm run start`
-
-## To run in development mode
-
-> Running in development mode will start a web server accessible from the following address: `http://localhost:3000/`. When you update the code the browser will automatically refresh to see your changes
-
-*   clone this repo
-*   `cd tutorials/07_get_post_comments`
-*   `npm i`
-*   `npm run dev-server`
+1.  clone this repo
+1.  `cd tutorials/07_get_post_comments`
+1.  `npm i`
+1.  `npm run dev-server` or `npm run start`
+1.  After a few moments, the server should be running at [http://localhost:3000/](http://localhost:3000/)
