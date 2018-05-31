@@ -6,17 +6,19 @@ This tutorial pulls a list of the most recent five user's posts from the blockch
 
 ## Intro
 
-Tutorial is demonstrating the typical process of fetching account blog posts. It is quite useful if you want to embedd your blog posts on your website these tutorial will help you achieve that goal as well. This tutorial will explain and show you how to access the **Steem** blockchain using the [dsteem](https://github.com/jnordberg/dsteem) library to build a basic blog list of posts filtered by a _tag_
+Tutorial is demonstrates the typical process of fetching account blog posts. It is quite useful if you want to embedd your blog posts on your website these tutorial will help you achieve that goal as well. This tutorial will explain and show you how to access the **Steem** blockchain using the [dsteem](https://github.com/jnordberg/dsteem) library to build a basic blog list of posts filtered by a _tag_
 
 ## Steps
 
-1.  **Configure connection** Configuration of dsteem to use proper connection and network
-1.  **Query format** Simple query format to help use fetch data
-1.  **Fetch data and format** Fetch data and display in proper interface
+1.  [**Configure connection**](#Configure-connection) Configuration of dsteem to use proper connection and network
+1.  [**Query format**](#Query-format) Simple query format to help use fetch data
+1.  [**Fetch data and format**](#Fetch-data-and-format) Fetch data and display in proper interface
 
-#### 1. Configure connection
+---
 
-In order to connect to live Steem network, all we have to do, provide proper connection server that runs live network. `dsteem` by default set up to use live network but it has flexibility to adjust connection to any other testnet or custom networks, more on that in future tutorials.
+#### 1. Configure connection<a name="Configure-connection"></a>
+
+In order to connect to the live Steem network, all we have to do is provide connection url to a server that runs on the network. `dsteem` by default set up to use live network but it has flexibility to adjust connection to any other testnet or custom networks, more on that in future tutorials.
 
 In first couple lines we require package and define connection server:
 
@@ -26,10 +28,10 @@ const { Client } = require('dsteem');
 const client = new Client('https://api.steemit.com');
 ```
 
-#### 2. Query format
+#### 2. Query format<a name="Query-format"></a>
 
 *   You can add a tag to filter the blog posts that you receive from the server, since we are aiming to fetch blog posts of particular user, we will define username as tag.
-*   You can also limit the amount of results you would like to receive from the query
+*   You can also limit the number of results you would like to receive from the query
 
 ```javascript
 var query = {
@@ -38,9 +40,9 @@ var query = {
 };
 ```
 
-#### 3. Fetch data and format
+#### 3. Fetch data and format<a name="Fetch-data-and-format"></a>
 
-`client.database.getDiscussions` function is used for fetching discussions or posts for user. Below is example of query and keyword **'blog'** indicates blog posts and query has user data and limit of results returned from request.
+`client.database.getDiscussions` function is used for fetching discussions or posts. The first argument to this function determines which equivalent of the appbase `condenser_api.get_discussions_by_*` api calls it's going to use.  Below is example of query and keyword **'blog'** indicates `condenser_api.get_discussions_by_blog` and somewhat counter-intuitively _query.tag_ indicates the account from which we want to get posts.
 
 ```
     client.database
