@@ -40,7 +40,7 @@ opts.chainId =
 const client = new dsteem.Client('https://api.steemit.com', opts);
 ```
 
-#### 2. Collecting information<a href="collecting_information"</a>
+#### 2. Collecting information<a href="collecting_information"></a>
 
 Next we have the `submitPost` function that collects the required fields for the reblog process via an HTML interface after wich we assign them to the created variables.
 
