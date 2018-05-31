@@ -54,7 +54,7 @@ window.submitPost = async () => {
     //get blog author
     const theAuthor = document.getElementById('theAuthor').value;
     //get blog permLink
-    const thePermLink = document.getElementById('thePost').value;
+    const thePermLink = document.getElementById('thePermLink').value;
 ```
 
 3.  **Broadcasting the reblog**
