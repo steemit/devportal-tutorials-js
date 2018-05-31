@@ -12,11 +12,11 @@ We are using the `blockchain.getBlockStream` function provided by `dsteem` which
 
 ## Steps
 
-1.  **Configure app** Configure proper settings for dsteem
-1.  **Stream blocks** Stream blocks
-1.  **Display result** Show results in proper UI
+1.  [**App setup**](#app-setup) Configure proper settings for dsteem
+1.  [**Stream blocks**](#stream-blocks) Stream blocks
+1.  [**Display result**](#display-result) Show results in proper UI
 
-#### 1. Configure app
+#### 1. App setup<a name="app-setup"></a>
 
 As usual, we have a file called `public/app.js`, which holds the Javascript segment of the tutorial. In the first few lines, we have defined the configured library and packages:
 
@@ -36,7 +36,7 @@ const client = new dsteem.Client('https://api.steemit.com');
 
 Above, we have `dsteem` pointing to the live network with the proper chainId, addressPrefix, and endpoint. Because this tutorial requires active transactions to see some data.
 
-#### 2. Stream blocks
+#### 2. Stream blocks<a name="stream-blocks"></a>
 
 Next, we have a `main` function which fires at on-load and starts streaming blocks from network.
 
@@ -78,7 +78,7 @@ window.resumeStream = async () => {
 };
 ```
 
-#### 3. Display result
+#### 3. Display result<a name="display-result"></a>
 
 In above scection, following line of code populates object with the data coming from Stream:
 
