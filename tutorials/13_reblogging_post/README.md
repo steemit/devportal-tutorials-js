@@ -15,6 +15,8 @@ We are using the `client.broadcast` function provided by `dsteem` to reblog the 
 
 A simple HTML interface is used to capture the required information after which the transaction is submitted. There are two prerequisites within the reblog process in STEEM that have to be adhered to, namely, the post must not be older than 7 days, and the post can only be reblogged once by a specific account. The fields have been populated with information to give an example of what it would look like but care has to be taken to provide correct details before the function is executed.
 
+This tutorial makes use of the This function is taken from the tutorial [Blog Feed](https://github.com/steemit/devportal-tutorials-js/blob/master/tutorials/01_blog_feed/) to get a list of trending posts.
+
 ## Steps
 
 1.  **Configure connection** Configuration of `dsteem` to use the proper connection and network.
