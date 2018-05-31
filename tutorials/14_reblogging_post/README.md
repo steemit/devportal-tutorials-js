@@ -19,11 +19,11 @@ This tutorial makes use of the This function is taken from the tutorial [Blog Fe
 
 ## Steps
 
-1.  **Configure connection** Configuration of `dsteem` to use the proper connection and network.
-2.  **Collecting information** Generating relevant posting information with an HTML interface.
-3.  **Broadcasting the reblog** Assigning variables and executing the reblog.
+1.  [**Configure connection**](#configure_connection) Configuration of `dsteem` to use the proper connection and network.
+2.  [**Collecting information**](#collecting_information) Generating relevant posting information with an HTML interface.
+3.  [**Broadcasting the reblog**](#broadcasting_the_reblog) Assigning variables and executing the reblog.
 
-4.  **Configure connection**
+#### 1. Configure connection\*\*<a name="configure_connection"></a>
 
 Below we have `dsteem` pointing to the production network with the proper chainId, addressPrefix, and endpoint. Although this tutorial is interactive, we will not post to the testnet due to the prerequisites of reblogging.
 There is a `public/app.js` file which holds the Javascript segment of this tutorial. In the first few lines we define the configured library and packages:
@@ -40,7 +40,7 @@ opts.chainId =
 const client = new dsteem.Client('https://api.steemit.com', opts);
 ```
 
-2.  **Collecting information**
+#### 2. Collecting information<a href="collecting_information"</a>
 
 Next we have the `submitPost` function that collects the required fields for the reblog process via an HTML interface after wich we assign them to the created variables.
 
@@ -59,7 +59,7 @@ window.submitPost = async () => {
     const thePermLink = document.getElementById('thePermLink').value;
 ```
 
-3.  **Broadcasting the reblog**
+#### 3. Broadcasting the reblog<a name="broadcasting_the_reblog"></a>
 
 Finally we create two variables to simply the `client.broadcast` function line and broadcast the reblog instruction.
 
