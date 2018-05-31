@@ -1,0 +1,18 @@
+<html>
+    <head>
+        <title>Re-blog post</title>
+        <script src="bundle.js"></script>
+    </head>
+    <body>
+        <div class="container" id="content"><br/>
+            <h4>Data required to resteem a post</h4>
+            Account username that will resteem: <input id="username" type="text" size="65" value="" class="form-control"><br/>
+            Posting private key: <input id="postingKey" type="password" size="65" value="" class="form-control"><br/>
+            The author to resteem: <input id="theAuthor" type="text" size="65" value="oneminja" class="form-control"><br/>
+            The Post to resteem: <input id="thePost" type="text" size="65" value="it-s-true-hanoi-swallows-people" class="form-control"><br/>
+            <input id="submitPostBtn" type="button" value="Resteem!" onclick="submitPost()" class="btn btn-primary">
+            <div id="postLink" style="display: none;">
+            </div>
+        </div>
+    </body>
+</html>
