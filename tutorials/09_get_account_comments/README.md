@@ -10,11 +10,12 @@ We are using the `get_state` function with `dsteem` that returns the current sta
 
 ## Steps
 
-1.  **Configure connection.** Configuration of `dsteem` to use the proper connection and network.
-1.  **Query.** Query the path which we want to extract from Steem blockchain state.
-1.  **Formatting.** Formatting the JSON object to be viewed in a simple user interface.
+1.  [**App setup**](#app-setup) Configuration of `dsteem` to use the proper connection and network.
+1.  [**Query**](#query) Query the path which we want to extract from Steem blockchain state.
+1.  [**Formatting**](#formatting) Formatting the JSON object to be viewed in a simple user interface.
 
-**1. Configure connection**
+#### 1. App setup<a name="app-setup"></a>
+
 Below we have `dsteem` pointing to the main network with the proper chainId, addressPrefix and connection server.
 There is a `public/app.js` file which holds the Javascript segment of this tutorial. In the first few lines we define and configure library and packages.
 
@@ -34,7 +35,7 @@ const md = new Remarkable({ html: true, linkify: true });
 
 `remarkable` is assigned to the variable `md` with linkify and html options, allowing us to parse markdown links and html properly.
 
-#### 2. Query
+#### 2. Query<a name="query"></a>
 
 Next, we have the `main` function which runs when the page is loaded.
 
@@ -218,7 +219,7 @@ The following is an example of the returned object:
 }
 ```
 
-#### 3. Formatting
+#### 3. Formatting<a name="formatting"></a>
 
 Next we will format the above object properly to view in a simple user interface. From the above object, we are only interested in the `content` object which holds the data we require.
 

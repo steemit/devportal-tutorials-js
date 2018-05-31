@@ -12,11 +12,11 @@ Accounts have unique `permlink` - permanent link for each of their posts. And St
 
 ## Steps
 
-1.  **Fetching posts** Trending posts list
-1.  **Post content** Extract content of the selected post
-1.  **Query result** Returned data
+1.  [**Fetching posts**](#fetch-posts) Trending posts list
+1.  [**Post content**](#post-content) Extract content of the selected post
+1.  [**Query result**](#query-result) Returned data
 
-#### 1. Fetching posts
+#### 1. Fetching posts<a name="fetch-posts"></a>
 
 As mentioned in our previous tutorial we can fetch various lists of posts with different filters. Here, we are reusing some parts of that tutorial to list the top 5 trending posts.
 
@@ -28,7 +28,7 @@ var query = {
 };
 ```
 
-#### 2. Post content
+#### 2. Post content<a name="post-content"></a>
 
 On selection of a particular post from the list, `openPost` function is fired. This function will call the `get_content` function to fetch content of the post. `get_content` requires author and permlink of the post to fetch its data.
 
@@ -57,7 +57,7 @@ document.getElementById('postBody').style.display = 'none';
 
 The "go back" function simply hides and shows the post list.
 
-#### 3. Query result
+#### 3. Query result<a name="query-result"></a>
 
 The result is returned from the post content as a `JSON` object with the following properties:
 

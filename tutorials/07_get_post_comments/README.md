@@ -12,15 +12,15 @@ Each post might have comments/replies that is interesting and contributes to the
 
 ## Steps
 
-1.  **Fetching posts** Getting trending posts
-1.  **Post comments** Open post and fetch comments
-1.  **Query result** Result of the query
+1.  [**Fetching posts**](#fetching-posts) Getting trending posts
+1.  [**Post comments**](#post-comments) Open post and fetch comments
+1.  [**Query result**](#query-result) Result of the query
 
-#### 1. Fetching post
+#### 1. Fetching post<a name="fetching-posts"></a>
 
 As mentioned in our previous tutorials we can fetch various lists of posts with different filters. Here, we are reusing some parts of that tutorial to list the top 5 trending posts. And we parse content of selected post to display few fields in a meaningful way.
 
-#### 2. Post comments
+#### 2. Post comments<a name="post-comments"></a>
 
 On selection of a particular post from the list, `openPost` function is fired as it is explained in [**Get Post Details**]() tutorial. This function will call the `get_content` function to fetch content of the post. Right after root post is displayed properly, we use `get_content_replies` function to fetch comments made on that post, function requires author and permlink of the root post to fetch its comments.
 
@@ -57,7 +57,7 @@ document.getElementById('postComments').style.display = 'none';
 
 The "go back" function simply hides and shows the post list.
 
-#### 3. Query result
+#### 3. Query result<a name="query-result"></a>
 
 The result is returned from the post content as a `JSON` object with the following properties:
 

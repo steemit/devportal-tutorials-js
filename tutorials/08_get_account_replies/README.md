@@ -12,11 +12,11 @@ We are using `get_state` function with `dsteem`, which is straight-forward and t
 
 ## Steps
 
-1.  **Setup app** Setup app packages
-1.  **Query result** Form a proper query and retrieve result
-1.  **Display replies** Parse and display result in user interface
+1.  [**App setup**](#app-setup) Setup app packages
+1.  [**Query result**](#query-result) Form a proper query and retrieve result
+1.  [**Display replies**](#display-replies) Parse and display result in user interface
 
-#### 1. Setup app
+#### 1. App setup<a name="app-setup"></a>
 
 As usual, we have `public/app.js` file which holds the javascript part of the tutorial. In first few lines we define, configure library and packages.
 
@@ -37,7 +37,7 @@ const md = new Remarkable({ html: true, linkify: true });
 `dsteem` is pointing to the main network and proper chain_id, addressPrefix and connection server.
 `remarkable` is assigned to `md` variable with linkify and html options, allowing markdown parsing links and html properly.
 
-#### 2. Query result
+#### 2. Query result<a name="query-result"></a>
 
 Next, we have `main` function which fires when page is loaded.
 
@@ -221,7 +221,7 @@ Following is example of returned object:
 }
 ```
 
-#### 3. Display replies
+#### 3. Display replies<a name="display-replies"></a>
 
 Next we will format above object properly in simple user interface. From above object, we are only interested in `content` object which holds the data we queried.
 

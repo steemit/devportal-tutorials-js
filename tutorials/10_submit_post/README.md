@@ -10,11 +10,11 @@ We are using the `client.broadcast.comment` function provided by `dsteem` which 
 
 ## Steps
 
-1.  **Configure connection.** Configuration of `dsteem` to use the proper connection and network.
-1.  **Fetch Steem Post or Comment data.** Defining information variables with the `submitpost` function.
-1.  **Format and Broadcast.** Formatting the comments and submitting to the blockchain.
+1.  [**App setup**](#app-setup) Configuration of `dsteem` to use the proper connection and network.
+1.  [**Fetch Steem Post or Comment data**](#fetch-content) Defining information variables with the `submitpost` function.
+1.  [**Format and Broadcast**](#format-broadcast) Formatting the comments and submitting to the blockchain.
 
-#### 1. Configure connection
+#### 1. App setup<a name="app-setup"></a>
 
 Below we have `dsteem` pointing to the test network with the proper chainId, addressPrefix, and endpoint. Because this tutorial is interactive, we will not publish test content to the main network. Instead, we're using the testnet and a predefined account to demonstrate post publishing.
 There is a `public/app.js` file which holds the Javascript segment of this tutorial. In the first few lines we define the configured library and packages:
@@ -30,7 +30,7 @@ opts.chainId =
 const client = new dsteem.Client('https://testnet.steem.vc', opts);
 ```
 
-#### 2. Fetch Steem Post or Comment data.
+#### 2. Fetch Steem Post or Comment data<a name="fetch-content"></a>
 
 Next, we have the `submitPost` function which executes when the Submit post button is clicked.
 
@@ -58,7 +58,7 @@ const permlink = Math.random()
 
 The `getElementById` function is used to obtain data from the HTML elements and assign them to constants. Tags are separated by spaces in this example and stored in an array list called `taglist` for later use. However, the structure of how to enter tags depends on your needs. Posts on the blockchain can hold additional information in the `json_metadata` field, such as the `tags` list which we have assigned. Posts must also have a unique permanent link scoped to each account. In this case we are just creating a random character string.
 
-#### 3. Format and Broadcast
+#### 3. Format and Broadcast<a name="format-broadcast"></a>
 
 The next step is to pass all of these elements in **2.** to the `client.broadcast.comment` function.
 
