@@ -1,6 +1,6 @@
 # Steemconnect
 
-_By the end of this tutorial you would know how to get started with Steemconnect on your Steem application._
+_Understand the basics of using Steemconnect with your Steem application._
 
 In this tutorial we will setup Steemconnect for demo application and step by step show the process of setting up dedicated account for your app to use Steemconnect Dashboard and setup backend of your application to use Steemconnect authorization properly.
 
@@ -38,17 +38,17 @@ Setting up Steemconnect in your app is straight-forward process and never been t
 
 Here are the steps that helps you to setup new app:
 
-1.  Visit [Steemconnect Dashboard](https://steemconnect.com/dashboard) and login with your Steem credentials
+1a.  Visit [Steemconnect Dashboard](https://steemconnect.com/dashboard) and login with your Steem credentials
 
 ![steemconnect_login](./images/steemconnect_login.png)
 
-2.  You will see Applications and Developers section, in Developers section click on `My Apps`
+1b.  You will see Applications and Developers section, in Developers section click on `My Apps`
 
 ![steemconnect_dashboard](./images/steemconnect_dashboard.png)
 
 ![steemconnect_new_app](./images/steemconnect_new_app.png)
 
-3.  Create New App using Steemconnect, which will help you create new Steem account for your application. Let's call it `demo-app` for this tutorial purpose.
+1c.  Create New App using Steemconnect, which will help you create new Steem account for your application. Let's call it `demo-app` for this tutorial purpose.
 
 ![steemconnect_account_create](./images/steemconnect_account_create.png)
 
@@ -58,7 +58,7 @@ Next step is to login with account which has enough balance to pay for account c
 
 ![steemconnect_signin](./images/steemconnect_signin.png)
 
-4.  Give your app name, description, icon image link, website (if available) and Redirect URI(s)
+1d.  Give your app name, description, icon image link, website (if available) and Redirect URI(s)
 
 ![steemconnect_myapps](./images/steemconnect_myapps.png)
 
@@ -106,7 +106,7 @@ Now that `sc2-sdk` is initialized we can start authentication and perform simple
 
 > In order to logout, you can use `revokeToken` function from sc2-sdk.
 
-That's all there is to it.
+**That's all there is to it.**
 
 ### To Run the tutorial
 
