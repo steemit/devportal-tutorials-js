@@ -8,7 +8,7 @@ This tutorial will take you through the process of preparing and streaming block
 
 Tutorial is demonstrating the typical process of streaming blocks on Steem. We will show some information from each block that is being streamed to give you an idea. Each block contains transactions objects as well but we will not show each of this data in user interface.
 
-We are using the `blockchain.getBlockStream` function provided by `dsteem` which returns each block after it has been accepted by witnesses. We will then extract part of this data and show it in list.
+We are using the `blockchain.getBlockStream` function provided by `dsteem` which returns each block after it has been accepted by witnesses. By default it follows irreversible blocks which was accepted by all witnesses. Function follows or gets blocks every 3 seconds so it would not miss any new blocks. We will then extract part of this data and show it in list.
 
 ## Steps
 
