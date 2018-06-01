@@ -9,7 +9,7 @@ This tutorial will show the method of obtaining the relevant inputs for the rebl
 We are using the `client.broadcast` function provided by `dsteem` to reblog the selected blogpost. There are 4 variables that are required to perform this action:
 
 *   The account name that is doing the reblog
-*   The private posting key of the account that is doing the reblog
+*   The private _posting_ key of the account that is doing the reblog (this is not your main key)
 *   The author of the post that is being reblogged
 *   The title of the post that is being reblogged
 
@@ -36,13 +36,14 @@ let opts = {};
 opts.addressPrefix = 'STM';
 opts.chainId =
     '0000000000000000000000000000000000000000000000000000000000000000';
-//connect to server which is connected to the production network
+//connect to a Steem node. This is currently setup on production, but we recommend using a testnet like https://testnet.steem.vc
 const client = new dsteem.Client('https://api.steemit.com', opts);
 ```
 
 #### 2. Collecting information<a name="collecting_information"></a>
 
-Next we have the `submitPost` function that collects the required fields for the reblog process via an HTML interface after wich we assign them to the created variables.
+Next we have the `submitPost` function that collects the required fields for the reblog process via an HTML interface
+after wich we assign them to variables for use later.
 
 ```javascript
 //this function will execute when the HTML form is submitted
@@ -90,7 +91,8 @@ client.broadcast.json(data, privateKey).then(
 );
 ```
 
-There are also two `console` functions defined in order to track if the reblog was successful or not. If the broadcast succeeds the `console.log` will show the following:
+There are also two `console` functions an a ui output under **Resteem Results** defined in order to track if the reblog
+as successful or not. If the broadcast succeeds the `console.log` will show the following:
 
 client broadcast result:
 

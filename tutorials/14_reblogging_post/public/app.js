@@ -7,7 +7,8 @@ opts.chainId =
     '0000000000000000000000000000000000000000000000000000000000000000';
 //connect to a Steem node. This is currently setup on production, but we recommend using a testnet like https://testnet.steem.vc
 const client = new dsteem.Client('https://api.steemit.com', opts);
-
+window.client = client;
+window.dsteem = dsteem;
 //This is a convenience function for the UI.
 window.autofillAuthorAndPermlink = function(el) {
     console.log('thank you for using autofill', el);
@@ -46,16 +47,15 @@ function fetchBlog() {
         });
 }
 
-//this function will execute when the HTML form is submitted
+//this function will execute when the "Resteem!" button is clicked
 window.submitPost = async () => {
     resteemOutput('preparing to submit');
     //get private key
     try {
-        console.log(document.getElementById('postingKey').value);
-        const privateKey = dsteem.PrivateKey.fromString(
+        const privateKey = dsteem.PrivateKey.from(
             document.getElementById('postingKey').value
         );
-        console.log('success');
+
         //get account name
         const myAccount = document.getElementById('username').value;
         //get blog author
