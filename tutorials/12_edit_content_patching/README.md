@@ -2,7 +2,7 @@
 
 _By the end of this tutorial you should know how to patch post edits to Steem._
 
-This tutorial will take you through the process of preparing and patching post using the b`roadcast.comment` operation. Being able to patch a post is critical to save resources on Steem.
+This tutorial will take you through the process of preparing and patching post using the `broadcast.comment` operation. Being able to patch a post is critical to save resources on Steem.
 
 ## Intro
 
@@ -13,12 +13,12 @@ We are using the `broadcast.comment` function provided by `dsteem` which generat
 
 ## Steps
 
-1.  **Configure testnet** Testnet connection should be established with proper configurations
-1.  **Get latest post** Get @demo's latest post for editing
-1.  **Creating patch** Creating patch with new edited text
-1.  **Submit a patch** Submit newly formatted post
+1.  [**Configure testnet**](#configure-app) Testnet connection should be established with proper configurations
+1.  [**Get latest post**](#get-post) Get @demo's latest post for editing
+1.  [**Creating patch**](#create-patch) Creating patch with new edited text
+1.  [**Submit a patch**](#submit-patch) Submit newly formatted post
 
-#### 1. Configure testnet
+#### 1. Configure testnet<a name="configure-app"></a>
 
 As usual, we have a file called `public/app.js`, which holds the Javascript segment of the tutorial. In the first few lines, we have defined the configured library and packages:
 
@@ -35,7 +35,7 @@ const client = new dsteem.Client('https://testnet.steem.vc', opts);
 
 Above, we have `dsteem` pointing to the test network with the proper chainId, addressPrefix, and endpoint. Because this tutorial is interactive, we will not publish test content to the main network. Instead, we're using testnet and a predefined account to demonstrate post patching.
 
-#### 2. Get latest post
+#### 2. Get latest post<a name="get-post"></a>
 
 Next, we have a `main` function which fires at on-load and fetches latest blog post of `@demo` account and fills in the form with relevant information.
 
@@ -60,7 +60,7 @@ client.database
 
 Notice, we are only fetching a single blog post by specifying a `limit` and we have filled all necessary fields/variables with the old content.
 
-#### 3. Creating patch
+#### 3. Creating patch<a name="create-patch"></a>
 
 We have created a small function called `createPatch` to patch edits to the old content.
 
@@ -77,7 +77,7 @@ function createPatch(text, out) {
 
 The `createPatch` function computes a list of patches to turn old content to edited content.
 
-#### 4. Submit a patch
+#### 4. Submit a patch<a name="submit-patch"></a>
 
 Next, we have the `submitPost` function, which executes when the Submit button is clicked.
 
@@ -169,7 +169,7 @@ After the post has been broadcasted to the network, we can simply set all the fi
 ### To Run the tutorial
 
 1.  clone this repo
-1.  `cd tutorials/11_submit_comment_reply`
+1.  `cd tutorials/12_edit_content_patching`
 1.  `npm i`
 1.  `npm run dev-server` or `npm run start`
 1.  After a few moments, the server should be running at [http://localhost:3000/](http://localhost:3000/)
