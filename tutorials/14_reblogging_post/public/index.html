@@ -5,18 +5,49 @@
     </head>
     <body>
         <div class="container" id="content"><br/>
+            <h1>Re-blog post</h1>
+            <p>
+                This tutorial encourages experimentation. You can choose from one of the <i>Trending posts</i> that appear below,
+                or you can type in your own author and permlink to re-steem. Please note that by default this tutorial
+                is configured to run on the main network; any re-steems go onto the chain forever! If you want to play
+                with this tutorial in a safer environment, we suggest using a testnet ex:https://testnet.steem.vc.
+            </p>
             <h4>Trending posts</h4>
-            <ul id="postList">
-                <li>Loading...</li>
-            </ul>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            Resteem
+                        </th>
+                        <th>
+                            Author
+                        </th>
+                        <th>
+                            Permlink
+                        </th>
+                    </tr>
+                </thead>
+                <tbody id="postList">
+                    <tr>
+                        <td colspan="99">
+                            <b>Loading...</b>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
             <h4>Data required to resteem a post</h4>
             Account username that will resteem: <input id="username" type="text" size="65" value="" class="form-control"><br/>
-            Posting private key: <input id="postingKey" type="password" size="65" value="" class="form-control"><br/>
+            Posting private key: <input id="postingKey" type="text" size="65" value="" class="form-control"><br/>
             The author to resteem: <input id="theAuthor" type="text" size="65" value="" class="form-control"><br/>
             The Post to resteem: <input id="thePermLink" type="text" size="65" value="" class="form-control"><br/>
             <input id="submitPostBtn" type="button" value="Resteem!" onclick="submitPost()" class="btn btn-primary">
             <div id="postLink" style="display: none;">
             </div>
+            <h4>Resteem Results</h4>
+            (see console log for actual object)
+            <pre id="results">
+
+            </pre>
         </div>
     </body>
 </html>
