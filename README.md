@@ -23,7 +23,7 @@ The tutorials build on each other. It's suggested you go through them in-order.
 10. [Submit post](tutorials/10_submit_post) - How properly format and submit post
 11. [Submit comment](tutorials/11_submit_comment_reply) - How to submit reply to particular post
 12. [Edit content](tutorials/12_edit_content_patching) - How to properly patch edited content and submit edits
-
+14. [Reblog/Resteem a post](tutorials/14_reblogging_post) - How to reblog/resteem a post
 
 ## To Run one of the tutorials
 
@@ -32,19 +32,23 @@ Use the command line/terminal for the following instructions
 1.  clone this repo
 
     `git clone git@github.com:steemit/devportal.git`
+
 1.  cd into the tutorial you wish to run
 
     ex: `cd tutorials/11_submit_comment_reply`
-1.  Use npm or yarn to install dependencies
-    
-    ex: `npm i`
-1.  Run the tutorial
- 
-    `npm run dev-server` or `npm run start`
-1.   After a few moments, the server should be running at 
-    [http://localhost:3000/](http://localhost:3000/)
-    
-## Contributing
-If you're interested in contributing a tutorial to this repo. Please have a look at 
-[the guidelines](./tutorials/tutorial_structure.md) for the text portion of the tutorial..
 
+1.  Use npm or yarn to install dependencies
+
+    ex: `npm i`
+
+1.  Run the tutorial
+
+    `npm run dev-server` or `npm run start`
+
+1.  After a few moments, the server should be running at
+    [http://localhost:3000/](http://localhost:3000/)
+
+## Contributing
+
+If you're interested in contributing a tutorial to this repo. Please have a look at
+[the guidelines](./tutorials/tutorial_structure.md) for the text portion of the tutorial..

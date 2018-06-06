@@ -1,16 +1,23 @@
-# Purpose
+# Submit Post
 
-**How to Submit a Post** by demonstrating the typical process of preparing content and then using the broadcast operation.
+_By the end of this tutorial you should know how to prepare comments for Steem and then submit using the broadcast.comment function._
 
-We will focus on properly formatting the content followed by broadcasting the transaction with a `demo` account.
+This tutorial will show the method of properly formatting content followed by broadcasting the information to the steem blockchain using a `demo` account on the `testnet`.
 
-## Description
+## Intro
 
-We are using the `broadcast.comment` function provided by `dsteem` which generates, signs, and broadcast the transaction to the network. On the Steem platform, posts and comments are all internally stored as a `comment` object, differentiated by whether or not a `parent_author` exists. When there is no `parent_author`, the it's a post, when there is, it's a comment.
+We are using the `client.broadcast.comment` function provided by `dsteem` which generates, signs, and broadcasts the transaction to the network. On the Steem platform, posts and comments are all internally stored as a `comment` object, differentiated by whether or not a `parent_author` exists. When there is no `parent_author`, then it's a post, otherwise it's a comment.
 
-## Tutorial steps
+## Steps
 
-As usual, we have a `public/app.js` file which holds the Javascript segment of the tutorial. In the first few lines we define the configured library and packages:
+1.  [**App setup**](#app-setup) Configuration of `dsteem` to use the proper connection and network.
+1.  [**Fetch Steem Post or Comment data**](#fetch-content) Defining information variables with the `submitpost` function.
+1.  [**Format and Broadcast**](#format-broadcast) Formatting the comments and submitting to the blockchain.
+
+#### 1. App setup<a name="app-setup"></a>
+
+Below we have `dsteem` pointing to the test network with the proper chainId, addressPrefix, and endpoint. Because this tutorial is interactive, we will not publish test content to the main network. Instead, we're using the testnet and a predefined account to demonstrate post publishing.
+There is a `public/app.js` file which holds the Javascript segment of this tutorial. In the first few lines we define the configured library and packages:
 
 ```javascript
 const dsteem = require('dsteem');
@@ -23,7 +30,7 @@ opts.chainId =
 const client = new dsteem.Client('https://testnet.steem.vc', opts);
 ```
 
-Above, we have `dsteem` pointing to the test network with the proper chainId, addressPrefix, and endpoint. Because this tutorial is interactive, we will not publish test content to the main network. Instead, we're using testnet and a predefined account to demonstrate post publishing.
+#### 2. Fetch Steem Post or Comment data<a name="fetch-content"></a>
 
 Next, we have the `submitPost` function which executes when the Submit post button is clicked.
 
@@ -47,7 +54,16 @@ const json_metadata = JSON.stringify({ tags: taglist });
 const permlink = Math.random()
     .toString(36)
     .substring(2);
+```
 
+The `getElementById` function is used to obtain data from the HTML elements and assign them to constants. Tags are separated by spaces in this example and stored in an array list called `taglist` for later use. However, the structure of how to enter tags depends on your needs. Posts on the blockchain can hold additional information in the `json_metadata` field, such as the `tags` list which we have assigned. Posts must also have a unique permanent link scoped to each account. In this case we are just creating a random character string.
+
+#### 3. Format and Broadcast<a name="format-broadcast"></a>
+
+The next step is to pass all of these elements in **2.** to the `client.broadcast.comment` function.
+
+```javascript
+//broadcast post to the testnet
 client.broadcast
     .comment(
         {
@@ -81,24 +97,14 @@ client.broadcast
     );
 ```
 
-As you can see from the above function, we get the relevant values from the defined fields. Tags are separated by spaces in this example, but the structure of how to enter tags totally depends on your needs. We have separated tags with whitespaces and stored them in an array list called `taglist`, for later use. Posts on the blockchain can hold additional information in the `json_metadata` field, such as the `tags` list which we have assigned. Posts must also have a unique permanent link scoped to each account. In this case we are just creating a random character string.
+Note that the `parent_author` and `parent_permlink` fields are used for replies (also known as comments). In this example, since we are publishing a post instead of a comment/reply, we will have to leave `parent_author` as an empty string and assign the first tag to `parent_permlink`.
 
-The next step is to pass all of these parameters to the `client.broadcast.comment` function. Note that in parameters you can see the `parent_author` and `parent_permlink` fields, which are used for replies (also known as comments). In our example, since we are publishing a post instead of a comment/reply, we will have to leave `parent_author` as an empty string and assign `parent_permlink` from the first tag.
+After the post has been broadcast to the network, we can simply set all the fields to empty strings and show the post link to check it from a condenser instance running on the selected testnet.
 
-After the post has been broadcasted to the network, we can simply set all the fields to empty strings and show the post link to check it from a condenser instance running on the selected testnet. That's it!
+### To Run the tutorial
 
-## How To run
-
-*   clone this repo
-*   `cd tutorials/10_submit_post`
-*   `npm i`
-*   `npm run start`
-
-**To run in development mode**
-
-> Running in development mode will start a web server accessible from the following address: `http://localhost:3000/`. When you update your code, the browser will automatically refresh to see your changes.
-
-*   clone this repo
-*   `cd tutorials/10_submit_post`
-*   `npm i`
-*   `npm run dev-server`
+1.  clone this repo
+1.  `cd tutorials/10_submit_post`
+1.  `npm i`
+1.  `npm run dev-server` or `npm run start`
+1.  After a few moments, the server should be running at [http://localhost:3000/](http://localhost:3000/)

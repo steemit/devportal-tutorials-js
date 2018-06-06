@@ -1,28 +1,109 @@
-# Get posts with filter
+# Get posts using filters & tags
+
+Query for the most recent posts having a specific tag, using a Steem filter
 
 This tutorial pulls a list of the posts from different tags or filters and displays them.
+Tags and filters are different. It's important to understand them.
 
-## Filters
+## Intro
 
-In Steem there are built-in filters `trending`, `hot`, `new`, `active`, `promoted` etc. which helps us to get list of posts. `client.database.getDiscussions(filter, query)` first argument of this function is one of above filter and library fetches posts from those filters.
+Tags & Filters are two different.
 
-## Query (tag, limit)
+A `tag` in Steem is much like a tag in Gmail, or Twitter. It's a way to describe a
+post as being relevant to a particular topic. Posts may have up to five tags on them, but there are limits when
+querying (more on this later).
 
-Second argument of `getDisccusions` function is query.
+A `filter` in Steem is a kind of built-in 'view' or ordering of posts. You can use the following filters:
+`trending`, `hot`, `new`, `active`, and `promoted`. You'll get a feel for the subtleties of each as you create your
+application.
 
-*   You can add a tag to filter the posts that you receive from the server, if this field is empty string it will fetch from full list of posts in that selected filter.
-*   You can also limit the number of results you would like to receive from the query
+## Steps
+
+1.  [**UI**](#UI) - A brief description of the UI and inputting our query values
+1.  [**Construct query**](#Construct-query) - Assemble the information from the UI into our `filter` & `query`
+1.  [**API call**](#API-call) - Make the call to Steem
+1.  [**Handle response**](#Handle-response) - Accept the response in a promise callback, then render the results
+1.  [**Example post object**](#Example-post-object) - An example post object from the response list
+
+#### 1. UI <a name="UI"></a>
+
+The source HTML for our UI can be found in [public/index.html](./public/index.html)
+
+There are three input components to the UI.
+
+*   Filters: where we select one of the five built in filter types.
+
+    `<select id="filters" class="form-control" >...`
+
+*   Tag: where we type in a _single_, arbitrary tag. (The Steem blockchain does not support searching on multiple tags)
+
+    `<input id="tag" class="form-control"/>`
+
+*   Get Posts: It's a button. You click it, and we move on to assembling our post.
+    `<button class="btn btn-primary" onclick="getPosts()">Get Posts</button>`
+
+![Step-01-UI.png](images/Step-01-UI.png)
+
+#### 2. Construct query <a name="Construct-query"></a>
+
+The filter and query are constructed within the async, globally available function `getPosts`
+
+The `limit` property you see below limits the total number of posts we'll get back to something
+managable. In this case, five.
 
 ```javascript
-var query = {
-    tag: 'steem', // This tag is used to filter the results by a specific post tag
-    limit: 5, // This limit allows us to limit the number of results returned to 5
+const filter = document.getElementById('filters').value;
+const query = {
+    tag: document.getElementById('tag').value,
+    limit: 5,
 };
 ```
 
-## Query Result
+#### 3. API call <a name="API-call"></a>
 
-The result returned form the service is a `JSON` object with the following properties:
+The api call itself is fairly simple. We use `getDiscussions`.
+The first argument, filter, is a simple string.
+The second argument is our query object.
+Like most of dsteem's api functions, `getDiscussions` returns a [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise).
+
+```javascript
+client.database
+    .getDiscussions(filter, query)
+    .th..
+```
+
+#### 4. Handle response <a name="Handle-response"></a>
+
+When the promise returned by `getDiscussions` completes successfully, the function we pass to `.then()`
+iterates over the entries response, and constructs html from it.
+
+```javascript
+...ery)
+.then(result => {
+            console.log("Response received:", result);
+            if (result) {
+                var posts = [];
+                result.forEach(post => {
+                    const json = JSON.parse(post.json_metadata);
+                    const image = json.image ? json.image[0] : '';
+                    const title = post.title;
+                    const author = post.author;
+                    const created = new Date(post.created).toDateString();
+                    posts.push(
+                        `<div class="list-group-item"><h4 class="list-group-item-heading">${title}</h4><p>by ${author}</p><center><img src="${image}" class="img-responsive center-block" style="max-width: 450px"/></center><p class="list-group-item-text text-right text-nowrap">${created}</p></div>`
+                    );
+                });
+
+                document.getElementById('postList').innerHTML = posts.join('');
+            } else {
+                document.getElementById('postList').innerHTML = "No result.";
+            }
+        })
+```
+
+#### 5. Example post object <a name="Example-post-object"></a>
+
+The result returned from the service is a `JSON` list. This is an example list with one entry.
 
 ```json
 [
@@ -95,20 +176,12 @@ The result returned form the service is a `JSON` object with the following prope
 ]
 ```
 
-From this result you have access to everything associated to each post including additional metadata which is a `JSON` string that must be decoded to use. This `JSON` object has additional information and properties for the post including a reference to the image uploaded.
+**And that's all there is to getting top-level posts.** _See [Get post comments](../07_get_post_comments) for getting comments_
 
-## To run
+### To Run the tutorial
 
-*   clone this repo
-*   `cd tutorials/04_get_posts`
-*   `npm i`
-*   `npm run start`
-
-## To run in development mode
-
-> Running in development mode will start a web server accessible from the following address: `http://localhost:3000/`. When you update the code the browser will automatically refresh to see your changes
-
-*   clone this repo
-*   `cd tutorials/04_get_posts`
-*   `npm i`
-*   `npm run dev-server`
+1.  clone this repo
+1.  `cd tutorials/04_get_posts`
+1.  `npm i`
+1.  `npm run dev-server` or `npm run start`
+1.  After a few moments, the server should be running at [http://localhost:3000/](http://localhost:3000/)
