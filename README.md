@@ -23,7 +23,8 @@ The tutorials build on each other. It's suggested you go through them in-order.
 10. [Submit post](tutorials/10_submit_post) - How properly format and submit post
 11. [Submit comment](tutorials/11_submit_comment_reply) - How to submit reply to particular post
 12. [Edit content](tutorials/12_edit_content_patching) - How to properly patch edited content and submit edits
-14. [Reblog/Resteem a post](tutorials/14_reblogging_post) - How to reblog/resteem a post
+13. [Reblog/Resteem a post](tutorials/14_reblogging_post) - How to reblog/resteem a post
+14. [Search accounts](tutorials/15_search_accounts) - Search for user accounts by partial username
 
 ## To Run one of the tutorials
 
