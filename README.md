@@ -25,6 +25,7 @@ The tutorials build on each other. It's suggested you go through them in-order.
 12. [Edit content](tutorials/12_edit_content_patching) - How to properly patch edited content and submit edits
 13. [Stream Blockchain](tutorials/13_stream_blockchain_transactions) - How to stream blockchain transactions as they accepted by network
 14. [Reblog/Resteem a post](tutorials/14_reblogging_post) - How to reblog/resteem a post
+15. [Search accounts](tutorials/15_search_accounts) - Search for user accounts by partial username
 
 ## To Run one of the tutorials
 
