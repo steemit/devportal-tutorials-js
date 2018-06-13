@@ -15,12 +15,13 @@ A simple HTML interface is used to both capture the string query as well as disp
 
 ## steps
 
-1.  **Configure connection** Configuration of `dsteem` to use the proper connection and network.
-2.  **Collecting input variables** Assigning and collecting the necessary variables
-3.  **Blockchain query** Finding the data on the blockchain based on the inputs
-4.  **Output** Displaying query results
+1. [**Configure connection**](#configure_connection) Configuration of `dsteem` to use the proper connection and network.
+2. [**Collecting input variables**](#collecting_input_variables) Assigning and collecting the necessary variables
+3. [**Blockchain query**](#blockchain_query) Finding the data on the blockchain based on the inputs
+4. [**Output**](#output) Displaying query results
 
-5.  **Configure connection**
+
+#### 1. **Configure connection**<a name="configure_connection"></a>
 
 Below we have `dsteem` pointing to the production network with the proper chainId, addressPrefix, and endpoint. There is a `public/app.js` file which holds the Javascript segment of this tutorial. In the first few lines we define the configured library and packages:
 
@@ -35,7 +36,7 @@ opts.chainId =
 const client = new dsteem.Client('https://api.steemit.com');
 ```
 
-2.  **Collecting input variables**
+#### 2.  **Collecting input variables**<a name="collecting_input_variables"></a>
 
 Next we assign the max number of lines that will be returned by the query. We also use `getElementById` to retrieve the requested user name for searching from the HTML interface. The `max` value can very easily also be attained from the HTML side simply by adding another input line in `index.html` and a second `getElementById` line.
 
@@ -45,7 +46,7 @@ window.submitAcc = async () => {
     const accSearch = document.getElementById("username").value;
 ```
 
-3.  **Blockchain query**
+#### 3.  **Blockchain query**<a name="blockchain_query"></a>
 
 The next step is to pull the user names from the blockchain that matches the "username" variable that was retrieved. This is done using the `database.call` function and assigning the result to an array.
 
@@ -54,7 +55,7 @@ const _accounts = await client.database.call('lookup_accounts',[accSearch, max])
     console.log(`_accounts:`, _accounts);
 ```
 
-4.  **Output**
+#### 4.  **Output**<a name="output"></a>
 
 Finally we create a list from the "\_accounts" array generated in step 3.
 
