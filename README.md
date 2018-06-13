@@ -23,7 +23,9 @@ The tutorials build on each other. It's suggested you go through them in-order.
 10. [Submit post](tutorials/10_submit_post) - How properly format and submit post
 11. [Submit comment](tutorials/11_submit_comment_reply) - How to submit reply to particular post
 12. [Edit content](tutorials/12_edit_content_patching) - How to properly patch edited content and submit edits
+13. [Stream Blockchain](tutorials/13_stream_blockchain_transactions) - How to stream blockchain transactions as they accepted by network
 14. [Reblog/Resteem a post](tutorials/14_reblogging_post) - How to reblog/resteem a post
+15. [Search accounts](tutorials/15_search_accounts) - Search for user accounts by partial username
 
 ## To Run one of the tutorials
 
@@ -31,11 +33,11 @@ Use the command line/terminal for the following instructions
 
 1.  clone this repo
 
-    `git clone git@github.com:steemit/devportal.git`
+    `git clone git@github.com:steemit/devportal-tutorials-js.git`
 
 1.  cd into the tutorial you wish to run
 
-    ex: `cd tutorials/11_submit_comment_reply`
+    ex: `cd tutorials/01_blog_feed`
 
 1.  Use npm or yarn to install dependencies
 
