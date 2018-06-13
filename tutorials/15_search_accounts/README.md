@@ -13,7 +13,7 @@ We are using the `call` function provided by the `dsteem` library to pull user n
 
 A simple HTML interface is used to both capture the string query as well as display the completed search. The layout can be found in the "index.html" file.
 
-## steps
+## Steps
 
 1. [**Configure connection**](#configure_connection) Configuration of `dsteem` to use the proper connection and network.
 2. [**Collecting input variables**](#collecting_input_variables) Assigning and collecting the necessary variables
