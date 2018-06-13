@@ -12,7 +12,7 @@ This tutorial will show the method of capturing a queried tag name and matching 
 
  1. [**Configure connection**](#configure-conn) Configuration of `dsteem` to use the proper connection and network.
  2. [**Search input**](#search-input) Collecting the relevant search criteria
- 3. [**Run Search**](#run_search) Running the search on the blockchain
+ 3. [**Run Search**](#run-search) Running the search on the blockchain
  4. [**Output**](#output) Displaying the results of the search query
 
 #### 1. Configure connection <a name="configure-conn"></a>
@@ -30,7 +30,7 @@ opts.chainId =
 const client = new dsteem.Client('https://api.steemit.com');
 ```
 
-#### 2. Search input <a name="seach-input"></a>
+#### 2. Search input <a name="search-input"></a>
 
 Collecting of the search criteria happens via an HTML input. The form can be found in the `index.html` file. The values are pulled from that screen with the below:
 
