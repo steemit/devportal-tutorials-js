@@ -71,7 +71,7 @@ document.getElementById('tagList').innerHTML = posts.join('<br>');
 ### To run this tutorial
 
 1.  clone this repo
-1.  `cd tutorials/15_search_tags`
+1.  `cd tutorials/16_search_tags`
 1.  `npm i`
 1.  `npm i`
 1.  `npm run dev-server` or `npm run start`
