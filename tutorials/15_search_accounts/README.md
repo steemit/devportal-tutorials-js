@@ -69,7 +69,5 @@ document.getElementById('accList').innerHTML = _accounts.join('<br>');
 1.  clone this repo
 2.  `cd tutorials/15_search_accounts`
 3.  `npm i`
-4.  `npm run start`
-
-To run this tutorial in development mode simply replace the last statement with `npm run dev-server`
-Running in dev mode will start the same web server accessible from `http://localhost:3000/` but will also automatically refresh your browser with any changes you make to the code.
+1.  `npm run dev-server` or `npm run start`
+1.  After a few moments, the server should be running at [http://localhost:3000/](http://localhost:3000/)
