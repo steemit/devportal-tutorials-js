@@ -1,8 +1,8 @@
-# Search Tags
+# Search for Tags
 
-*By the end of this tutorial you should know how to run a search for trending tags*
+_By the end of this tutorial you should know how to run a search for trending tags_
 
-This tutorial will be run on the `production server`.
+This tutorial runs on the main Steem blockchain.
 
 ## Intro
 
@@ -10,10 +10,10 @@ This tutorial will show the method of capturing a queried tag name and matching 
 
 ## steps
 
- 1. [**Configure connection**](#configure-conn) Configuration of `dsteem` to use the proper connection and network.
- 2. [**Search input**](#search-input) Collecting the relevant search criteria
- 3. [**Run Search**](#run-search) Running the search on the blockchain
- 4. [**Output**](#output) Displaying the results of the search query
+1.  [**Configure connection**](#configure-conn) Configuration of `dsteem` to use the proper connection and network.
+2.  [**Search input**](#search-input) Collecting the relevant search criteria
+3.  [**Run Search**](#run-search) Running the search on the blockchain
+4.  [**Output**](#output) Displaying the results of the search query
 
 #### 1. Configure connection <a name="configure-conn"></a>
 
@@ -56,22 +56,23 @@ Due to the output from the `call` function being an array, we can't use a simple
 
 ```javascript
 console.log('tags: ', _tags);
-        var posts = [];
-        _tags.forEach(post => {
-            posts.push(
-                `<div class="list-group-item"><h5 class="list-group-item-heading">${post.name}</h5></div>`
-            );
-        });
+var posts = [];
+_tags.forEach(post => {
+    posts.push(
+        `<div class="list-group-item"><h5 class="list-group-item-heading">${
+            post.name
+        }</h5></div>`
+    );
+});
 //disply list of tags with line breaks
-    document.getElementById('tagList').innerHTML = posts.join('<br>');
+document.getElementById('tagList').innerHTML = posts.join('<br>');
 ```
 
 ### To run this tutorial
 
- 1. clone this repo
- 2. `cd tutorials/15_search_tags`
- 3. `npm i`
- 4. `npm run start`
-
- To run this tutorial in development mode simply replace the last statement with `npm run dev-server`
- Running in dev mode will start the same web server accessible from `http://localhost:3000/` but will also automatically refresh your browser with any changes you make to the code.
+1.  clone this repo
+1.  `cd tutorials/15_search_tags`
+1.  `npm i`
+1.  `npm i`
+1.  `npm run dev-server` or `npm run start`
+1.  After a few moments, the server should be running at [http://localhost:3000/](http://localhost:3000/)
