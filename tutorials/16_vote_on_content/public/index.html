@@ -1,0 +1,35 @@
+<html>
+    <head>
+        <title>Vote on Content</title>
+        <script src="bundle.js"></script>
+    </head>
+    <body>
+    	<div class="container" id="content"><br/>
+    		<h4>Submit a post to the Steem blockchain</h4>
+            Username: <input id="username" type="text" size="65" value="demo" class="form-control"><br/>
+            Posting private key: <input id="postingKey" type="password" size="65" value="5Jtbfge4Pk5RyhgzvmZhGE5GeorC1hbaHdwiM7pb5Z5CZz2YKUC" class="form-control"><br/>
+            Author: <input id="author" value="" type="text" size="20" /><br/>
+            Post Permlink: <input id="permlink" value="" type="text" size="20" /><br/>
+            
+            <div class="slidecontainer">
+                <p>Weight: <span id="currentWeight"></span>
+                  </p>
+                <input type="range" min="-10000" max="10000" value="0" class="slider" id="voteWeight">
+              </div>
+              <br/>
+
+            <input id="submitVoteBtn" type="button" value="Submit Vote" onclick="submitVote()" class="btn btn-primary">
+            <input id="clearFieldsBtn" type="button" value="Clear Fields" onclick="clearFields()" class="btn btn-primary">
+            <div id="postLink">
+            </div>
+        </div>
+        <script>
+        var slider = document.getElementById("voteWeight");
+        var output = document.getElementById("currentWeight");
+        output.innerHTML = slider.value;
+            slider.oninput = function() {
+                output.innerHTML = this.value;
+            }
+            </script>
+    </body>
+</html>
