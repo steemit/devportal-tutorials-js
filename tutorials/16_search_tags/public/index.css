@@ -1,0 +1,4 @@
+#replies img,
+#replies iframe {
+    max-width: 100%;
+}
