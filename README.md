@@ -27,6 +27,7 @@ The tutorials build on each other. It's suggested you go through them in-order.
 1.  [Reblog/Resteem a post](tutorials/14_reblogging_post) - How to reblog/resteem a post
 1.  [Search accounts](tutorials/15_search_accounts) - Search for user accounts by partial username
 1.  [Search for tags](tutorials/16_search_tags) - Search for trending tags
+1.  [Search for tags](tutorials/17_vote_on_content) - Vote on content
 
 ## To Run one of the tutorials
 
