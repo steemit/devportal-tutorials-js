@@ -77,6 +77,8 @@ Afterwich we can complete the `broadcast.vote` operation with the created object
 client.broadcast.vote(vote, privateKey);
 ```
 
+More information on how to use the `broadcast` operation and options surrounding the operation can be found [HERE](https://developers.steem.io/apidefinitions/#apidefinitions-broadcast-ops-comment)
+
 There is an additional button added to clear the input fields. This is not a necessary step but adds to the ease of use.
 
 ```javascript
