@@ -130,6 +130,8 @@ A successful comment will output something like the following to the console:
 
 That's all there is to it.
 
+More information on how to use the `broadcast` operation and options surrounding the operation can be found [HERE](https://developers.steem.io/apidefinitions/#apidefinitions-broadcast-ops-comment)
+
 ### To Run the tutorial
 
 1.  clone this repo

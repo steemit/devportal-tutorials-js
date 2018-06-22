@@ -166,6 +166,8 @@ The next step is to pass all of these parameters to the `client.broadcast.commen
 
 After the post has been broadcasted to the network, we can simply set all the fields to empty strings and show the post link to check it from a condenser instance running on the selected testnet. That's it!
 
+More information on how to use the `broadcast` operation and options surrounding the operation can be found [HERE](https://developers.steem.io/apidefinitions/#apidefinitions-broadcast-ops-comment)
+
 ### To Run the tutorial
 
 1.  clone this repo

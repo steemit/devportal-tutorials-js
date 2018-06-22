@@ -126,6 +126,8 @@ If the reblog fails the `console.log` will present a long line of error code:
 
 There is a line in the error log indicating "Account has already reblogged this post" indicating exactly that. This process can be run until a positive result is found.
 
+More information on how to use the `broadcast` operation and options surrounding the operation can be found [HERE](https://developers.steem.io/apidefinitions/#apidefinitions-broadcast-ops-comment)
+
 ## To run this tutorial
 
 1.  clone this repo
