@@ -1,0 +1,18 @@
+<html>
+    <head>
+        <title>Follow User</title>
+        <script src="bundle.js"></script>
+    </head>
+    <body>
+    	<div class="container" id="content"><br/>
+    		<h4>Follow / Unfollow an author</h4>
+            Your Username: <input id="username" type="text" size="65" value="demo" class="form-control"><br/>
+            Your Posting private key: <input id="postingKey" type="password" size="65" value="5Jtbfge4Pk5RyhgzvmZhGE5GeorC1hbaHdwiM7pb5Z5CZz2YKUC" class="form-control"><br/>
+            Author to follow/unfollow: <input id="author" type="text" size="20" value="steemitblog" /><br/>
+            <input id="followBtn" type="button" value="Follow / Unfollow !" onclick="submitFollow()" class="btn btn-primary">
+            <input id="clearFieldsBtn" type="button" value="Clear Fields" onclick="clearFields()" class="btn btn-primary">
+            <div id="postLink">
+            </div>
+		</div>
+    </body>
+</html>
