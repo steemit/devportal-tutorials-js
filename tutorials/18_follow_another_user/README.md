@@ -126,8 +126,9 @@ There is an additional button added to clear the input fields. This is not a nec
 
 ```javascript
 window.clearFields = function() {
+    document.getElementById('username').value = '';
+    document.getElementById('postingKey').value = '';
     document.getElementById('author').value = '';
-    document.getElementById('permlink').value = '';
 }
 ```
 
