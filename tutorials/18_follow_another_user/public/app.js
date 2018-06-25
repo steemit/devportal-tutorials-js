@@ -73,6 +73,13 @@ window.submitFollow = async () => {
             console.error(error);
         }
     );
+    if (type == 'blog') {
+        document.getElementById('followResult').outerHTML = "FOLLOWED";
+    } else {
+        document.getElementById('followResult').outerHTML = "UNFOLLOWED";
+    }
+    
+
 };
 
 //additional button added to clear fields

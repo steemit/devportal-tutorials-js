@@ -107,6 +107,8 @@ client.broadcast.json(data, privateKey).then(
     );
 ```
 
+If either of the values for the user or author does not exist the reslut of the operation will be an `unfollow`
+
 More information on how to use the `broadcast` operation and options surrounding the operation can be found [HERE](https://developers.steem.io/apidefinitions/#apidefinitions-broadcast-ops-comment)
 
 There is an additional button added to clear the input fields. This is not a necessary step but adds to the ease of use.
