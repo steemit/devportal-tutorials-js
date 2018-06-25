@@ -8,24 +8,20 @@
 // //connect to a steem node, testnet in this case
 // const client = new dsteem.Client('https://testnet.steem.vc', opts);
 
-
 const dsteem = require('dsteem');
 let opts = {};
-//define network parameters
+
+//connect to production server
 opts.addressPrefix = 'STM';
 opts.chainId =
     '0000000000000000000000000000000000000000000000000000000000000000';
-//connect to a steem node, production in this case
+//connect to server which is connected to the network/production
 const client = new dsteem.Client('https://api.steemit.com');
-
-
-
 
 //Step 2. user fills in the values for 'parent_author' and 'parent_permlink'
 
 //Follow function
 window.submitFollow = async () => {
-
     //get private key
     const privateKey = dsteem.PrivateKey.fromString(
         document.getElementById('postingKey').value
@@ -35,25 +31,34 @@ window.submitFollow = async () => {
     //get author permalink
     const following = document.getElementById('author').value;
 
-//Step 3. checking whether author is already followed
+    //Step 3. checking whether author is already followed
 
-    status = await client.call('follow_api', 'get_following', [follower, following, 'blog', 1]);
+    console.log({ follower: follower, following: following });
 
-    if (status == '') {
-        type = 'blog';
-    } else {
+    let status = await client.call('follow_api', 'get_following', [
+        follower,
+        following,
+        'blog',
+        1,
+    ]);
+
+    console.log({ status: status });
+
+    if (status.length > 0 && status[0].following == following) {
         type = '';
+    } else {
+        type = 'blog';
     }
-        
-//Step 4. follow and unfollow is executed by the same operation with a change in only one of the parameters
-    
+
+    //Step 4. follow and unfollow is executed by the same operation with a change in only one of the parameters
+
     const json = JSON.stringify([
         'follow',
         {
             follower: follower,
             following: following,
-            what: [type] //null value for unfollow, 'blog' for follow
-        }
+            what: [type], //null value for unfollow, 'blog' for follow
+        },
     ]);
 
     const data = {
@@ -70,19 +75,19 @@ window.submitFollow = async () => {
             console.log('user follow result: ', result);
         }, //to confirm that a block operation was done
         function(error) {
+            document.getElementById('message').innerHTML = error.message;
             console.error(error);
         }
     );
-    
+
     //to display current status
     if (type == 'blog') {
         console.log('followed');
-        document.getElementById('followResult').value = "FOLLOWED";
-    }   else {
+        document.getElementById('followResult').innerHTML = 'FOLLOWED';
+    } else {
         console.log('unfollowed');
-        document.getElementById('followResult').value = "UNFOLLOWED";
+        document.getElementById('followResult').innerHTML = 'UNFOLLOWED';
     }
-
 };
 
 //additional button added to clear fields
@@ -90,4 +95,4 @@ window.clearFields = function() {
     document.getElementById('username').value = '';
     document.getElementById('postingKey').value = '';
     document.getElementById('author').value = '';
-}
+};
