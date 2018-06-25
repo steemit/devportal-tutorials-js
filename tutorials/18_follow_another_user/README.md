@@ -28,17 +28,16 @@ As usual, we have a `public/app.js` file which holds the Javascript segment of t
 
 ```javascript
 const dsteem = require('dsteem');
-
-//define network parameters
 let opts = {};
-opts.addressPrefix = 'STX';
-opts.chainId = '79276aea5d4877d9a25892eaa01b0adf019d3e5cb12a97478df3298ccdd01673';
-//connect to a steem node, testnet in this case
-const client = new dsteem.Client('https://testnet.steem.vc', opts);
+//define network parameters
+opts.addressPrefix = 'STM';
+opts.chainId =
+    '0000000000000000000000000000000000000000000000000000000000000000';
+//connect to a steem node, production in this case
+const client = new dsteem.Client('https://api.steemit.com');
 ```
 
-Above, we have `dsteem` pointing to the test network with the proper chainId, addressPrefix, and endpoint.  
-Because this tutorial modifies the blockchain, we will use a testnet and a predefined account to demonstrate voting.
+Above, we have `dsteem` pointing to the production network with the proper chainId, addressPrefix, and endpoint, eventhough this tutorial modifies the blockchain. Because of this, care has to be given to the operation and parameters used.
 
 #### 2. Input variables<a name="input"></a>
 
@@ -100,11 +99,23 @@ Afterwhich the broadcast operation is executed with the created object and the p
 client.broadcast.json(data, privateKey).then(
         function(result) {
             console.log('user follow result: ', result);
-        },
+        }, //to confirm that a block operation was done
         function(error) {
             console.error(error);
         }
     );
+```
+
+Additionally we also display the current follow status of the author on the UI to give the user an idea of what to expect:
+
+```javascript
+if (type == 'blog') {
+        console.log('followed');
+        document.getElementById('followResult').value = "FOLLOWED";
+    }   else {
+        console.log('unfollowed');
+        document.getElementById('followResult').value = "UNFOLLOWED";
+    }
 ```
 
 If either of the values for the user or author does not exist the reslut of the operation will be an `unfollow`
