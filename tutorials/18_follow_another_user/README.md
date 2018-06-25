@@ -62,12 +62,21 @@ window.submitFollow = async () => {
 The current follow status for the author is called from the database and a variable is assigned in order to specify whether the follow operation should execute as `follow` or `unfollow`.
 
 ```javascript
-status = await client.call('follow_api', 'get_following', [follower, following, 'blog', 1]);
+console.log({ follower: follower, following: following });
 
-    if (status == '') {
-        type = 'blog';
-    } else {
+    let status = await client.call('follow_api', 'get_following', [
+        follower,
+        following,
+        'blog',
+        1,
+    ]);
+
+    console.log({ status: status });
+
+    if (status.length > 0 && status[0].following == following) {
         type = '';
+    } else {
+        type = 'blog';
     }
 ```
 
@@ -101,6 +110,7 @@ client.broadcast.json(data, privateKey).then(
             console.log('user follow result: ', result);
         }, //to confirm that a block operation was done
         function(error) {
+            document.getElementById('message').innerHTML = error.message;
             console.error(error);
         }
     );
@@ -111,10 +121,10 @@ Additionally we also display the current follow status of the author on the UI t
 ```javascript
 if (type == 'blog') {
         console.log('followed');
-        document.getElementById('followResult').value = "FOLLOWED";
-    }   else {
+        document.getElementById('followResult').innerHTML = 'FOLLOWED';
+    } else {
         console.log('unfollowed');
-        document.getElementById('followResult').value = "UNFOLLOWED";
+        document.getElementById('followResult').innerHTML = 'UNFOLLOWED';
     }
 ```
 
