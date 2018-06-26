@@ -75,8 +75,7 @@ window.submitFollow = async () => {
             console.log('user follow result: ', result);
         }, //to confirm that a block operation was done
         function(error) {
-            document.getElementById('message').innerHTML = error.message;
-            console.error(error);
+            console.warn(error);
         }
     );
 
