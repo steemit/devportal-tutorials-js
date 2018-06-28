@@ -4,12 +4,15 @@
         <script src="bundle.js"></script>
     </head>
     <body>
-    	<div class="container" id="content"><br/>
-    		<h4>Submit a post to the Steem blockchain</h4>
+        <div class="container" id="content"><br/>
+            <input id="createPostBtn" type="button" value="Create post!" onclick="createPost()" class="btn btn-primary">
+            <div id="postLink" style="display: none;"></div>
+            
+    		<h4>Vote on a post</h4>
             Username: <input id="username" type="text" size="65" value="demo" class="form-control"><br/>
             Posting private key: <input id="postingKey" type="password" size="65" value="5Jtbfge4Pk5RyhgzvmZhGE5GeorC1hbaHdwiM7pb5Z5CZz2YKUC" class="form-control"><br/>
-            Author: <input id="author" value="" type="text" size="20" /><br/>
-            Post Permlink: <input id="permlink" value="" type="text" size="20" /><br/>
+            Author: <input id="author" value="demo" type="text" size="20" /><br/>
+            Post Permlink: <span id="permlink"></span><br/>
             
             <div class="slidecontainer">
                 <p>Weight: <span id="currentWeight"></span>
@@ -19,9 +22,7 @@
               <br/>
 
             <input id="submitVoteBtn" type="button" value="Submit Vote" onclick="submitVote()" class="btn btn-primary">
-            <input id="clearFieldsBtn" type="button" value="Clear Fields" onclick="clearFields()" class="btn btn-primary">
-            <div id="postLink">
-            </div>
+            Vote Result : <span id="voteResult"></span><br/> 
         </div>
         <script>
         var slider = document.getElementById("voteWeight");
