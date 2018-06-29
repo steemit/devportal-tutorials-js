@@ -1,0 +1,18 @@
+<html>
+    <head>
+        <title>Get Follower and Following List</title>
+        <script src="bundle.js"></script>
+    </head>
+    <body>
+    	<div class="container" id="content"><br/>
+            <h4>Get list of Followers and Following for User</h4>
+            Your Username: <input id="username" type="text" size="65" value="steemitblog" class="form-control"><br/>
+            Length of list to display: <input id="limit" type="number" size="20" value="10" /><br/><br/>
+            <input id="followerBtn" type="button" value="Get Followers" onclick="submitFollower()" class="btn btn-primary" onclick="document.getElementById('followerResult').value=''">
+            <input id="followingBtn" type="button" value="Get Following" onclick="submitFollowing()" class="btn btn-primary" onclick="document.getElementById('followingResult').value=''"><br/>
+            <br/><input id="clearFieldsBtn" type="button" value="Clear Fields" onclick="clearFields()" class="btn btn-primary"><br/>
+            List of <span id="followResult"></span> : <br/>
+            <div class="list-group" id="followList"></div>
+		</div>
+    </body>
+</html>
