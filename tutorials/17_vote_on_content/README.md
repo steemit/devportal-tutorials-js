@@ -85,14 +85,15 @@ window.createPost = async () => {
         .then(
             function(result) {
                 document.getElementById('permlink').innerHTML = permlink;
-                document.getElementById('postLink').style.display = 'block';
                 document.getElementById(
                     'postLink'
-                ).innerHTML = `<br/><p>Included in block: ${
-                    result.block_num
-                }</p><br/><br/><a href="http://condenser.steem.vc/${
+                ).innerHTML = `Included in block: <a href="http://condenser.steem.vc/${
                     taglist[0]
-                }/@${account}/${permlink}">Check post here</a>`;
+                }/@${account}/${permlink}" target="_blank">${
+                    result.block_num
+                }</a>`;
+                document.getElementById('postResult').style.display = 'flex';
+                document.getElementById('permlink').value = permlink;
             },
             function(error) {
                 console.error(error);
@@ -120,12 +121,12 @@ window.submitVote = async () => {
     //get author of post/comment to vote
     const author = document.getElementById('author').value;
     //get post permalink to vote
-    const permlink = document.getElementById('permlink').innerHTML;
+    const permlink = document.getElementById('permlink').value;
     //get weight of vote
     const weight = parseInt(document.getElementById('currentWeight').innerHTML, 10);
 ```
 
-The `weight` parameter is required to be an interger for the vote operation so we parse it from the UI text field. The `permlink` value is retrieved from the `create post` function which is why it is input via the `.innerHTML` operation. If it were to be manually entered it would use the same `.value` operator as the other inputs.
+The `weight` parameter is required to be an interger for the vote operation so we parse it from the UI text field. The `permlink` value is retrieved from the `create post` function.
 
 #### 4. Broadcast<a name="broadcast"></a>
 
@@ -142,13 +143,37 @@ We create a `vote object` with the input variables before we can broadcast to th
 Afterwich we can complete the `broadcast.vote` operation with the created object and private posting key received from the input UI. The result of the vote is displayed on the UI to confirm whether it was a `success` or `failed` with details of that process being displayed on the console.
 
 ```javascript
-client.broadcast.vote(vote, privateKey).then(function(result){
-        console.log('included in block: ' + result.block_num, 'expired: ' + result.expired)
-        document.getElementById('voteResult').innerHTML = 'Success'
-    }, function(error) {
-        console.error(error)
-        document.getElementById('voteResult').innerHTML = 'Failed'
-    })
+client.broadcast.vote(vote, privateKey).then(
+        function(result) {
+            console.log(
+                'included in block: ' + result.block_num,
+                'expired: ' + result.expired
+            );
+            document.getElementById('voteResultContainer').style.display =
+                'flex';
+            document.getElementById('voteResult').className =
+                'form-control-plaintext alert alert-success';
+            document.getElementById('voteResult').innerHTML = 'Success';
+        },
+        function(error) {
+            console.error(error);
+            document.getElementById('voteResultContainer').style.display =
+                'flex';
+            document.getElementById('voteResult').className =
+                'form-control-plaintext alert alert-danger';
+            document.getElementById('voteResult').innerHTML =
+                error.jse_shortmsg;
+        }
+    );
+};
+
+window.onload = () => {
+    var voteWeightSlider = document.getElementById('voteWeight');
+    var currentWeightDiv = document.getElementById('currentWeight');
+    currentWeightDiv.innerHTML = voteWeightSlider.value;
+    voteWeightSlider.oninput = function() {
+        currentWeightDiv.innerHTML = this.value;
+    };
 ```
 
 More information on how to use the `broadcast` operation and options surrounding the operation can be found on the [Steem Devportal](https://developers.steem.io/apidefinitions/#broadcast_ops_vote)
