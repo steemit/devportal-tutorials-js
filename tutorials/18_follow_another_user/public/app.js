@@ -1,22 +1,20 @@
 //Step 1.
-// const dsteem = require('dsteem');
+const dsteem = require('dsteem');
+//define network parameters
+let opts = {};
+opts.addressPrefix = 'STX';
+opts.chainId = '79276aea5d4877d9a25892eaa01b0adf019d3e5cb12a97478df3298ccdd01673';
+//connect to a steem node, testnet in this case
+const client = new dsteem.Client('https://testnet.steem.vc', opts);
 
+// const dsteem = require('dsteem');
 // //define network parameters
 // let opts = {};
-// opts.addressPrefix = 'STX';
-// opts.chainId = '79276aea5d4877d9a25892eaa01b0adf019d3e5cb12a97478df3298ccdd01673';
-// //connect to a steem node, testnet in this case
-// const client = new dsteem.Client('https://testnet.steem.vc', opts);
-
-const dsteem = require('dsteem');
-let opts = {};
-
-//connect to production server
-opts.addressPrefix = 'STM';
-opts.chainId =
-    '0000000000000000000000000000000000000000000000000000000000000000';
-//connect to server which is connected to the network/production
-const client = new dsteem.Client('https://api.steemit.com');
+// opts.addressPrefix = 'STM';
+// opts.chainId =
+//     '0000000000000000000000000000000000000000000000000000000000000000';
+// //connect to a steem node, production in this case
+// const client = new dsteem.Client('https://api.steemit.com');
 
 //Step 2. user fills in the values for 'parent_author' and 'parent_permlink'
 
@@ -72,26 +70,29 @@ window.submitFollow = async () => {
 
     client.broadcast.json(data, privateKey).then(
         function(result) {
-            console.log('user follow result: ', result);
-        }, //to confirm that a block operation was done
+            console.log(
+                'user follow result: ', result
+            );
+            document.getElementById('followResultContainer').style.display =
+                'flex';
+            document.getElementById('followResult').className =
+                'form-control-plaintext alert alert-success';
+            if (type == 'blog') {
+                document.getElementById('followResult').innerHTML = 'Author followed';
+
+            } else {
+                document.getElementById('followResult').innerHTML = 'Author unfollowed';
+            }
+        },
         function(error) {
-            console.warn(error);
+            console.error(error);
+            document.getElementById('followResultContainer').style.display =
+                'flex';
+            document.getElementById('followResult').className =
+                'form-control-plaintext alert alert-danger';
+            document.getElementById('followResult').innerHTML =
+                error.jse_shortmsg;
         }
+
     );
-
-    //to display current status
-    if (type == 'blog') {
-        console.log('followed');
-        document.getElementById('followResult').innerHTML = 'FOLLOWED';
-    } else {
-        console.log('unfollowed');
-        document.getElementById('followResult').innerHTML = 'UNFOLLOWED';
-    }
-};
-
-//additional button added to clear fields
-window.clearFields = function() {
-    document.getElementById('username').value = '';
-    document.getElementById('postingKey').value = '';
-    document.getElementById('author').value = '';
 };

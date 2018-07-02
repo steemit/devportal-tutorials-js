@@ -28,16 +28,15 @@ As usual, we have a `public/app.js` file which holds the Javascript segment of t
 
 ```javascript
 const dsteem = require('dsteem');
-let opts = {};
 //define network parameters
-opts.addressPrefix = 'STM';
-opts.chainId =
-    '0000000000000000000000000000000000000000000000000000000000000000';
-//connect to a steem node, production in this case
-const client = new dsteem.Client('https://api.steemit.com');
+let opts = {};
+opts.addressPrefix = 'STX';
+opts.chainId = '79276aea5d4877d9a25892eaa01b0adf019d3e5cb12a97478df3298ccdd01673';
+//connect to a steem node, testnet in this case
+const client = new dsteem.Client('https://testnet.steem.vc', opts);
 ```
 
-Above, we have `dsteem` pointing to the production network with the proper chainId, addressPrefix, and endpoint, eventhough this tutorial modifies the blockchain. Because of this, care has to be given to the operation and parameters used.
+Above, we have `dsteem` pointing to the test network with the proper chainId, addressPrefix, and endpoint.
 
 #### 2. Input variables<a name="input"></a>
 
@@ -102,45 +101,41 @@ const json = JSON.stringify([
     };
 ```
 
-Afterwhich the broadcast operation is executed with the created object and the private posting key.
+Afterwhich the broadcast operation is executed with the created object and the private posting key. We also display the follow status on the UI in order for the user to know the whether the process was a success.
 
 ```javascript
 client.broadcast.json(data, privateKey).then(
         function(result) {
-            console.log('user follow result: ', result);
-        }, //to confirm that a block operation was done
+            console.log(
+                'user follow result: ', result
+            );
+            document.getElementById('followResultContainer').style.display =
+                'flex';
+            document.getElementById('followResult').className =
+                'form-control-plaintext alert alert-success';
+            if (type == 'blog') {
+                document.getElementById('followResult').innerHTML = 'Author followed';
+
+            } else {
+                document.getElementById('followResult').innerHTML = 'Author unfollowed';
+            }
+        },
         function(error) {
-            document.getElementById('message').innerHTML = error.message;
             console.error(error);
+            document.getElementById('followResultContainer').style.display =
+                'flex';
+            document.getElementById('followResult').className =
+                'form-control-plaintext alert alert-danger';
+            document.getElementById('followResult').innerHTML =
+                error.jse_shortmsg;
         }
+
     );
 ```
 
-Additionally we also display the current follow status of the author on the UI to give the user an idea of what to expect:
-
-```javascript
-if (type == 'blog') {
-        console.log('followed');
-        document.getElementById('followResult').innerHTML = 'FOLLOWED';
-    } else {
-        console.log('unfollowed');
-        document.getElementById('followResult').innerHTML = 'UNFOLLOWED';
-    }
-```
-
-If either of the values for the user or author does not exist the reslut of the operation will be an `unfollow`
+If either of the values for the user or author does not exist the proper error result will be displayed on the UI.
 
 More information on how to use the `broadcast` operation and options surrounding the operation can be found [HERE](https://developers.steem.io/apidefinitions/#apidefinitions-broadcast-ops-comment)
-
-There is an additional button added to clear the input fields. This is not a necessary step but adds to the ease of use.
-
-```javascript
-window.clearFields = function() {
-    document.getElementById('username').value = '';
-    document.getElementById('postingKey').value = '';
-    document.getElementById('author').value = '';
-}
-```
 
 ### To run this tutorial
 
