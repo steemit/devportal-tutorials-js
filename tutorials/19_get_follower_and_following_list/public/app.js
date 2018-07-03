@@ -40,7 +40,9 @@ window.submitFollower = async () => {
         limit,
     ]);
 
-    document.getElementById('followResult').innerHTML = 'Followers'
+    document.getElementById('followResultContainer').style.display = 'flex';
+    document.getElementById('followResult').className = 'form-control-plaintext alert alert-success';
+    document.getElementById('followResult').innerHTML = 'Followers';
 
     //display list of followers in console for control chekc
     console.log('followers: ', followlist);
@@ -84,7 +86,9 @@ window.submitFollowing = async () => {
         limit,
     ]);
 
-    document.getElementById('followResult').innerHTML = 'Following'
+    document.getElementById('followResultContainer').style.display = 'flex';
+    document.getElementById('followResult').className = 'form-control-plaintext alert alert-success';
+    document.getElementById('followResult').innerHTML = 'Following';
 
     //display list of followers in console for control check
     console.log('following: ', followlist);
@@ -104,10 +108,4 @@ window.submitFollowing = async () => {
         console.log(followname);
         count ++
     };
-};
-
-//additional button added to clear fields
-window.clearFields = function() {
-    document.getElementById('username').value = '';
-    document.getElementById('list').value = '';
 };

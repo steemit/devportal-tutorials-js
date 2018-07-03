@@ -6,13 +6,71 @@
     <body>
     	<div class="container" id="content"><br/>
             <h4>Get list of Followers and Following for User</h4>
-            Your Username: <input id="username" type="text" size="65" value="steemitblog" class="form-control"><br/>
-            Length of list to display: <input id="limit" type="number" size="20" value="10" /><br/><br/>
-            <input id="followerBtn" type="button" value="Get Followers" onclick="submitFollower()" class="btn btn-primary" onclick="document.getElementById('followerResult').value=''">
-            <input id="followingBtn" type="button" value="Get Following" onclick="submitFollowing()" class="btn btn-primary" onclick="document.getElementById('followingResult').value=''"><br/>
-            <br/><input id="clearFieldsBtn" type="button" value="Clear Fields" onclick="clearFields()" class="btn btn-primary"><br/>
-            List of <span id="followResult"></span> : <br/>
-            <div class="list-group" id="followList"></div>
+            <form>
+                <div class="form-group row">
+                    <label for="username" class="col-sm-2 col-form-label">
+                        Username
+                    </label>
+                    <div class="col-sm-10">
+                        <input
+                            id="username"
+                            type="text"
+                            class="form-control-plaintext"
+                            value="steemitblog"
+                        />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="limit" class="col-sm-2 col-form-label">
+                        Length of list to display
+                    </label>
+                    <div class="col-sm-10">
+                        <input
+                            type="number"
+                            class="form-control"
+                            id="limit"
+                            value="10"
+                        />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="offset-sm-2 col-sm-10">
+                        <input
+                            id="followerBtn"
+                            type="button"
+                            value="Get Followers"
+                            onclick="submitFollower()"
+                            class="btn btn-primary"
+                        />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="offset-sm-2 col-sm-10">
+                        <input
+                            id="followingBtn"
+                            type="button"
+                            value="Get Following"
+                            onclick="submitFollowing()"
+                            class="btn btn-primary"
+                        />
+                    </div>
+                </div>
+                <div
+                    class="form-group row"
+                    id="followResultContainer"
+                    style="display: none;"
+                >
+                    <label for="followResult" class="col-sm-2 col-form-label">
+                        List of
+                    </label>
+                    <div class="col-sm-10">
+                        <div id="followResult" class="form-control-plaintext" />
+                    </div>
+                </div>
+            </form>
+            <div class="offset-sm-2 col-sm-10">
+                <div class="list-group" id="followList"></div>
+            </div>
 		</div>
     </body>
 </html>

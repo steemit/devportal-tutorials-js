@@ -68,7 +68,9 @@ A list of followers or users being followed is called from the database with the
         limit,
     ]);
 
-    document.getElementById('followResult').innerHTML = 'Followers'
+    document.getElementById('followResultContainer').style.display = 'flex';
+    document.getElementById('followResult').className = 'form-control-plaintext alert alert-success';
+    document.getElementById('followResult').innerHTML = 'Followers';
 
     //display list of followers in console for control chekc
     console.log('followers: ', followlist);
@@ -82,7 +84,9 @@ A list of followers or users being followed is called from the database with the
         limit,
     ]);
 
-    document.getElementById('followResult').innerHTML = 'Following'
+    document.getElementById('followResultContainer').style.display = 'flex';
+    document.getElementById('followResult').className = 'form-control-plaintext alert alert-success';
+    document.getElementById('followResult').innerHTML = 'Following';
 
     //display list of followers in console for control check
     console.log('following: ', followlist);
@@ -106,15 +110,6 @@ Before the resulting list can be posted to the UI we first have to limit the max
         console.log(followname);
         count ++                
     };
-```
-
-There is an additional button added to clear the input fields. This is not a necessary step but adds to the ease of use.
-
-```javascript
-window.clearFields = function() {
-    document.getElementById('username').value = '';
-    document.getElementById('list').value = '';
-}
 ```
 
 ### To run this tutorial
