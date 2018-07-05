@@ -6,16 +6,16 @@ This tutorial runs on the main Steem blockchain. And accounts queried are real u
 
 ## Intro
 
-This tutorial will show the method of capturing a queried tag name and matching it to the steemit database. We are using the `call` function provided by the `dsteem` library to pull tags from the steem blockchain. A simple HTML interface is used to both capture the string query as well as display the completed search.
+This tutorial will show the method of capturing a queried tag name and matching it to the Steem. We are using the `call` function provided by the `dsteem` library to pull accounts from the Steem blockchain. A simple HTML interface is used to both capture the string query as well as display the completed search.
 
 ## steps
 
-1.  [**Configure connection**](#configure-conn) Configuration of `dsteem` to use the proper connection and network.
+1.  [**App setup**](#app-setup) Configuration of `dsteem` to use the proper connection and network.
 2.  [**Search account**](#search-account) Collecting the relevant search criteria
 3.  [**Interpret account reputation**](#run-reputation) Running the search and interpreting reputation.
 4.  [**Output**](#output) Displaying the results
 
-#### 1. Configure connection <a name="configure-conn"></a>
+#### 1. App setup <a name="app-setup"></a>
 
 Below we have `dsteem` pointing to the production network with the proper chainId, addressPrefix, and endpoint. There is a `public/app.js` file which holds the Javascript segment of this tutorial. In the first few lines we define the configured library and packages:
 
@@ -36,8 +36,8 @@ Collecting of the search criteria happens via an HTML input. The form can be fou
 
 ```javascript
 const max = 5;
-window.submitTag = async () => {
-    const tagSearch = document.getElementById("tagName").value;
+window.submitAcc = async () => {
+    const accSearch = document.getElementById('username').value;
 ```
 
 #### 3. Interpret account reputation <a name="run-reputation"></a>
@@ -92,6 +92,8 @@ for (var i = 0; i < _accounts.length; i++) {
 }
 document.getElementById('accList').innerHTML = _accounts.join('<br/>');
 ```
+
+That's it!
 
 ### To run this tutorial
 
