@@ -1,0 +1,23 @@
+<html>
+    <head>
+        <title>Power down</title>
+        <script src="bundle.js"></script>
+    </head>
+    <body>
+        <div class="container" id="content"><br/>
+            <h4>Account</h4>
+            <input id="username" type="text" size="65" placeholder="enter account name" class="form-control" onblur="submitAcc()"><br>
+            <div class="list-group account" id="accBalance"></div>
+            <h5>Vests to Power down:</h5>
+            <input id="steem" type="text" size="65" placeholder="steem" class="form-control" onblur="sc()"><br>
+            <input type="checkbox" name="check" id="check" value="false" onchange="sc()"> Want to try client signing? <br/><br/>
+            <div id="client" style="display: none;">
+                <h5>Active Private key:</h5>
+                <input id="wif" type="text" size="65" placeholder="wif" class="form-control"><br>
+                <input id="submitTx" type="button" value="Submit" onclick="submitTx()" class="btn btn-primary"><br/>
+            </div> 
+            <div id="sc" style="display: none;"></div> 
+            <div id="result" style="display: none;"></div>
+        </div>
+    </body>
+</html>
