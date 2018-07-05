@@ -18,17 +18,30 @@ const client = new dsteem.Client('https://testnet.steem.vc', opts);
 
 //refer to "10_submit_post" in the tutorials folder for creating a post on steemit
 //create post function
+
+const createPrivateKey = function() {
+    try {
+        return dsteem.PrivateKey.fromString(
+            document.getElementById('postingKey').value
+        );
+    } catch (e) {
+        const resultEl = document.getElementById('result');
+        resultEl.className = 'form-control-plaintext alert alert-danger';
+        resultEl.innerHTML = e.message + ' - See console for full error.';
+        throw e;
+    }
+};
+
 window.createPost = async () => {
     //get private key
-    const privateKey = dsteem.PrivateKey.fromString(
-        document.getElementById('postingKey').value
-    );
+    const privateKey = createPrivateKey();
     //get account name
     const account = document.getElementById('username').value;
     //get title
-    const title = 'New Blog';
+    const title = 'developers.steem.io - JS tutorial 17 post';
     //get body
-    const body = 'This is my new test blog';
+    const body =
+        'Go to [developers.steem.io](https://developers.steem.io) for the latest in Steem tutorials! This post was created by someone using the active version of those tutorials at  [https://github.com/steemit/devportal-tutorials-js](https://github.com/steemit/devportal-tutorials-js)';
     //get tags and convert to array list
     const tags = 'blog';
     const taglist = tags.split(' ');
@@ -73,14 +86,13 @@ window.createPost = async () => {
 
 //submit vote function executes when you click "Submit Vote" button
 window.submitVote = async () => {
-    document.getElementById('voteResult').innerHTML = 'pending...';
+    const resultEl = document.getElementById('result');
+    resultEl.innerHTML = 'pending...';
     //get all values from the UI
     //get account name of voter
     const voter = document.getElementById('username').value;
     //get private posting key
-    const privateKey = dsteem.PrivateKey.fromString(
-        document.getElementById('postingKey').value
-    );
+    const privateKey = createPrivateKey();
     //get author of post/comment to vote
     const author = document.getElementById('author').value;
     //get post permalink to vote
@@ -102,24 +114,16 @@ window.submitVote = async () => {
 
     client.broadcast.vote(vote, privateKey).then(
         function(result) {
-            console.log(
-                'included in block: ' + result.block_num,
-                'expired: ' + result.expired
-            );
-            document.getElementById('voteResultContainer').style.display =
-                'flex';
-            document.getElementById('voteResult').className =
-                'form-control-plaintext alert alert-success';
-            document.getElementById('voteResult').innerHTML = 'Success';
+            console.log('success:', result);
+
+            resultEl.className = 'form-control-plaintext alert alert-success';
+            resultEl.innerHTML = 'Success! See console for full response.';
         },
         function(error) {
-            console.error(error);
-            document.getElementById('voteResultContainer').style.display =
-                'flex';
-            document.getElementById('voteResult').className =
-                'form-control-plaintext alert alert-danger';
-            document.getElementById('voteResult').innerHTML =
-                error.jse_shortmsg;
+            console.log('error:', error);
+            resultEl.className = 'form-control-plaintext alert alert-danger';
+            resultEl.innerHTML =
+                error.jse_shortmsg + ' - See console for full response.';
         }
     );
 };

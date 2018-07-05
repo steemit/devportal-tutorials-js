@@ -5,8 +5,14 @@
     </head>
     <body>
         <div class="container" id="content">
+            <h1>Vote on Content</h1>
+            <p style="font-style:italic">The default user in this tutorial (foo) is part of the testnet.steem.vc environment. If creating or voting on a post doesn't work, someone may have changed its keys.
+                Creating your own user on the testnet is a very good thing to know how to do. Docs are available <a href="https://testnet.steem.vc/">here</a>.</p>
             <form>
-                <h4>Create a test post</h4>
+                <h4>Create test Content</h4>
+                <p>If you know of a post or comment upon which you wish to cast your vote you can skip this section.</p>
+                <p>If you need to create a post to try out the vote operation, the button below will create a post for you
+                    (using the username and private key in the form), and then fill in the 'Post Permlink' field.</p>
                 <div class="form-group row">
                     <label for="staticEmail" class="col-sm-2 col-form-label">
                         Create a post
@@ -34,7 +40,7 @@
                     </div>
                 </div>
             </form>
-            <h4>Vote on a post</h4>
+            <h4>Vote</h4>
             <form>
                 <div class="form-group row">
                     <label for="username" class="col-sm-2 col-form-label">
@@ -44,9 +50,8 @@
                         <input
                             id="username"
                             type="text"
-                            readonly
-                            class="form-control-plaintext"
-                            value="demo"
+                            class="form-control"
+                            value="foo"
                         />
                     </div>
                 </div>
@@ -56,10 +61,10 @@
                     </label>
                     <div class="col-sm-10">
                         <input
-                            type="password"
+                            type="text"
                             class="form-control"
                             id="postingKey"
-                            value="5Jtbfge4Pk5RyhgzvmZhGE5GeorC1hbaHdwiM7pb5Z5CZz2YKUC"
+                            value="5JEB2fkmEqHSfGqL96eTtQ2emYodeTBBnXvETwe2vUSMe4pxdLj"
                         />
                     </div>
                 </div>
@@ -72,7 +77,7 @@
                             type="text"
                             class="form-control"
                             id="author"
-                            value="demo"
+                            value="foo"
                         />
                     </div>
                 </div>
@@ -112,14 +117,14 @@
                 </div>
                 <div
                     class="form-group row"
-                    id="voteResultContainer"
-                    style="display: none;"
+                    id="resultContainer"
+                    style="display:flex"
                 >
-                    <label for="voteResult" class="col-sm-2 col-form-label">
-                        Vote result
+                    <label for="result" class="col-sm-2 col-form-label">
+                        Result
                     </label>
                     <div class="col-sm-10">
-                        <div id="voteResult" class="form-control-plaintext" />
+                        <div id="result" class="form-control-plaintext">Results will appear here.</div>
                     </div>
                 </div>
             </form>
