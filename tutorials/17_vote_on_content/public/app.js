@@ -1,23 +1,23 @@
 const dsteem = require('dsteem');
-//define network parameters
-let opts = {};
-opts.addressPrefix = 'STX';
-opts.chainId =
+
+//testnet configuration
+const addressPrefix = 'STX';
+const chainId =
     '79276aea5d4877d9a25892eaa01b0adf019d3e5cb12a97478df3298ccdd01673';
-//connect to a steem node, testnet in this case
-const client = new dsteem.Client('https://testnet.steem.vc', opts);
+const apiUrl = 'https://testnet.steem.vc';
 
-// const dsteem = require('dsteem');
-// let opts = {};
-// //define network parameters
-// opts.addressPrefix = 'STM';
-// opts.chainId =
-//     '0000000000000000000000000000000000000000000000000000000000000000';
-// //connect to a steem node, production in this case
-// const client = new dsteem.Client('https://api.steemit.com');
+//production configuration
+//const addressPrefix = 'STM';
+//const chainId = '0000000000000000000000000000000000000000000000000000000000000000';
+//const apiUrl = 'https://api.steemit.com'
 
-//refer to "10_submit_post" in the tutorials folder for creating a post on steemit
-//create post function
+//define network parameters
+const opts = {
+    addressPrefix,
+    chainId,
+};
+
+const client = new dsteem.Client(apiUrl, opts);
 
 const createPrivateKey = function() {
     try {
@@ -32,16 +32,20 @@ const createPrivateKey = function() {
     }
 };
 
+//refer to "10_submit_post" in the tutorials folder for creating a post on steemit
 window.createPost = async () => {
     //get private key
     const privateKey = createPrivateKey();
     //get account name
     const account = document.getElementById('username').value;
+    //for content
+    const time = new Date().getTime();
     //get title
-    const title = 'developers.steem.io - JS tutorial 17 post';
+    const title = `developers.steem.io - JS-T:17 ${time}`;
     //get body
-    const body =
-        'Go to [developers.steem.io](https://developers.steem.io) for the latest in Steem tutorials! This post was created by someone using the active version of those tutorials at  [https://github.com/steemit/devportal-tutorials-js](https://github.com/steemit/devportal-tutorials-js)';
+    const body = `Go to [developers.steem.io](https://developers.steem.io) for the latest in Steem tutorials! This post was created by someone using the active version of those tutorials at  [https://github.com/steemit/devportal-tutorials-js](https://github.com/steemit/devportal-tutorials-js)
+        
+        ${time}`;
     //get tags and convert to array list
     const tags = 'blog';
     const taglist = tags.split(' ');
@@ -86,9 +90,11 @@ window.createPost = async () => {
 
 //submit vote function executes when you click "Submit Vote" button
 window.submitVote = async () => {
+    //we'll make use of resultEl in multiple child scopes. This is generally good practice.
     const resultEl = document.getElementById('result');
     resultEl.innerHTML = 'pending...';
-    //get all values from the UI
+
+    //get all values from the UI//
     //get account name of voter
     const voter = document.getElementById('username').value;
     //get private posting key
@@ -104,18 +110,17 @@ window.submitVote = async () => {
     );
 
     //create vote object
-    const vote = new Object();
-    vote.voter = voter;
-    vote.author = author;
-    vote.permlink = permlink;
-    vote.weight = weight; //needs to be an integer for the vote function
+    const vote = {
+        voter,
+        author,
+        permlink,
+        weight, //needs to be an integer for the vote function
+    };
 
     //broadcast the vote
-
     client.broadcast.vote(vote, privateKey).then(
         function(result) {
             console.log('success:', result);
-
             resultEl.className = 'form-control-plaintext alert alert-success';
             resultEl.innerHTML = 'Success! See console for full response.';
         },
