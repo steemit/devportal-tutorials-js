@@ -18,9 +18,10 @@ If you want to keep multiple versions of Node on your system try [Node Version M
 
 ### Running a typical Tutorial
 
-Let's say you wanted to run the very [first tutorial](tutorials/01_blog_feed), `01_blog_feed`. Here's how you'd do it:
+Let's say you wanted to run the very [first tutorial](../01_blog_feed), `01_blog_feed`. Here's how you'd do it:
 
-1. From Bash:
+1.  From Bash:
+
     ```bash
     git clone https://github.com/steemit/devportal-tutorials-js.git
 
@@ -28,9 +29,11 @@ Let's say you wanted to run the very [first tutorial](tutorials/01_blog_feed), `
     npm i
     npm run dev-server
     ```
-1. open http://localhost:3000/ in your web browser
-```
 
+1.  open http://localhost:3000/ in your web browser
+
+```
 ### Github
 
 If you'd rather clone projects in a windowed environment rather than the terminal, consider [Github Desktop](https://desktop.github.com/).
+```
