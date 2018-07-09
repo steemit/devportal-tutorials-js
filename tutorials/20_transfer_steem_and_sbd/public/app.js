@@ -37,17 +37,12 @@ window.submitTransfer = async () => {
 
     const transfer = quantity.concat(' ', type);
 
-
-    
-    //create vote object
+    //create transfer object
     const transf = new Object();
     transf.from = username;
     transf.to = recipient;
     transf.amount = transfer;
     transf.memo = comments;
-
-
-    client.broadcast.transfer(transf, privateKey)
 
     //broadcast the transfer
 
