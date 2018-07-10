@@ -13,7 +13,7 @@ This tutorial will show few functions such as querying account by name and getti
 1.  [**App setup**](#app-setup) Setup `dsteem` to use the proper connection and network.
 2.  [**Search account**](#search-account) Get account details after input has account name
 3.  [**Calculate and Fill form**](#fill-form) Calculate available vesting shares and Fill form with details
-4.  [**Power down**](#power_down) Power down VESTS with Steemconnect or Client-side signing.
+4.  [**Power down**](#power-down) Power down VESTS with Steemconnect or Client-side signing.
 
 #### 1. App setup <a name="app-setup"></a>
 
@@ -100,7 +100,6 @@ That's it!
 
 1.  clone this repo
 1.  `cd tutorials/23_power_down`
-1.  `npm i`
 1.  `npm i`
 1.  `npm run dev-server` or `npm run start`
 1.  After a few moments, the server should be running at [http://localhost:3000/](http://localhost:3000/)
