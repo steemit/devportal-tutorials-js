@@ -1,0 +1,44 @@
+<html>
+    <head>
+        <title>Create an account</title>
+        <script src="bundle.js"></script>
+    </head>
+    <body>
+        <div class="container" id="content"><br/>
+            <h4>New account</h4>
+            <input id="username" type="text" size="65" placeholder="enter account name" class="form-control"><br><input id="submitSearch" type="button" value="Search" onclick="searchAcc()" class="btn btn-primary">
+            <div class="list-group account" id="accInfo"></div><br>
+            <h5>Password:</h5>
+            <input id="password" type="text" size="65" placeholder="password" class="form-control" onblur="sc()"><span class="info">Write down your password and keep it somewhere very safe and secure.</span><br>
+            <h5>STEEM:</h5>
+            <input id="steem" type="text" size="65" placeholder="0.000 STEEM" class="form-control" onblur="sc()"><span class="info">Use the format '0.000 STEEM', the 3 decimals and unit are important.</span><br>
+            <h5>VESTS:</h5>
+            <input id="vests" type="text" size="65" placeholder="0.000000 VESTS" class="form-control" onblur="sc()"><span class="info">Use the format '0.000000 VESTS', the 6 decimals and unit are important.</span><br>
+            <br/><br/>
+            <h5>How would you like to create an account?</h5>
+            <table>
+              <tr>
+                <th>Steemconnect</th>
+                <th>Client-side</th>
+              </tr>
+              <tr>
+                <td>
+                    <div id="sc"><a href='https://steemconnect.com/accounts/create'>Steemconnect account creation page</a></div>
+                </td>
+                <td>
+                    <div id="client">
+                        <h5>Creator account:</h5>
+                        <input id="account" type="text" size="65" placeholder="username" class="form-control"><br>
+                        <h5>Active Private key:</h5>
+                        <input id="wif" type="text" size="65" placeholder="wif" class="form-control"><br>
+                        <input id="submitTx" type="button" value="Submit" onclick="submitTx()" class="btn btn-primary"><br/>
+                    </div>
+                </td>
+              </tr>
+          </table>
+            
+            
+            <div id="result" style="display: none;"></div>
+        </div>
+    </body>
+</html>
