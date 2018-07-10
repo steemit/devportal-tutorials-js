@@ -13,7 +13,7 @@ This tutorial will show few functions such as querying account by name and check
 1.  [**App setup**](#app-setup) Setup `dsteem` to use the proper connection and network.
 2.  [**Search account**](#search-account) Get account details after input has account name
 3.  [**Generate private keys**](#generate-keys) Generate proper keys for new account
-4.  [**Create account**](#create_account) Create account via Client-side or Steemconnect
+4.  [**Create account**](#create-account) Create account via Client-side or Steemconnect
 
 #### 1. App setup <a name="app-setup"></a>
 
@@ -125,7 +125,6 @@ That's it!
 
 1.  clone this repo
 1.  `cd tutorials/24_create_account`
-1.  `npm i`
 1.  `npm i`
 1.  `npm run dev-server` or `npm run start`
 1.  After a few moments, the server should be running at [http://localhost:3000/](http://localhost:3000/)
