@@ -13,7 +13,7 @@ This tutorial will show few functions such as querying account by name and getti
 1.  [**App setup**](#app-setup) Setup `dsteem` to use the proper connection and network.
 2.  [**Search account**](#search-account) Get account details after input has account name
 3.  [**Fill form**](#fill-form) Fill form with account reward balances
-4.  [**Claim reward**](#claim_reward) Claim reward with Steemconnect or Client signing options
+4.  [**Claim reward**](#claim-reward) Claim reward with Steemconnect or Client signing options
 
 #### 1. App setup <a name="app-setup"></a>
 
@@ -100,7 +100,6 @@ That's it!
 
 1.  clone this repo
 1.  `cd tutorials/21_claim_rewards`
-1.  `npm i`
 1.  `npm i`
 1.  `npm run dev-server` or `npm run start`
 1.  After a few moments, the server should be running at [http://localhost:3000/](http://localhost:3000/)
