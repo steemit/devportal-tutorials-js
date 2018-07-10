@@ -25,28 +25,9 @@ window.submitAcc = async () => {
     const link = `https://steemconnect.com/sign/transfer-to-vesting?from=${name}&to=${receiver}&amount=${steem_balance}`;
     document.getElementById('sc').innerHTML = `<br/><a href=${encodeURI(
         link
-    )}>Steemconnect signing</a>`;
+    )} target="_blank">Steemconnect signing</a>`;
 };
-window.sc = async () => {
-    const sc = document.getElementById('check').checked;
-    console.log(sc);
-    if (sc) {
-        document.getElementById('client').style.display = 'block';
-        document.getElementById('sc').style.display = 'none';
-    } else {
-        document.getElementById('sc').style.display = 'block';
-        const link = `https://steemconnect.com/sign/transfer-to-vesting?from=${
-            document.getElementById('username').value
-        }&to=${document.getElementById('receiver').value}&amount=${
-            document.getElementById('steem').value
-        }`;
-        document.getElementById('sc').innerHTML = `<br/><a href=${encodeURI(
-            link
-        )}>Steemconnect signing</a>`;
 
-        document.getElementById('client').style.display = 'none';
-    }
-};
 window.submitTx = async () => {
     const privateKey = dsteem.PrivateKey.fromString(
         document.getElementById('wif').value

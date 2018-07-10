@@ -55,34 +55,7 @@ const receiver = document.getElementById('receiver').value;
 
 #### 4. Power up <a name="power-up"></a>
 
-We have a checkbox to cover 2 options on how to Power up. Steemconnect and Client-side signing options. By default we generate Steemconnect link to Power up (transfer to vesting), but you can tick checkbox to enable client signing option to Power up right inside tutorial, note client-side signing will require Active private key to perform operation.
-
-Checkbox uses following function:
-
-```javascript
-window.sc = async () => {
-    const sc = document.getElementById('check').checked;
-    console.log(sc);
-    if (sc) {
-        document.getElementById('client').style.display = 'block';
-        document.getElementById('sc').style.display = 'none';
-    } else {
-        document.getElementById('sc').style.display = 'block';
-        const link = `https://steemconnect.com/sign/transfer-to-vesting?from=${
-            document.getElementById('username').value
-        }&to=${document.getElementById('receiver').value}&amount=${
-            document.getElementById('steem').value
-        }`;
-        document.getElementById('sc').innerHTML = `<br/><a href=${encodeURI(
-            link
-        )}>Steemconnect signing</a>`;
-
-        document.getElementById('client').style.display = 'none';
-    }
-};
-```
-
-Note in above we use `encodeURI` to encode Steemconnect link, this will ensure that link will work properly.
+We have 2 options on how to Power up. Steemconnect and Client-side signing options. By default we generate Steemconnect link to Power up (transfer to vesting), but you can use client signing option to Power up right inside tutorial, note client-side signing will require Active private key to perform operation.
 
 In order to enable client signing, we will generate operation and also show Active Private key (wif) field to sign transaction right there client side.
 Below you can see example of operation and signing transaction, after successful operation broadcast result will be shown in user interface. It will be block number that transaction was included.
