@@ -29,7 +29,7 @@ window.submitAcc = async () => {
     const link = `https://steemconnect.com/sign/claim-reward-balance?account=${name}&reward_steem=${reward_steem}&reward_sbd=${reward_sbd}&reward_vests=${reward_vests}`;
     document.getElementById(
         'sc'
-    ).innerHTML = `<br/><a href=${link}>Steemconnect signing</a>`;
+    ).innerHTML = `<br/><a href=${link} target="_blank">Steemconnect signing</a>`;
 };
 window.sc = async () => {
     const sc = document.getElementById('check').checked;
@@ -46,7 +46,7 @@ window.sc = async () => {
         }&reward_vests=${document.getElementById('sp').value}`;
         document.getElementById(
             'sc'
-        ).innerHTML = `<br/><a href=${link}>Steemconnect signing</a>`;
+        ).innerHTML = `<br/><a href=${link} target="_blank">Steemconnect signing</a>`;
 
         document.getElementById('client').style.display = 'none';
     }
