@@ -31,26 +31,7 @@ window.submitAcc = async () => {
         'sc'
     ).innerHTML = `<br/><a href=${link} target="_blank">Steemconnect signing</a>`;
 };
-window.sc = async () => {
-    const sc = document.getElementById('check').checked;
-    console.log(sc);
-    if (sc) {
-        document.getElementById('client').style.display = 'block';
-        document.getElementById('sc').style.display = 'none';
-    } else {
-        document.getElementById('sc').style.display = 'block';
-        const link = `https://steemconnect.com/sign/claim-reward-balance?account=${
-            document.getElementById('username').value
-        }&reward_steem=${document.getElementById('steem').value}&reward_sbd=${
-            document.getElementById('sbd').value
-        }&reward_vests=${document.getElementById('sp').value}`;
-        document.getElementById(
-            'sc'
-        ).innerHTML = `<br/><a href=${link} target="_blank">Steemconnect signing</a>`;
 
-        document.getElementById('client').style.display = 'none';
-    }
-};
 window.submitTx = async () => {
     const privateKey = dsteem.PrivateKey.fromString(
         document.getElementById('wif').value
