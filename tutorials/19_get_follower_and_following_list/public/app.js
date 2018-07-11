@@ -18,7 +18,7 @@ opts.chainId =
 const client = new dsteem.Client('https://api.steemit.com');
 
 
-//Step 2. user fills in the values for 'username' and 'limit'
+//Step 2. user fills in the values on the UI
 
 //Followers function
 window.submitFollower = async () => {
@@ -27,15 +27,18 @@ window.submitFollower = async () => {
     
     //get user name
     const username = document.getElementById('username').value;
+    //get starting letters / word
+    const startFollow = document.getElementById('startFollow').value;
     //get limit
     var limit = document.getElementById('limit').value;
 
 //Step 3. Call followers list
 
     //get list of followers
+    //getFollowers(following, startFollower, followType, limit)
     let followlist = await client.call('follow_api', 'get_followers', [
         username,
-        '',
+        startFollow,
         'blog',
         limit,
     ]);
@@ -44,27 +47,17 @@ window.submitFollower = async () => {
     document.getElementById('followResult').className = 'form-control-plaintext alert alert-success';
     document.getElementById('followResult').innerHTML = 'Followers';
 
-    //display list of followers in console for control chekc
-    console.log('followers: ', followlist);
+//Step 4. Display results on console for control check and on UI
+    
+    followlist.forEach((newObj) => {
+        name = newObj.follower;
+        document.getElementById('followList').innerHTML += name + '<br>';
+        console.log(name);
+    });
 
-//Step 4. Limit maximum length and display results on UI
-
-    //limit max length
-    if (followlist.length < limit) {
-        limit = followlist.length;
-    }
- 
-    //display list of followers in UI and console
-    var count = 0;
-    while (count < limit) {
-        followname = followlist[count].follower;
-        document.getElementById('followList').innerHTML += followname + '<br>';
-        console.log(followname);
-        count ++                
-    };
 };
 
-//Step 2. user fills in the values for 'username' and 'limit'
+//Step 2. user fills in the values on the UI
 
 //Following function
 window.submitFollowing = async () => {
@@ -73,15 +66,18 @@ window.submitFollowing = async () => {
     
     //get user name
     const username = document.getElementById('username').value;
+    //get starting letters / word
+    const startFollow = document.getElementById('startFollow').value;
     //get limit
     var limit = document.getElementById('limit').value;
 
 //Step 3. Call following list
 
     //get list of authors you are following
+    //getFollowing(follower, startFollowing, followType, limit)
     let followlist = await client.call('follow_api', 'get_following', [
         username,
-        '',
+        startFollow,
         'blog',
         limit,
     ]);
@@ -90,22 +86,11 @@ window.submitFollowing = async () => {
     document.getElementById('followResult').className = 'form-control-plaintext alert alert-success';
     document.getElementById('followResult').innerHTML = 'Following';
 
-    //display list of followers in console for control check
-    console.log('following: ', followlist);
+//Step 4. Display results on console for control check and on UI
 
-//Step 4. Limit maximum length and display results on UI
-
-    //limit max length
-    if (followlist.length < limit) {
-        limit = followlist.length;
-    };
-
-    //display list of following in UI and console
-    var count = 0;
-    while (count < limit) {
-        followname = followlist[count].following;
-        document.getElementById('followList').innerHTML += followname + '<br>';
-        console.log(followname);
-        count ++
-    };
+    followlist.forEach((newObj) => {
+        name = newObj.following;
+        document.getElementById('followList').innerHTML += name + '<br>';
+        console.log(name);
+    });
 };
