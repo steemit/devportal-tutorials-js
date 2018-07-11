@@ -1,0 +1,35 @@
+<html>
+    <head>
+        <title>Power down</title>
+        <script src="bundle.js"></script>
+    </head>
+    <body>
+        <div class="container" id="content"><br/>
+            <h4>Account</h4>
+            <input id="username" type="text" size="65" placeholder="enter account name" class="form-control"><br><input id="submitSearch" type="button" value="Search" onclick="submitAcc()" class="btn btn-primary"><br>
+            <div class="list-group account" id="accBalance"></div>
+            <h5>Vests to Power down:</h5>
+            <input id="steem" type="text" size="65" placeholder="steem" class="form-control"><br>
+            <h5>How would you like to power down?</h5>
+            <table>
+              <tr>
+                <th>Steemconnect</th>
+                <th>Client-side</th>
+              </tr>
+              <tr>
+                <td>
+                    <div id="sc"></div>
+                </td>
+                <td>
+                    <div id="client">
+                        <h5>Active Private key:</h5>
+                        <input id="wif" type="text" size="65" placeholder="wif" class="form-control"><br>
+                        <input id="submitTx" type="button" value="Submit" onclick="submitTx()" class="btn btn-primary"><br/>
+                    </div> 
+                </td>
+              </tr>
+          </table>
+            <div id="result" style="display: none;"></div>
+        </div>
+    </body>
+</html>
