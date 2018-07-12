@@ -130,10 +130,12 @@ A successful comment will output something like the following to the console:
 
 That's all there is to it.
 
+The `broadcast` operation has more to offer than just committing a post/comment to the blockchain. It provides a mulititude of options that can accompany this commit. The max payout and percent of steem dollars can be set. When authors don't want all of the benifits from a post, they can set the payout factors to zero or beneficiaries can be set to receive part of the rewards. You can also set whether votes are allowed or not. The broadcast to the blockchain can be modified to meet the exact requirements of the author. More information on how to use the `broadcast` operation can be found on the Steem [Devportal](https://developers.steem.io/apidefinitions/#apidefinitions-broadcast-ops-comment) with a list of the available broadcast options under the specific [Appbase API](https://developers.steem.io/apidefinitions/#broadcast_ops_comment_options)
+
 ### To Run the tutorial
 
 1.  clone this repo
 1.  `cd tutorials/11_submit_comment_reply`
 1.  `npm i`
 1.  `npm run dev-server` or `npm run start`
-1.  After a few moments, the server should be running at [http://localhost:3000/](http://localhost:3000/)
+1.  After a few moments, the server should be running at http://localhost:3000/

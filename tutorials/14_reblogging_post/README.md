@@ -126,12 +126,12 @@ If the reblog fails the `console.log` will present a long line of error code:
 
 There is a line in the error log indicating "Account has already reblogged this post" indicating exactly that. This process can be run until a positive result is found.
 
+It should be noted that reblogging a post does not create a new post on the blockchain but merely shares the post to whomever is following the user doing the reblog. Along with `reblogging` the `custom_json` broadcast operation also includes options for following users and editing blog content. More information on how to use the `broadcast` operation and options surrounding the operation can be found on the Steem [Devportal](https://developers.steem.io/apidefinitions/#apidefinitions-broadcast-ops-comment)
+
 ## To run this tutorial
 
 1.  clone this repo
 2.  `cd tutorials/14_reblogging_post`
 3.  `npm i`
-4.  `npm run start`
-
-To run this tutorial in development mode simply replace the last statement with `npm run dev-server`
-Running in dev mode will start a web server accessible from `http://localhost:3000/` and will automatically refresh your browser with any changes you make to the code.
+4.  `npm run dev-server` or `npm run start`
+5.  After a few moments, the server should be running at http://localhost:3000/
