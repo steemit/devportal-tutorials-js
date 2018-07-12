@@ -30,6 +30,7 @@ window.submitFollow = async () => {
     const following = document.getElementById('author').value;
 
     //Step 3. checking whether author is already followed
+    //for full explanation of the process refer to tutorial 19_get_follower_and_following_list
 
     console.log({ follower: follower, following: following });
 

@@ -8,12 +8,12 @@ This tutorial will take you through the process of checking the `follow status` 
 
 We are using the `broadcast.json` operation provided by the `dsteem` library to follow or unfollow a selected author. There are 4 variables required to execute this operation:
 
-*   The specific user that will select the author to follow (the `follower`).
-*   The private posting key of the user.
-*   The account/author that the user would like to follow (the `following`).
-*   The `type` of follow operation. This will determine whether executing the operation will follow or unfollow the selected author.
+1. _follower_ - The specific user that will select the author to follow/unfollow (`username`).
+2. _privatekey_ - This is the private posting key of the user(`postingKey`).
+3. _following_ - The account/author that the user would like to follow (`author`).
+4. _what_ - The `type` of follow operation. This variable can have one of two values: `blog`, to follow an author, and a `null value`, unfollow the selected author.
 
-A simple HTML interface is used to capture the required information after which the transaction is submitted.
+A simple HTML UI is used to capture the required information, after which the broadcast operation can be compiled.
 
 ## Steps
 
@@ -58,7 +58,7 @@ window.submitFollow = async () => {
 
 #### 3. Get status<a name="status"></a>
 
-The current follow status for the author is called from the database and a variable is assigned in order to specify whether the follow operation should execute as `follow` or `unfollow`.
+The current follow status for the author is called from the database and a variable is assigned in order to specify whether the follow operation should execute as `follow` or `unfollow`. For more information on this process you can refer to tutorial 19_get_follower_and_following_list.
 
 ```javascript
 console.log({ follower: follower, following: following });
@@ -81,7 +81,7 @@ console.log({ follower: follower, following: following });
 
 #### 4. Follow operation<a name="follow"></a>
 
-A JSON object with the collected input variables is created in order for the `broadcast` operation to be created.
+A JSON with the collected input variables is created in order for the `data object` within the `broadcast` operation to be completed.
 
 ```javascript
 const json = JSON.stringify([
@@ -92,7 +92,11 @@ const json = JSON.stringify([
             what: [type] //null value for unfollow, 'blog' for follow
         }
     ]);
+```
 
+The `broadcast.json` operation requires a `data object` and `private key` in order the execute. For the follow/unfollow operation the variables in the object have predefined values. These values can change depending on the type of operation.
+
+```javascript
     const data = {
         id: 'follow',
         json: json,
@@ -101,7 +105,7 @@ const json = JSON.stringify([
     };
 ```
 
-Afterwhich the broadcast operation is executed with the created object and the private posting key. We also display the follow status on the UI in order for the user to know the whether the process was a success.
+The broadcast operation is then executed with the created object and the private posting key. We also display the follow status on the UI in order for the user to know the whether the process was a success.
 
 ```javascript
 client.broadcast.json(data, privateKey).then(
@@ -133,9 +137,7 @@ client.broadcast.json(data, privateKey).then(
     );
 ```
 
-If either of the values for the user or author does not exist the proper error result will be displayed on the UI.
-
-More information on how to use the `broadcast` operation and options surrounding the operation can be found [HERE](https://developers.steem.io/apidefinitions/#apidefinitions-broadcast-ops-comment)
+If either of the values for the user or author does not exist the proper error result will be displayed on the UI. The result is also displayed in the console in order for the user to confirm that a block transaction has taken place. The status of the operation can be verified on the [demo account](http://condenser.steem.vc/@cdemo/followed).
 
 ### To run this tutorial
 
