@@ -1,23 +1,23 @@
 # Power down vests
 
-_In this tutorial, we will show how to power down all or part of VESTS using Steemconnect as well as with Client-side signing method._
+_In this tutorial, we will show how to perform a power down on all or part of an account's VESTS using Steemconnect, as well as show a client-side signing method._
 
-This tutorial runs on the main Steem blockchain. And accounts queried/searched are real accounts with VESTS balances and estimated STEEM POWER holdings.
+This tutorial runs on the main Steem blockchain. Therefore, any accounts used here will affect real funds on the live network. **Use with caution.**
 
 ## Intro
 
-This tutorial will show few functions such as querying account by name and getting account vesting balance. We are using the `call` function provided by the `dsteem` library to pull account from the Steem blockchain. We then convert VESTS to STEEM POWER for convenience of user. A simple HTML interface is used to capture the account and its VESTS balance as well as allowing interactively power down part or all of VESTS.
+This tutorial will demonstrate a few functions such as querying account by name and determining the vesting balance of the related account. We are using the `call` function provided by the `dsteem` library to pull account data from the Steem blockchain. We then calculate STEEM Power from the VESTS (vesting shares) for the convenience of the user. We will use a simple HTML interface to capture the account and its VESTS. It also has an interactive UI to perform a power down in full or in part.
 
 ## Steps
 
 1.  [**App setup**](#app-setup) Setup `dsteem` to use the proper connection and network.
 2.  [**Search account**](#search-account) Get account details after input has account name
-3.  [**Calculate and Fill form**](#fill-form) Calculate available vesting shares and Fill form with details
-4.  [**Power down**](#power-down) Power down VESTS with Steemconnect or Client-side signing.
+3.  [**Calculate and Fill form**](#fill-form) Calculate available vesting shares and fill the form with details
+4.  [**Power down**](#power-down) Power down VESTS with Steemconnect or client-side signing.
 
 #### 1. App setup <a name="app-setup"></a>
 
-Below we have `dsteem` pointing to the production network with the proper chainId, addressPrefix, and endpoint. There is a `public/app.js` file which holds the Javascript segment of this tutorial. In the first few lines we define the configured library and packages:
+Below, we have `dsteem` pointing to the production network with the proper chainId, addressPrefix, and endpoint. There is a `public/app.js` file which holds the Javascript segment of this tutorial. In the first few lines we define the configured library and packages:
 
 ```javascript
 const dsteem = require('dsteem');
@@ -32,7 +32,7 @@ const client = new dsteem.Client('https://api.steemit.com');
 
 #### 2. Search account <a name="search-account"></a>
 
-After account name field is filled with some name, we do automatic search for account by name when input is focused out. HTML input forms can be found in the `index.html` file. The values are pulled from that screen with the below:
+After the account name field has been filled with a name, we automatically search for the account by name when the input is focused out. The related HTML input forms can be found in the `index.html` file. The values are pulled from that screen with the following:
 
 ```javascript
     const accSearch = document.getElementById('username').value;
@@ -42,7 +42,15 @@ After account name field is filled with some name, we do automatic search for ac
 
 #### 3. Calculate and Fill form <a name="fill-form"></a>
 
-After we fetched account data, we will fill form with VESTS balance and show current balance details. Note, that in order to get available VESTS balance we will have to check if account is already powering down and how much is powering down, how much of VESTS were delegated out which locks them from being powered down. Available balance will be in `avail` variable, next for convenience of user, we convert available VESTS to STEEM with `getDynamicGlobalProperties` function and fill form fields accordingly.
+Once the account data has been fetched, we will fill the form with VESTS balance and show current balance details. Note, that in order to get the available vesting shares we will have to check a few things:
+
+*   if account is already powering down
+*   how much is currently powering down
+*   how much has been delegated (because active delegation locks those funds from being powered down)
+
+Available balance will be in the `avail` variable.
+
+For the convenience of the user, we will convert available VESTS to STEEM with `getDynamicGlobalProperties` function and fill the form fields accordingly.
 
 ```javascript
     const name = _account[0].name;
@@ -57,14 +65,15 @@ After we fetched account data, we will fill form with VESTS balance and show cur
     document.getElementById('steem').value = avail+' VESTS';
 ```
 
-Once form is filled with maximum available VESTS balance, you can choose portion or lesser amount of VESTS to power down.
+Once form is filled with the maximum available VESTS balance, we can choose the amount of VESTS to power down.
 
 #### 4. Power down <a name="power-down"></a>
 
-We have 2 options on how to Power down. Steemconnect and Client-side signing options. By default we generate Steemconnect link to Power down (withdraw vesting), but you can choose client signing option to Power down right inside tutorial, note client-side signing will require Active Private key to perform the operation.
+We have two options on how to Power down: Steemconnect and client-side signing. By default we generate a Steemconnect link to Power down (withdraw vesting), but we can also choose the client signing option to Power down right inside tutorial. **Note:** client-side signing will require Active Private key to perform the operation.
 
-In order to enable client signing, we will generate operation and also show Active Private key (wif) field to sign transaction right there client side.
-Below you can see example of operation and signing transaction, after successful operation broadcast result will be shown in user interface. It will be block number that transaction was included.
+In order to enable client signing, we will generate the operation and also show Active Private key (wif) field to sign transaction right there, client side.
+
+Below, we can see an example of the operation and signing transaction. After a successful broadcast, the result will be shown in user interface. It will show the block number that the transaction was included in.
 
 ```javascript
 window.submitTx = async () => {
@@ -98,8 +107,8 @@ That's it!
 
 ### To run this tutorial
 
-1.  clone this repo
-1.  `cd tutorials/23_power_down`
+1.  `git clone https://github.com/steemit/devportal-tutorials-js.git`
+1.  `cd devportal-tutorials-js/tutorials/23_power_down`
 1.  `npm i`
 1.  `npm run dev-server` or `npm run start`
 1.  After a few moments, the server should be running at [http://localhost:3000/](http://localhost:3000/)
