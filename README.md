@@ -5,7 +5,7 @@ _Javascript Tutorials for the Developer Portal_
 These examples/tutorials will familiarize you with the basics of operating on the steem blockchain.
 
 Each tutorial is located in its own folder, and has a README.md with an outline of the basic concepts
-and operations it intends to teach.
+and operations it intends to teach. Some of the tutorials use the production blockchain, others use a [testnet](#Production-Blockchain-vs.-Testnet).
 
 The tutorials build on each other. It's suggested you go through them in-order.
 
@@ -27,6 +27,7 @@ The tutorials build on each other. It's suggested you go through them in-order.
 1.  [Reblog/Resteem a post](tutorials/14_reblogging_post) - How to reblog/resteem a post
 1.  [Search accounts](tutorials/15_search_accounts) - Search for user accounts by partial username
 1.  [Search for tags](tutorials/16_search_tags) - Search for trending tags
+1.  [Search for tags](tutorials/17_vote_on_content) - Vote on content
 
 ## To Run one of the tutorials
 
@@ -50,6 +51,15 @@ Use the command line/terminal for the following instructions
 
 1.  After a few moments, the server should be running at
     [http://localhost:3000/](http://localhost:3000/)
+
+## Production Blockchain vs. Testnet
+
+These tutorials favor use of the production Steem blockchain. However, some produce content that would be spammy. And
+spam on a blockchain, like everything else on a blockchain, is forever. Eww.
+
+So for those tutorials we use a [testnet](https://testnet.steem.vc/) setup and maintained by user [@almost-digital](https://steemit.com/@almost-digital).
+You can see its current status, and learn how to easily create accounts and connect to it at [https://testnet.steem.vc/](https://testnet.steem.vc/).
+And depending on the day, you can even use an outdated version of [condenser](https://github.com/steemit/condenser) to crawl it at [https://condenser.steem.vc/](https://condenser.steem.vc/)
 
 ## Contributing
 
