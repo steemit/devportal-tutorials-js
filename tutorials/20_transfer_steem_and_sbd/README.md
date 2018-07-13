@@ -4,7 +4,7 @@ _By the end of this tutorial you should know how to transfer both STEEM and SBD 
 
 This tutorial will take you through the process of preparing and submitting a `transfer` using the `broadcast` operation. Two demo accounts are provided to use on the `testnet` but all variables can be easily changed and applied to the `production server`.
 
-There is also an alternative method to transfer from one account to another using a `hot signing` link that can be generated via [Steemconnect](https://steemconnect.com/sign/). You create a link using the `to` account, the amount, and a `memo` (optional). This [link](https://steemconnect.com/sign/transfer?to=steemitblog&amount=1.000%20STEEM) then allows you to do a transfer by simply by adding the login details of the `from` account. This is a very simple way to send a payment request to any other user with the correct details already provided by the link.
+There is also an alternative method to transfer from one account to another using a `hot signing` link that can be generated via [Steemconnect](https://steemconnect.com/sign/). You create a link using the `to` account, the amount, and a `memo` (optional comments). This [link](https://steemconnect.com/sign/transfer?to=steemitblog&amount=1.000%20STEEM) then allows you to do a transfer simply by adding the login details of the `from` account. This is a very simple way to send a payment request to any other user with the correct details already provided by the link.
 
 ## Intro
 
@@ -46,7 +46,7 @@ Because this tutorial modifies the blockchain, we will use a testnet and predefi
 
 #### 2. Input variables<a name="input"></a>
 
-The required parameters for the transfer operation is recorded via an HTML UI that can be found in the `public/index.html` file. The values are pre-populated in this case with testnet `demo` accounts. The transfer amount is set to `1.000` but any value can be input as long as the sender has enough STEEM to send.
+The required parameters for the transfer operation is recorded via an HTML UI that can be found in the `public/index.html` file. The values are prepopulated in this case with testnet `demo` accounts. The transfer amount is set to `1.000` but any value can be input as long as the sender has enough STEEM to send.
 
 The parameter values are allocated as seen below, once the user clicks on the "Transfer" button.
 
@@ -71,7 +71,7 @@ window.submitTransfer = async () => {
 
 #### 3. Object creation<a name="object"></a>
 
-In the `broadcast.transfer` operation, the `amount` parameter is a combination of the transfer `value` and `type` which is why we concatenate the two values into a single variable. We then create a `transfer object` with the input variables to use within broadcast operation.
+In the `broadcast.transfer` operation, the `amount` parameter is a combination of the transfer `value` and `type` which is why we concatenate the two values into a single variable. We then create a `transfer object` with the input variables to use within the broadcast operation.
 
 ```javascript
 const transfer = quantity.concat(' ', type);
@@ -86,7 +86,7 @@ const transfer = quantity.concat(' ', type);
 
 #### 4. Broadcast<a name="broadcast"></a>
 
-We can complete the `broadcast` operation using the created object and the private active key received from the input UI. The result of the transfer is displayed on the UI to confirm whether it was a success or an error occurred.
+We can complete the `broadcast` operation using the created object and the private active key received from the input UI. The result of the transfer is displayed on the UI to confirm whether it was a success or an error occurred. The result is also displayed in the console with the relevant block number or transfer error.
 
 ```javascript
 client.broadcast.transfer(transf, privateKey).then(
