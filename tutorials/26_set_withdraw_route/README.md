@@ -1,23 +1,23 @@
 # Set withdraw route
 
-_This tutorial is about setting route to your power downs or withdraws. We will learn how to set percent of withdraw to other accounts using Steemconnect as well as with Client-side signing method._
+_This tutorial is about setting routes to your power downs or withdraws._
 
-This tutorial runs on the main Steem blockchain. And data is from real accounts with their details.
+We will learn how to allocate a percentage for withdrawal to other accounts using Steemconnect as well as with the client-side signing method. This tutorial runs on the main Steem blockchain. Therefore, any accounts used here will affect real funds on the live network. **Use with caution.**
 
 ## Intro
 
-Tutorial will use few functions such as querying account by name and getting account current withdraw routes. And allows you to set withdraw route to other accounts with percent selection and auto power up function. This feature is quite useful if you want to withdraw portion of your STEEM to other account or POWER UP other account as you withdraw from one account.
+This tutorial will demonstrate a few functions such as querying account by name and determining the vesting balance of the related account. This will allow us to set "withdraw routes" to other accounts with a percent selection and auto power up function. This feature is quite useful if you want to withdraw a portion of your STEEM to a separate account or POWER UP other accounts as you withdraw from one account.
 
 ## Steps
 
 1.  [**App setup**](#app-setup) Setup `dsteem` to use the proper connection and network.
 2.  [**Get account routes**](#search-account) Get account's current routes
 3.  [**Fill form**](#fill-form) Fill form with appropriate data
-4.  [**Set withdraw route**](#withdraw-route) Set route with Steemconnect or Client-side signing
+4.  [**Set withdraw route**](#withdraw-route) Set route with Steemconnect or client-side signing
 
 #### 1. App setup <a name="app-setup"></a>
 
-Below we have `dsteem` pointing to the production network with the proper chainId, addressPrefix, and endpoint. There is a `public/app.js` file which holds the Javascript segment of this tutorial. In the first few lines we define the configured library and packages:
+Below, we have `dsteem` pointing to the production network with the proper chainId, addressPrefix, and endpoint. There is a `public/app.js` file which holds the Javascript segment of this tutorial. In the first few lines we define the configured library and packages:
 
 ```javascript
 const dsteem = require('dsteem');
@@ -32,7 +32,7 @@ const client = new dsteem.Client('https://api.steemit.com');
 
 #### 2. Get account routes <a name="search-account"></a>
 
-After account name field is filled with some name, with `Get withdraw routes` button click we fetch current withdraw routes if exist. HTML input forms can be found in the `index.html` file. The values are pulled from that screen with the below:
+After the account name field is provided, using the `Get withdraw routes` button, we can fetch the current withdraw routes, if they exist. The related HTML input forms can be found in the `index.html` file. The values are pulled from that screen with the following:
 
 ```javascript
     const accSearch = document.getElementById('username').value;
@@ -43,7 +43,7 @@ After account name field is filled with some name, with `Get withdraw routes` bu
 
 #### 3. Fill form <a name="fill-form"></a>
 
-After we fetched account data, we will show list of current routes if they exist and note user how many percent they can set to other accounts.
+After we have fetched the account data, we will show a list of current routes, if they exist, and display information to the user about how many much they can apply to other accounts.
 
 ```javascript
 let info = '';
@@ -60,9 +60,9 @@ info += `You can set ${100 - sum}% remaining part to other accounts!`;
 document.getElementById('accInfo').innerHTML = info;
 ```
 
-Percents can be overwritten by changing and submitting transaction again to same account.
+Previous routes can be overwritten by changing and submitting a new transaction to the same account.
 
-We also generate Steemconnect signing link.
+We also generate a Steemconnect signing link.
 
 ```javascript
 window.openSC = async () => {
@@ -77,7 +77,7 @@ window.openSC = async () => {
 
 #### 4. Set withdraw route <a name="withdraw-route"></a>
 
-We have 2 options on how to set withdraw route others. Steemconnect and Client-side signing options. Since this action requires Active authority, client-side and stemconnect signing asks for Active Private key to sign the transaction. Transaction submission function looks as follows:
+We have two options on how to Power down: Steemconnect and client-side signing. Since this action requires Active authority, both client-side and Stemconnect signing will require the Active Private key to sign the transaction. The transaction submission function appears as follows:
 
 ```javascript
 window.submitTx = async () => {
@@ -113,8 +113,8 @@ That's it!
 
 ### To run this tutorial
 
-1.  clone this repo
-1.  `cd tutorials/26_set_withdraw_route`
+1.  `git clone https://github.com/steemit/devportal-tutorials-js.git`
+1.  `cd devportal-tutorials-js/tutorials/26_set_withdraw_route`
 1.  `npm i`
 1.  `npm run dev-server` or `npm run start`
 1.  After a few moments, the server should be running at [http://localhost:3000/](http://localhost:3000/)
