@@ -1,0 +1,39 @@
+<html>
+    <head>
+        <title>Set withdraw route</title>
+        <script src="bundle.js"></script>
+    </head>
+    <body>
+        <div class="container" id="content"><br/>
+            <h4>Account</h4>
+            <input id="username" type="text" size="65" placeholder="enter account name" class="form-control"><br><input id="submitSearch" type="button" value="Get withdraw routes" onclick="submitAcc()" class="btn btn-primary"><br>
+            <div class="list-group account" id="accInfo"></div><br>
+            <h5>Percent:</h5>
+            <input id="steem" type="text" size="65" placeholder="0" class="form-control"><br>
+            <h5>To account:</h5>
+            <input id="account" type="text" size="65" placeholder="username of receiver" class="form-control"><br>
+            <h5>AutoVest</h5>
+            <input id="percent" type="checkbox" class="form-control"><br>
+            <h5>How would you like to set withdraw/powerdown route?</h5>
+            <table>
+              <tr>
+                <th>Steemconnect</th>
+                <th>Client-side</th>
+              </tr>
+              <tr>
+                <td>
+                    <input id="openSC" type="button" value="Steemconnect" onclick="openSC()" class="btn btn-primary">
+                </td>
+                <td>
+                    <div id="client">
+                        <h5>Active Private key:</h5>
+                        <input id="wif" type="text" size="65" placeholder="wif" class="form-control"><br>
+                        <input id="submitTx" type="button" value="Submit" onclick="submitTx()" class="btn btn-primary"><br/>
+                    </div> 
+                </td>
+              </tr>
+          </table>
+            <div id="result" style="display: none;"></div>
+        </div>
+    </body>
+</html>
