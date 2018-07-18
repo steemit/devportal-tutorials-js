@@ -2,7 +2,7 @@
 
 _By the end of this tutorial you should know how to call a list of user names from the steem blockchain_
 
-This tutorial will show the method of capturing a queried user name, matching that to the steemit database and then displaying the matching names. This tutorial will be run on the `production server`.
+This tutorial will show the method of capturing a queried user name, matching that to the steem database and then displaying the matching names. This tutorial will be run on the `production server`.
 
 ## Intro
 
@@ -57,7 +57,7 @@ const _accounts = await client.database.call('lookup_accounts',[accSearch, max])
 
 #### 4.  **Output**<a name="output"></a>
 
-Finally we create a list from the "\_accounts" array generated in step 3.
+Finally we create a list from the "_accounts" array generated in step 3.
 
 ```javascript
 document.getElementById('accList').innerHTML = _accounts.join('<br>');
@@ -69,5 +69,5 @@ document.getElementById('accList').innerHTML = _accounts.join('<br>');
 1.  clone this repo
 2.  `cd tutorials/15_search_accounts`
 3.  `npm i`
-1.  `npm run dev-server` or `npm run start`
-1.  After a few moments, the server should be running at [http://localhost:3000/](http://localhost:3000/)
+4.  `npm run dev-server` or `npm run start`
+5.  After a few moments, the server should be running at http://localhost:3000/
