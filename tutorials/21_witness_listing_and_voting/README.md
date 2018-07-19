@@ -4,6 +4,8 @@ _By the end of this tutorial you should know how to create a list of available w
 
 This tutorial will take you through the process of preparing and submitting a `vote` using the `broadcast` operation. A demo account is provided to use on the `testnet` but all variables can be easily changed and applied to the `production server`.
 
+There is also an alternative method to vote for a witness using a `hot signing` link that can be generated via [Steemconnect](https://steemconnect.com/sign/). You create a link using the `witness` name and the `approve` fields which denotes whether you want to vote for or remove the vote. This [link](https://v2.steemconnect.com/sign/account-witness-vote?witness=grg&approve=approve) then allows you to vote simply by signing in with your account details. This is a very simple way to send a vote request to any other user with the correct details already provided by the link.
+
 ## Intro
 
 We are using the `account witness vote` function to create the vote which we then commit to the steem blockchain with a `broadcast` operation from `dsteem`. We also look at the vote status for a specific user using the `getAccounts` function. The parameters required for the witness voting operation are:
