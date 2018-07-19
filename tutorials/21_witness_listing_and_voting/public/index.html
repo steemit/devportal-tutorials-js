@@ -8,10 +8,10 @@
             <form>
                 <h4>Create a list of active witnesses</h4>
                 <div class="form-group row">
-                    <label for="limit" class="col-sm-2 col-form-label">
+                    <label for="limit" class="col-sm-4 col-form-label">
                         Max length of list to display (max 100)
                     </label>
-                    <div class="col-sm-10">
+                    <div class="col-sm-8">
                         <input
                             type="number"
                             class="form-control"
@@ -23,14 +23,14 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="staticEmail" class="col-sm-2 col-form-label">
+                    <label for="staticEmail" class="col-sm-4 col-form-label">
                         Generate a witness list
                     </label>
-                    <div class="col-sm-10">
+                    <div class="col-sm-8">
                         <input
                             id="createListBtn"
                             type="button"
-                            value="Create Witness List"
+                            value="Fetch current Witnesses"
                             onclick="createList()"
                             class="btn btn-primary"
                         />
@@ -40,10 +40,10 @@
             <h4>Vote for a witness</h4>
             <form>
                 <div class="form-group row">
-                    <label for="username" class="col-sm-2 col-form-label">
+                    <label for="username" class="col-sm-4 col-form-label">
                         Username
                     </label>
-                    <div class="col-sm-10">
+                    <div class="col-sm-8">
                         <input
                             id="username"
                             type="text"
@@ -53,23 +53,23 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="postingKey" class="col-sm-2 col-form-label">
-                        Posting private key
+                    <label for="postingKey" class="col-sm-4 col-form-label">
+                        Active private key
                     </label>
-                    <div class="col-sm-10">
+                    <div class="col-sm-8">
                         <input
                             type="password"
                             class="form-control"
-                            id="postingKey"
-                            value="5JEZ1EiUjFKfsKP32b15Y7jybjvHQPhnvCYZ9BW62H1LDUnMvHz"
+                            id="activeKey"
+                            value="5KaNM84WWSqzwKzY82fXPaUW43idbLnPqf5SfjGxLfw6eV2kAP3"
                         />
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="witness" class="col-sm-2 col-form-label">
+                    <label for="witness" class="col-sm-4 col-form-label">
                         Witness
                     </label>
-                    <div class="col-sm-10">
+                    <div class="col-sm-8">
                         <input
                             type="text"
                             class="form-control"
@@ -79,7 +79,7 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <div class="offset-sm-2 col-sm-10">
+                    <div class="offset-sm-4 col-sm-8">
                         <input
                             id="submitVoteBtn"
                             type="button"
@@ -94,16 +94,21 @@
                     id="voteResultContainer"
                     style="display: none;"
                 >
-                    <label for="voteResult" class="col-sm-2 col-form-label">
+                    <label for="voteResult" class="col-sm-4 col-form-label">
                         Vote result
                     </label>
-                    <div class="col-sm-10">
-                        <div id="voteResult" class="form-control-plaintext" />
+                    <div class="col-sm-8">
+                        <div id="voteResult" class="form-control-plaintext"></div>
                     </div>
                 </div>
             </form>
-            <div class="offset-sm-2 col-sm-10">
-                <div class="list-group" id="witnessList"></div>
+            <div class="form-group row" id="witnessListContainer" style="display: none">
+                <label for="witness" class="col-sm-4 col-form-label">
+                    Available Witnesses
+                </label>
+                 <div class="col-sm-8">
+                    <ul class="list-inline" id="witnessList"></ul>
+                </div>
             </div>
         </div>
     </body>
