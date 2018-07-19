@@ -27,7 +27,7 @@ application.
 
 #### 1. UI <a name="UI"></a>
 
-The source HTML for our UI can be found in [public/index.html](./public/index.html)
+The source HTML for our UI can be found in [public/index.html](https://github.com/steemit/devportal-tutorials-js/blob/master/tutorials/04_get_posts/public/index.html)
 
 There are three input components to the UI.
 
