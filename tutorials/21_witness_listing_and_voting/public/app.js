@@ -36,14 +36,6 @@ window.createList = async () => {
 };
 
 //submit vote function executes when you click "Submit Vote" button
-
-//broadcast
-//["account_witness_vote", {account: "lightforge13", witness: "jacor-witness", approve: true}]
-
-// steem.broadcast.accountWitnessVote(wif, account, witness, approve, function(err, result) {
-//     console.log(err, result);
-//   });
-
 window.submitVote = async () => {
     //get all values from the UI
     //get account name of voter
@@ -55,14 +47,24 @@ window.submitVote = async () => {
     //get witness name
     const witness = document.getElementById('witness').value;
 
+    //check if witness is already voted for
+    _data = new Array
+    _data = await client.database.getAccounts([voter]);
+    const witnessvotes = _data[0]["witness_votes"];
+    const approve = witnessvotes.includes(witness);
+    if (approve) {
+        voteresult = "Vote removed"
+    } else {
+        voteresult = "Vote successful"
+    }
+
     //create vote object
     const vote = [
         'account_witness_vote',
-        { account: voter, witness: witness, approve: true },
+        { account: voter, witness: witness, approve: !approve },
     ];
 
     //broadcast the vote
-
     client.broadcast.sendOperations([vote], privateKey).then(
         function(result) {
             console.log(
@@ -73,7 +75,7 @@ window.submitVote = async () => {
                 'flex';
             document.getElementById('voteResult').className =
                 'form-control-plaintext alert alert-success';
-            document.getElementById('voteResult').innerHTML = 'Success';
+            document.getElementById('voteResult').innerHTML = voteresult;
         },
         function(error) {
             console.error(error);
