@@ -25,12 +25,11 @@ window.createList = async () => {
     var witnesses = [];
 
     for (const witness in witnessdata.witnesses) {
-        console.log('witness', witness);
+        console.log('witness : ', witness);
         witnesses.push(
             `<li><a href="#" onclick="document.getElementById('witness').value = '${witness}';">${witness}</a></li>`
         );
     }
-    console.log('witnesses', witnesses);
     document.getElementById('witnessList').innerHTML = witnesses.join('');
     document.getElementById('witnessListContainer').style.display = 'flex';
 };
@@ -53,38 +52,62 @@ window.submitVote = async () => {
     const witnessvotes = _data[0]["witness_votes"];
     const approve = witnessvotes.includes(witness);
     if (approve) {
-        voteresult = "Vote removed"
+        checkresult = "Witness has already been voted for, would you like to remove vote?"
+        votecheck = "Vote removed"
     } else {
-        voteresult = "Vote successful"
+        checkresult = "Witness has not yet been voted for, would you like to vote?"
+        votecheck = "Vote added"
     }
+    
+    document.getElementById('voteCheckContainer').style.display = 'flex';
+    document.getElementById('voteCheck').className = 'form-control-plaintext alert alert-success';
+    document.getElementById('voteCheck').innerHTML = checkresult;
 
-    //create vote object
-    const vote = [
+    document.getElementById("submitYesBtn").style.visibility = "visible";
+    document.getElementById("submitNoBtn").style.visibility = "visible";
+
+    window.submitYes = async () => {
+        //create vote object
+        const vote = [
         'account_witness_vote',
         { account: voter, witness: witness, approve: !approve },
-    ];
+        ];
 
-    //broadcast the vote
-    client.broadcast.sendOperations([vote], privateKey).then(
-        function(result) {
-            console.log(
-                'included in block: ' + result.block_num,
-                'expired: ' + result.expired
-            );
-            document.getElementById('voteResultContainer').style.display =
-                'flex';
-            document.getElementById('voteResult').className =
-                'form-control-plaintext alert alert-success';
-            document.getElementById('voteResult').innerHTML = voteresult;
-        },
-        function(error) {
-            console.error(error);
-            document.getElementById('voteResultContainer').style.display =
-                'flex';
-            document.getElementById('voteResult').className =
-                'form-control-plaintext alert alert-danger';
-            document.getElementById('voteResult').innerHTML =
-                error.jse_shortmsg;
-        }
-    );
+        //broadcast the vote
+        client.broadcast.sendOperations([vote], privateKey).then(
+            function(result) {
+                console.log(
+                    'included in block: ' + result.block_num,
+                    'expired: ' + result.expired
+                );
+                document.getElementById('voteCheckContainer').style.display =
+                    'flex';
+                document.getElementById('voteCheck').className =
+                    'form-control-plaintext alert alert-success';
+                document.getElementById('voteCheck').innerHTML = votecheck;
+            },
+            function(error) {
+                console.error(error);
+                document.getElementById('voteCheckContainer').style.display =
+                    'flex';
+                document.getElementById('voteCheck').className =
+                    'form-control-plaintext alert alert-danger';
+                document.getElementById('voteCheck').innerHTML =
+                    error.jse_shortmsg;
+            }
+        );
+        document.getElementById("submitYesBtn").style.visibility = "hidden";
+        document.getElementById("submitNoBtn").style.visibility = "hidden";
+    };
+
+    window.submitNo = async () => {
+        document.getElementById('voteCheckContainer').style.display =
+            'flex';
+        document.getElementById('voteCheck').className =
+            'form-control-plaintext alert alert-success';
+        document.getElementById('voteCheck').innerHTML = "Vote process has ben cancelled";
+        document.getElementById("submitYesBtn").style.visibility = "hidden";
+        document.getElementById("submitNoBtn").style.visibility = "hidden";
+    };
+
 };

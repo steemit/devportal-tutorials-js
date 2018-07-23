@@ -87,30 +87,42 @@ window.submitVote = async () => {
 
 #### 4. Voting status<a name="status"></a>
 
-The `approve` parameter within the vote function determines whether the user is voting for the witness or removing its vote. In order to get the correct value for this parameter we first need to identify whether the user has already voted for the specified witness or not. One of the fields from the account information (blockchain query) holds an array of all the witnesses currently voted for by the user. The check returns `true` if the user has already voted for the selected witness.
+The `approve` parameter within the vote function determines whether the user is voting for the witness or removing its vote. In order to get the correct value for this parameter we first need to identify whether the user has already voted for the specified witness or not. One of the fields from the account information (blockchain query) holds an array of all the witnesses currently voted for by the user. The check returns `true` if the user has already voted for the selected witness. The result of this query is displayed and the user is given a choice whether to proceed with the vote/unvote process or stop the process activating a new function for each of those choices.
 
 ```javascript
-//check if witness is already voted for
+    //check if witness is already voted for
     _data = new Array
     _data = await client.database.getAccounts([voter]);
     const witnessvotes = _data[0]["witness_votes"];
     const approve = witnessvotes.includes(witness);
     if (approve) {
-        voteresult = "Vote removed"
+        checkresult = "Witness has already been voted for, would you like to remove vote?"
+        votecheck = "Vote removed"
     } else {
-        voteresult = "Vote successful"
+        checkresult = "Witness has not yet been voted for, would you like to vote?"
+        votecheck = "Vote added"
     }
+    
+    document.getElementById('voteCheckContainer').style.display = 'flex';
+    document.getElementById('voteCheck').className = 'form-control-plaintext alert alert-success';
+    document.getElementById('voteCheck').innerHTML = checkresult;
+
+    document.getElementById("submitYesBtn").style.visibility = "visible";
+    document.getElementById("submitNoBtn").style.visibility = "visible";
+
 ```
 
 #### 5. Broadcast<a name="broadcast"></a>
 
-We create a `vote object` with the input variables before we can broadcast to the blockchain.
+When the user decides to continue with the voting process the actual vote function is triggered and we create a `vote object` with the input variables before we can broadcast to the blockchain.
 
 ```javascript
-    const vote = [
+window.submitYes = async () => {
+        //create vote object
+        const vote = [
         'account_witness_vote',
         { account: voter, witness: witness, approve: !approve },
-    ];
+        ];
 ```
 
 The array cotains the function for the witness vote along with an object containing the needed parameters. We have to use the opposite of the `approve` variable that we created in the previous step. That variable is `true` if the user has already voted, and a value of `true` for the `approve` parameter means that the user is voting _for_ the specified witness which will then return an error.
@@ -118,29 +130,48 @@ The array cotains the function for the witness vote along with an object contain
 After the object has been created we can `broadcast` the operation to the steem blockchain along with the private active key of the user. The result of the vote is displayed on the UI to confirm whether you voted for or removed a vote for the witness as well as error details should there be one.
 
 ```javascript
-client.broadcast.sendOperations([vote], privateKey).then(
-        function(result) {
-            console.log(
-                'included in block: ' + result.block_num,
-                'expired: ' + result.expired
-            );
-            document.getElementById('voteResultContainer').style.display =
-                'flex';
-            document.getElementById('voteResult').className =
-                'form-control-plaintext alert alert-success';
-            document.getElementById('voteResult').innerHTML = voteresult;
-        },
-        function(error) {
-            console.error(error);
-            document.getElementById('voteResultContainer').style.display =
-                'flex';
-            document.getElementById('voteResult').className =
-                'form-control-plaintext alert alert-danger';
-            document.getElementById('voteResult').innerHTML =
-                error.jse_shortmsg;
-        }
-    );
+//broadcast the vote
+        client.broadcast.sendOperations([vote], privateKey).then(
+            function(result) {
+                console.log(
+                    'included in block: ' + result.block_num,
+                    'expired: ' + result.expired
+                );
+                document.getElementById('voteCheckContainer').style.display =
+                    'flex';
+                document.getElementById('voteCheck').className =
+                    'form-control-plaintext alert alert-success';
+                document.getElementById('voteCheck').innerHTML = votecheck;
+            },
+            function(error) {
+                console.error(error);
+                document.getElementById('voteCheckContainer').style.display =
+                    'flex';
+                document.getElementById('voteCheck').className =
+                    'form-control-plaintext alert alert-danger';
+                document.getElementById('voteCheck').innerHTML =
+                    error.jse_shortmsg;
+            }
+        );
+        document.getElementById("submitYesBtn").style.visibility = "hidden";
+        document.getElementById("submitNoBtn").style.visibility = "hidden";
 ```
+
+Should the user choose to stop the process the following function is executed.
+
+```javascript
+window.submitNo = async () => {
+        document.getElementById('voteCheckContainer').style.display =
+            'flex';
+        document.getElementById('voteCheck').className =
+            'form-control-plaintext alert alert-success';
+        document.getElementById('voteCheck').innerHTML = "Vote process has ben cancelled";
+        document.getElementById("submitYesBtn").style.visibility = "hidden";
+        document.getElementById("submitNoBtn").style.visibility = "hidden";
+    };
+```
+
+The option buttons (continue with voting process or stop) are disabled at the end of the process in order to remove confusion on what to do next or what the option buttons will do.
 
 ### To run this tutorial
 
