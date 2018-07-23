@@ -1,5 +1,5 @@
 {
-    "name": "21_witness_listing_and_voting",
+    "name": "27_get_delegations_by_user",
     "version": "1.0.0",
     "description": "",
     "main": "index.js",
