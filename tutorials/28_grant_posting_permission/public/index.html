@@ -46,17 +46,6 @@
                         />
                     </div>
                 </div>
-                <div class="form-group row">
-                    <div class="offset-sm-2 col-sm-8">
-                        <input
-                            id="submitPermBtn"
-                            type="button"
-                            value="Submit permission approval"
-                            onclick="submitPermission()"
-                            class="btn btn-primary"
-                        />
-                    </div>
-                </div>
                 <div
                     class="form-group row"
                     id="permCheckContainer"
@@ -69,22 +58,28 @@
                         <div id="permCheck" class="form-control-plaintext"></div>
                     </div>
                 </div>
-                    <div class="offset-sm-4 col-sm-8">
+                <div class="form-group row">
+                    <div class="offset-sm-2 col-sm-8">
                         <input
-                            id="submitCancelBtn"
+                            id="submitCheckBtn"
                             type="button"
-                            value="CANCEL"
-                            onclick="submitCancel()"
+                            value="Check permission status"
+                            onclick="submitCheck()"
                             class="btn btn-primary"
-                            style="visibility: hidden"
+                        />
+                        <input
+                            id="submitPermBtn"
+                            type="button"
+                            value="Provide permission approval"
+                            onclick="submitPermission()"
+                            class="btn btn-primary"
                         />
                         <input
                             id="submitRevokeBtn"
                             type="button"
-                            value="REVOKE"
+                            value="Revoke permission approval"
                             onclick="submitRevoke()"
                             class="btn btn-primary"
-                            style="visibility: hidden"
                         />
                     </div>
                 </div>
