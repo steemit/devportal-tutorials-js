@@ -31,17 +31,17 @@ window.submitCheck = async () => {
     //check for username duplication
     const checkAuth = _data[0].posting.account_auths;
     var arrayindex = -1;
+    var checktext = " does not yet have posting permission"
     for (var i = 0,len = checkAuth.length; i<len; i++) {
         if (checkAuth[i][0]==newAccount) {
             arrayindex = i
-            var checktext = "User already has posting permission"
-        } else {
-            var checktext = "User does not yet have posting permission"
+            var checktext = " already has posting permission"
         }
     }
     document.getElementById('permCheckContainer').style.display = 'flex';
     document.getElementById('permCheck').className = 'form-control-plaintext alert alert-success';
-    document.getElementById('permCheck').innerHTML = checktext;
+    document.getElementById('permCheck').innerHTML = newAccount + checktext;
+    console.log(checkAuth);
 }
 
 //grant permission function
@@ -61,7 +61,9 @@ window.submitPermission = async () => {
 
     //adding of new account to posting array
     postingAuth.account_auths.push([newAccount, parseInt(postingAuth.weight_threshold)]);
-    
+    //sort array required for steem blockchain
+    postingAuth.account_auths.sort();
+
     //object creation
     const accObj = {
         account: username,
@@ -79,7 +81,7 @@ window.submitPermission = async () => {
             );
             document.getElementById('permCheckContainer').style.display = 'flex';
             document.getElementById('permCheck').className = 'form-control-plaintext alert alert-success';
-            document.getElementById('permCheck').innerHTML = "permission has been granted";
+            document.getElementById('permCheck').innerHTML = "posting permission has been granted to " + newAccount;
         },
         function(error) {
             console.error(error);
@@ -113,11 +115,11 @@ window.submitRevoke = async () => {
             arrayindex = i
         }
     }    
-
-    if (arrayindex = -1) {
+    
+    if (arrayindex<0) {
         document.getElementById('permCheckContainer').style.display = 'flex';
         document.getElementById('permCheck').className = 'form-control-plaintext alert alert-danger';
-        document.getElementById('permCheck').innerHTML = "ERROR! User does not yet have permission and revoking the access will remove the next available user";
+        document.getElementById('permCheck').innerHTML = newAccount + " does not yet have posting permission to revoke";
         return;
     }
 
@@ -141,7 +143,7 @@ window.submitRevoke = async () => {
             );
             document.getElementById('permCheckContainer').style.display = 'flex';
             document.getElementById('permCheck').className = 'form-control-plaintext alert alert-success';
-            document.getElementById('permCheck').innerHTML = "permission has been revoked";
+            document.getElementById('permCheck').innerHTML = "permission has been revoked for " + newAccount;
         },
         function(error) {
             console.error(error);

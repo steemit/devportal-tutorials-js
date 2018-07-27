@@ -74,25 +74,25 @@ The queries are sent through to the steem blockchain with the `database API` usi
     _data = await client.database.getAccounts([username]);
     const postingAuth = _data[0].posting;
 
-    //check for username duplication
+     //check for username duplication
     const checkAuth = _data[0].posting.account_auths;
     var arrayindex = -1;
+    var checktext = " does not yet have posting permission"
     for (var i = 0,len = checkAuth.length; i<len; i++) {
         if (checkAuth[i][0]==newAccount) {
             arrayindex = i
-            var checktext = "User already has posting permission"
-        } else {
-            var checktext = "User does not yet have posting permission"
+            var checktext = " already has posting permission"
         }
     }
 ```
 
-The result of this status query is then displayed on the UI.
+The result of this status query is then displayed on the UI along with the array on the console as a check.
 
 ```javascript
     document.getElementById('permCheckContainer').style.display = 'flex';
     document.getElementById('permCheck').className = 'form-control-plaintext alert alert-success';
-    document.getElementById('permCheck').innerHTML = checktext;
+    document.getElementById('permCheck').innerHTML = newAccount + checktext;
+    console.log(checkAuth);
 ```
 
 #### 4. Object creation<a name="object"></a>
@@ -102,11 +102,13 @@ The database query is the same for all the functions and is required to create a
 ```javascript
 //add account permission
 postingAuth.account_auths.push([newAccount, parseInt(postingAuth.weight_threshold)]);
+postingAuth.account_auths.sort();
 
 //revoke permission
 postingAuth.account_auths.splice(arrayindex,1);
 ```
 
+When adding to the array (creaing permission) it is required to sort the array before we can broadcast. The steem blockchain does not accept the new fields in the array if it's not alphabetically sorted.
 After the posting array has been defined, the broadcast object can be created. This holds all the required information for a successful transaction to be sent to the blockchain. Where there is no change in the authority types, the parameter can be omitted or in the case of required parameters, allocated directly from the database query.
 
 ```javascript
@@ -133,7 +135,7 @@ With all the parameters assigned, the transaction can be broadcast to the blockc
             );
             document.getElementById('permCheckContainer').style.display = 'flex';
             document.getElementById('permCheck').className = 'form-control-plaintext alert alert-success';
-            document.getElementById('permCheck').innerHTML = "permission has been granted";
+            document.getElementById('permCheck').innerHTML = "posting permission has been granted to " + newAccount;
         },
         function(error) {
             console.error(error);
@@ -144,9 +146,9 @@ With all the parameters assigned, the transaction can be broadcast to the blockc
     );
 ```
 
-The results of the operation is displayed on the UI along with a block number in the console to confirm a successful operation.
+The results of the operation is displayed on the UI along with a block number in the console to confirm a successful operation. If you add permission to an account that already has permission will display an error of "Missing Active Authority".
 
-steemconnect offers an alternative to revoking posting permission with a "simple link" solution. Instead of running through a list of opetions on your account, you can simply use a link similar to the one below. You will be prompted to enter your usename and password and the specified user will have their posting permission removed instantly.
+Steemconnect offers an alternative to revoking posting permission with a "simple link" solution. Instead of running through a list of opetions on your account, you can simply use a link similar to the one below. You will be prompted to enter your usename and password and the specified user will have their posting permission removed instantly.
 https://v2.steemconnect.com/revoke/@username
 This is similar to the steemconnect links that have been covered in previous tutorials. For a list of signing operations that work in this manner you can go to https://v2.steemconnect.com/sign
 
