@@ -133,11 +133,16 @@ window.submitVote = async () => {
     );
 };
 
-window.onload = () => {
+window.onload = async () => {
     var voteWeightSlider = document.getElementById('voteWeight');
     var currentWeightDiv = document.getElementById('currentWeight');
     currentWeightDiv.innerHTML = voteWeightSlider.value;
     voteWeightSlider.oninput = function() {
         currentWeightDiv.innerHTML = this.value;
     };
+    const response = await fetch("login.json");
+    const json = await response.json();
+    //console.log(json);
+    document.getElementById('postingKey').value = json.privPosting1;
+    document.getElementById('username').value = json.username1;
 };

@@ -69,3 +69,12 @@ window.submitTransfer = async () => {
         }
     );
 };
+
+window.onload = async () => {
+    const response = await fetch("login.json");
+    const json = await response.json();
+    //console.log(json);
+    document.getElementById('privateKey').value = json.privActive1;
+    document.getElementById('username').value = json.username1;
+    document.getElementById('recipient').value = json.username2;
+};
