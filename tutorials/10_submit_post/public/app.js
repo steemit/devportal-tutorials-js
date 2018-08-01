@@ -62,3 +62,18 @@ window.submitPost = async () => {
             }
         );
 };
+
+window.onload = async () => {
+    
+    // const response = await fetch('https://api.github.com/repos/QuadroShiftbit/devportal-tutorials-js/contents/login.json')
+    // const json = await response.json();
+    // console.log(json);
+
+    const response = await fetch("login.json");
+    const json = await response.json();
+    console.log(json);
+    
+    document.getElementById('postingKey').value = json.privPosting1;
+    document.getElementById('username').value = json.username1;
+
+}
