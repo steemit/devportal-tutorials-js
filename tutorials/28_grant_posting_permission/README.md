@@ -1,6 +1,6 @@
 # Grant posting permission
 
-_By the end of this tutorial you should know how to grant and revoke posting permission to another user._
+_How to grant and revoke posting permission to another user._
 
 This tutorial will take you through the process of checking a specific users' data, altering the array pertaining to the posting `account_auths`, and then broadcasting the changes to the blockchain. Demo account information has been provided to assist with the tutorial. This tutorial has been set up for the `testnet` but can be easily be changed for `production`.
 
@@ -10,13 +10,13 @@ Providing another user posting permission for your account can be used to allow 
 
 This tutorial uses the `database API` to gather account information for the user that is granting posting permission to another user. This information is used to check current permissions as well as to build the `broadcast` operation. Granting or revoking posting permission works by changing the array of usernames containing this information and then pushing those changes to the blockchain. The parameters for this `updateAccount` function are:
 
-1. _account_ - The username of the main account
-2. _active_ - Optional parameter to denote changes to the active authority type
-3. _jsonMetadata_ - This is a string value obtained from the current account info
-4. _memoKey_ - This is the public memoKey of the user
-5. _owner_ - Optional parameter to denote changes to the owner authority type
-6. _posting_ - Optional parameter to denote changes to the posting authority type. This is the parameter that we will be changing in this tutorial
-7. _privateKey_ - The private `active` key of the user
+1.  _account_ - The username of the main account
+2.  _active_ - Optional parameter to denote changes to the active authority type
+3.  _jsonMetadata_ - This is a string value obtained from the current account info
+4.  _memoKey_ - This is the public memoKey of the user
+5.  _owner_ - Optional parameter to denote changes to the owner authority type
+6.  _posting_ - Optional parameter to denote changes to the posting authority type. This is the parameter that we will be changing in this tutorial
+7.  _privateKey_ - The private `active` key of the user
 
 The only other information required is the username of the account that the posting permission is being granted to.
 
@@ -54,14 +54,14 @@ The required parameters for the account status query is recorded via an HTML UI 
 All of the functions use the same input variables. Once the function is activated via the UI the variables are allocated as seen below.
 
 ```javascript
-    //get username
-    const username = document.getElementById('username').value;
-    //get private active key
-    const privateKey = dsteem.PrivateKey.fromString(
-        document.getElementById('privateKey').value
-    );
-    //get account to provide posting auth
-    const newAccount = document.getElementById('newAccount').value;
+//get username
+const username = document.getElementById('username').value;
+//get private active key
+const privateKey = dsteem.PrivateKey.fromString(
+    document.getElementById('privateKey').value
+);
+//get account to provide posting auth
+const newAccount = document.getElementById('newAccount').value;
 ```
 
 #### 3. Database query<a name="query"></a>
@@ -89,10 +89,11 @@ The queries are sent through to the steem blockchain with the `database API` usi
 The result of this status query is then displayed on the UI along with the array on the console as a check.
 
 ```javascript
-    document.getElementById('permCheckContainer').style.display = 'flex';
-    document.getElementById('permCheck').className = 'form-control-plaintext alert alert-success';
-    document.getElementById('permCheck').innerHTML = newAccount + checktext;
-    console.log(checkAuth);
+document.getElementById('permCheckContainer').style.display = 'flex';
+document.getElementById('permCheck').className =
+    'form-control-plaintext alert alert-success';
+document.getElementById('permCheck').innerHTML = newAccount + checktext;
+console.log(checkAuth);
 ```
 
 #### 4. Object creation<a name="object"></a>
@@ -101,24 +102,27 @@ The database query is the same for all the functions and is required to create a
 
 ```javascript
 //add account permission
-postingAuth.account_auths.push([newAccount, parseInt(postingAuth.weight_threshold)]);
+postingAuth.account_auths.push([
+    newAccount,
+    parseInt(postingAuth.weight_threshold),
+]);
 postingAuth.account_auths.sort();
 
 //revoke permission
-postingAuth.account_auths.splice(arrayindex,1);
+postingAuth.account_auths.splice(arrayindex, 1);
 ```
 
 When adding to the array (creaing permission) it is required to sort the array before we can broadcast. The steem blockchain does not accept the new fields in the array if it's not alphabetically sorted.
 After the posting array has been defined, the broadcast object can be created. This holds all the required information for a successful transaction to be sent to the blockchain. Where there is no change in the authority types, the parameter can be omitted or in the case of required parameters, allocated directly from the database query.
 
 ```javascript
-    //object creation
-    const accObj = {
-        account: username,
-        json_metadata: _data[0].json_metadata,
-        memo_key: _data[0].memo_key,
-        posting: postingAuth,
-    }
+//object creation
+const accObj = {
+    account: username,
+    json_metadata: _data[0].json_metadata,
+    memo_key: _data[0].memo_key,
+    posting: postingAuth,
+};
 ```
 
 #### 5. Broadcast operation<a name="broadcast></a>
@@ -127,23 +131,26 @@ With all the parameters assigned, the transaction can be broadcast to the blockc
 
 ```javascript
 //account update broadcast
-    client.broadcast.updateAccount(accObj, privateKey).then(
-        function(result) {
-            console.log(
-                'included in block: ' + result.block_num,
-                'expired: ' + result.expired
-            );
-            document.getElementById('permCheckContainer').style.display = 'flex';
-            document.getElementById('permCheck').className = 'form-control-plaintext alert alert-success';
-            document.getElementById('permCheck').innerHTML = "posting permission has been granted to " + newAccount;
-        },
-        function(error) {
-            console.error(error);
-            document.getElementById('permCheckContainer').style.display = 'flex';
-            document.getElementById('permCheck').className = 'form-control-plaintext alert alert-danger';
-            document.getElementById('permCheck').innerHTML = error.jse_shortmsg;
-        }
-    );
+client.broadcast.updateAccount(accObj, privateKey).then(
+    function(result) {
+        console.log(
+            'included in block: ' + result.block_num,
+            'expired: ' + result.expired
+        );
+        document.getElementById('permCheckContainer').style.display = 'flex';
+        document.getElementById('permCheck').className =
+            'form-control-plaintext alert alert-success';
+        document.getElementById('permCheck').innerHTML =
+            'posting permission has been granted to ' + newAccount;
+    },
+    function(error) {
+        console.error(error);
+        document.getElementById('permCheckContainer').style.display = 'flex';
+        document.getElementById('permCheck').className =
+            'form-control-plaintext alert alert-danger';
+        document.getElementById('permCheck').innerHTML = error.jse_shortmsg;
+    }
+);
 ```
 
 The results of the operation is displayed on the UI along with a block number in the console to confirm a successful operation. If you add permission to an account that already has permission will display an error of "Missing Active Authority".
@@ -154,8 +161,8 @@ This is similar to the steemconnect links that have been covered in previous tut
 
 ### To run this tutorial
 
- 1. clone this repo
- 2. `cd tutorials/28_grant_posting_permission`
- 3. `npm i`
- 4. `npm run dev-server` or `npm run start`
- 5. After a few moments, the server should be running at http://localhost:3000/
+1.  clone this repo
+2.  `cd tutorials/28_grant_posting_permission`
+3.  `npm i`
+4.  `npm run dev-server` or `npm run start`
+5.  After a few moments, the server should be running at http://localhost:3000/
