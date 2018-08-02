@@ -99,4 +99,11 @@ function resteemOutput(output) {
     document.getElementById('results').innerText = output;
 }
 
-window.onload = fetchBlog;
+window.onload = async () => {
+    fetchBlog();
+    const response = await fetch("login.json");
+    const json = await response.json();
+    //console.log(json);
+    document.getElementById('postingKey').value = json.privPosting1;
+    document.getElementById('username').value = json.username1;
+};

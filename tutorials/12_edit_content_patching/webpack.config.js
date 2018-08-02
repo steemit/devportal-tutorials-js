@@ -17,4 +17,12 @@ module.exports = {
     performance: {
         hints: process.env.NODE_ENV === 'production' ? 'warning' : false,
     },
+    devServer: {
+        before: function(app) {
+            app.get('/login.json', function(req, res) {
+                const login = require('../../login.json');
+                res.json(login);
+            });
+        },
+    },
 };

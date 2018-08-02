@@ -97,3 +97,11 @@ window.submitFollow = async () => {
 
     );
 };
+
+window.onload = async () => {
+    const response = await fetch("login.json");
+    const json = await response.json();
+    //console.log(json);
+    document.getElementById('postingKey').value = json.privPosting1;
+    document.getElementById('username').value = json.username1;
+};
