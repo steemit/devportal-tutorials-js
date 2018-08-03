@@ -4,7 +4,7 @@ _How to grant and revoke active permission to another user._
 
 This tutorial will take you through the process of checking a specific users' data, altering the array pertaining to the active `account_auths`, and then broadcasting the changes to the blockchain. Demo account information has been provided to assist with the tutorial. This tutorial has been set up for the `testnet` but can be easily be changed for `production`.
 
-Providing another user active permission for your account enables them to do fund transfers from your account. This can be usefull in setting up a secondary account(s) to manage funds for a main account or having a backup should you lose passwords for the main account.
+Providing another user active permission for your account enables them to do fund transfers from your account. This can be usefull in setting up a secondary account(s) to manage funds for a main account or having a backup should you lose passwords for the main account. For a more in depth look at how the different authorities work you can read [THIS](https://steemit.com/steem/@good-karma/steem-multi-authority-permissions-and-how-active-authority-works-part-2-f158813ec0ec1) steemit post and follow the various links from there.
 
 ## Intro
 
