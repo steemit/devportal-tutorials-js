@@ -1,0 +1,86 @@
+<html>
+    <head>
+        <title>Grant active permission</title>
+        <script src="bundle.js"></script>
+    </head>
+    <body>
+        <div class="container" id="content">
+            <h4>Grant active permission to another account</h4>
+            <form>
+                <div class="form-group row">
+                    <label for="username" class="col-sm-2 col-form-label">
+                        Username
+                    </label>
+                    <div class="col-sm-10">
+                        <input
+                            id="username"
+                            type="text"
+                            class="form-control"
+                        />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="privateKey" class="col-sm-2 col-form-label">
+                        Private active key
+                    </label>
+                    <div class="col-sm-10">
+                        <input
+                            type="password"
+                            class="form-control"
+                            id="privateKey"
+                        />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="recipient" class="col-sm-2 col-form-label">
+                        User to be given active permission
+                    </label>
+                    <div class="col-sm-10">
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="newAccount"
+                        />
+                    </div>
+                </div>
+                <div
+                    class="form-group row"
+                    id="permCheckContainer"
+                    style="display: none;"
+                >
+                    <label for="permCheck" class="col-sm-4 col-form-label">
+                        Permission check
+                    </label>
+                    <div class="offset-sm-2 col-sm-8">
+                        <div id="permCheck" class="form-control-plaintext"></div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="offset-sm-2 col-sm-8">
+                        <input
+                            id="submitCheckBtn"
+                            type="button"
+                            value="Check permission status"
+                            onclick="submitCheck()"
+                            class="btn btn-primary"
+                        />
+                        <input
+                            id="submitPermBtn"
+                            type="button"
+                            value="Provide active permission"
+                            onclick="submitPermission()"
+                            class="btn btn-primary"
+                        />
+                        <input
+                            id="submitRevokeBtn"
+                            type="button"
+                            value="Revoke active permission"
+                            onclick="submitRevoke()"
+                            class="btn btn-primary"
+                        />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </body>
+</html>
