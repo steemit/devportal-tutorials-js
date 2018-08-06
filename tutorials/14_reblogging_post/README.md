@@ -135,4 +135,3 @@ It should be noted that reblogging a post does not create a new post on the bloc
 3.  `npm i`
 4.  `npm run dev-server` or `npm run start`
 5.  After a few moments, the server should be running at http://localhost:3000/
-

@@ -1,4 +1,5 @@
-const dsteem = require('dsteem');
+import { Client, PrivateKey } from 'dsteem';
+import { accounts } from '../../configuration';
 let opts = {};
 
 //connect to community testnet
@@ -6,7 +7,7 @@ opts.addressPrefix = 'STX';
 opts.chainId =
     '79276aea5d4877d9a25892eaa01b0adf019d3e5cb12a97478df3298ccdd01673';
 //connect to server which is connected to the network/testnet
-const client = new dsteem.Client('https://testnet.steem.vc', opts);
+const client = new Client('https://testnet.steem.vc', opts);
 
 const diff_match_patch = require('diff-match-patch');
 const dmp = new diff_match_patch();
@@ -14,8 +15,11 @@ let o_body = '';
 let o_permlink = '';
 
 //fetch list of comments for certain account
-async function main() {
-    const query = { tag: 'demo', limit: '1' };
+async function getLatestPost() {
+    const query = {
+        tag: document.getElementById('username').value,
+        limit: '1',
+    };
     client.database
         .call('get_discussions_by_blog', [query])
         .then(result => {
@@ -32,8 +36,9 @@ async function main() {
             alert('Error occured, please reload the page');
         });
 }
+
+window.getLatestPost = getLatestPost;
 //catch error messages
-main().catch(console.error);
 
 function createPatch(text, out) {
     if (!text && text === '') return undefined;
@@ -45,7 +50,7 @@ function createPatch(text, out) {
 //submit post function
 window.submitPost = async () => {
     //get private key
-    const privateKey = dsteem.PrivateKey.fromString(
+    const privateKey = PrivateKey.fromString(
         document.getElementById('postingKey').value
     );
     //get account name
@@ -106,4 +111,13 @@ window.submitPost = async () => {
                 console.error(error);
             }
         );
+};
+
+window.onload = () => {
+    const account = accounts.testnet[0];
+    document.getElementById('username').value = account.username;
+    document.getElementById('usernameInText').innerHTML = account.username;
+    document.getElementById('postingKey').value = account.privPosting;
+
+    getLatestPost().catch(console.error);
 };
