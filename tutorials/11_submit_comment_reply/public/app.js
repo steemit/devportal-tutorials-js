@@ -35,7 +35,7 @@ window.submitComment = async () => {
         .toString(36)
         .substring(2);
 
-    const comment = {
+    const payload = {
         author: account,
         title: '',
         body: body,
@@ -45,10 +45,10 @@ window.submitComment = async () => {
         json_metadata: '',
     };
 
-    console.log('comment broadcast object', comment);
-    client.broadcast.comment(comment, privateKey).then(
+    console.log('client.broadcast.comment payload:', payload);
+    client.broadcast.comment(payload, privateKey).then(
         function(result) {
-            console.log('comment broadcast result', result);
+            console.log('client.broadcast.comment response', result);
             document.getElementById('postLink').style.display = 'block';
             document.getElementById(
                 'postLink'

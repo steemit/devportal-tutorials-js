@@ -1,5 +1,4 @@
 import { Client, PrivateKey } from 'dsteem';
-import { accounts } from '../../configuration';
 
 //define network parameters
 let opts = {};
@@ -12,7 +11,6 @@ window.client = client;
 
 //This is a convenience function for the UI.
 window.autofillAuthorAndPermlink = function(el) {
-    console.log('thank you for using autofill', el);
     document.getElementById('theAuthor').value = el.dataset.author;
     document.getElementById('thePermLink').value = el.dataset.permlink;
 };
@@ -102,7 +100,4 @@ function resteemOutput(output) {
 
 window.onload = async () => {
     fetchBlog();
-    const account = accounts.testnet[0];
-    document.getElementById('username').value = account.username;
-    document.getElementById('postingKey').value = account.privPosting;
 };

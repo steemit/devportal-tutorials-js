@@ -15,8 +15,11 @@ let o_body = '';
 let o_permlink = '';
 
 //fetch list of comments for certain account
-async function main() {
-    const query = { tag: 'demo', limit: '1' };
+async function getLatestPost() {
+    const query = {
+        tag: document.getElementById('username').value,
+        limit: '1',
+    };
     client.database
         .call('get_discussions_by_blog', [query])
         .then(result => {
@@ -33,8 +36,9 @@ async function main() {
             alert('Error occured, please reload the page');
         });
 }
+
+window.getLatestPost = getLatestPost;
 //catch error messages
-main().catch(console.error);
 
 function createPatch(text, out) {
     if (!text && text === '') return undefined;
@@ -112,5 +116,8 @@ window.submitPost = async () => {
 window.onload = () => {
     const account = accounts.testnet[0];
     document.getElementById('username').value = account.username;
+    document.getElementById('usernameInText').innerHTML = account.username;
     document.getElementById('postingKey').value = account.privPosting;
+
+    getLatestPost().catch(console.error);
 };
