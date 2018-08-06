@@ -8,10 +8,10 @@ This tutorial will take you through the process of checking the `follow status` 
 
 We are using the `broadcast.json` operation provided by the `dsteem` library to follow or unfollow a selected author. There are 4 variables required to execute this operation:
 
-1. _follower_ - The specific user that will select the author to follow/unfollow (`username`).
-2. _privatekey_ - This is the private posting key of the user(`postingKey`).
-3. _following_ - The account/author that the user would like to follow (`author`).
-4. _what_ - The `type` of follow operation. This variable can have one of two values: `blog`, to follow an author, and a `null value`, unfollow the selected author.
+1.  _follower_ - The specific user that will select the author to follow/unfollow (`username`).
+2.  _privatekey_ - This is the private posting key of the user(`postingKey`).
+3.  _following_ - The account/author that the user would like to follow (`author`).
+4.  _what_ - The `type` of follow operation. This variable can have one of two values: `blog`, to follow an author, and a `null value`, unfollow the selected author.
 
 A simple HTML UI is used to capture the required information, after which the broadcast operation can be compiled.
 
@@ -31,7 +31,8 @@ const dsteem = require('dsteem');
 //define network parameters
 let opts = {};
 opts.addressPrefix = 'STX';
-opts.chainId = '79276aea5d4877d9a25892eaa01b0adf019d3e5cb12a97478df3298ccdd01673';
+opts.chainId =
+    '79276aea5d4877d9a25892eaa01b0adf019d3e5cb12a97478df3298ccdd01673';
 //connect to a steem node, testnet in this case
 const client = new dsteem.Client('https://testnet.steem.vc', opts);
 ```
@@ -85,66 +86,59 @@ A JSON with the collected input variables is created in order for the `data obje
 
 ```javascript
 const json = JSON.stringify([
-        'follow',
-        {
-            follower: follower,
-            following: following,
-            what: [type] //null value for unfollow, 'blog' for follow
-        }
-    ]);
+    'follow',
+    {
+        follower: follower,
+        following: following,
+        what: [type], //null value for unfollow, 'blog' for follow
+    },
+]);
 ```
 
 The `broadcast.json` operation requires a `data object` and `private key` in order the execute. For the follow/unfollow operation the variables in the object have predefined values. These values can change depending on the type of operation.
 
 ```javascript
-    const data = {
-        id: 'follow',
-        json: json,
-        required_auths: [],
-        required_posting_auths: [follower],
-    };
+const data = {
+    id: 'follow',
+    json: json,
+    required_auths: [],
+    required_posting_auths: [follower],
+};
 ```
 
 The broadcast operation is then executed with the created object and the private posting key. We also display the follow status on the UI in order for the user to know the whether the process was a success.
 
 ```javascript
 client.broadcast.json(data, privateKey).then(
-        function(result) {
-            console.log(
-                'user follow result: ', result
-            );
-            document.getElementById('followResultContainer').style.display =
-                'flex';
-            document.getElementById('followResult').className =
-                'form-control-plaintext alert alert-success';
-            if (type == 'blog') {
-                document.getElementById('followResult').innerHTML = 'Author followed';
-
-            } else {
-                document.getElementById('followResult').innerHTML = 'Author unfollowed';
-            }
-        },
-        function(error) {
-            console.error(error);
-            document.getElementById('followResultContainer').style.display =
-                'flex';
-            document.getElementById('followResult').className =
-                'form-control-plaintext alert alert-danger';
+    function(result) {
+        console.log('user follow result: ', result);
+        document.getElementById('followResultContainer').style.display = 'flex';
+        document.getElementById('followResult').className =
+            'form-control-plaintext alert alert-success';
+        if (type == 'blog') {
             document.getElementById('followResult').innerHTML =
-                error.jse_shortmsg;
+                'Author followed';
+        } else {
+            document.getElementById('followResult').innerHTML =
+                'Author unfollowed';
         }
-
-    );
+    },
+    function(error) {
+        console.error(error);
+        document.getElementById('followResultContainer').style.display = 'flex';
+        document.getElementById('followResult').className =
+            'form-control-plaintext alert alert-danger';
+        document.getElementById('followResult').innerHTML = error.jse_shortmsg;
+    }
+);
 ```
 
 If either of the values for the user or author does not exist the proper error result will be displayed on the UI. The result is also displayed in the console in order for the user to confirm that a block transaction has taken place. The status of the operation can be verified on the [demo account](http://condenser.steem.vc/@cdemo/followed).
 
 ### To run this tutorial
 
- 1. clone this repo
- 2. `cd tutorials/18_follow_user`
- 3. `npm i`
- 4. `npm run dev-server` or `npm run start`
- 5. After a few moments, the server should be running at http://localhost:3000/
-
-Running `dev-server` also fetches a json file containing usernames and private keys of demo accounts that can be used on the `testnet`. Once the tutorial is opened on your web browser the values are automatically populated in the relevant paramater fields to make the tutorials easy to use. This is done with a `fetch` function in `app.js` once the file has been initialised by `node`.
+1.  clone this repo
+2.  `cd tutorials/18_follow_user`
+3.  `npm i`
+4.  `npm run dev-server` or `npm run start`
+5.  After a few moments, the server should be running at http://localhost:3000/

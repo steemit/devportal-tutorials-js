@@ -1,11 +1,13 @@
-const dsteem = require('dsteem');
+import { Client, PrivateKey } from 'dsteem';
+import { accounts } from '../../configuration';
+
 //define network parameters
 let opts = {};
 opts.addressPrefix = 'STX';
 opts.chainId =
     '79276aea5d4877d9a25892eaa01b0adf019d3e5cb12a97478df3298ccdd01673';
 //connect to a steem node, testnet in this case
-const client = new dsteem.Client('https://testnet.steem.vc', opts);
+const client = new Client('https://testnet.steem.vc', opts);
 
 // const dsteem = require('dsteem');
 // let opts = {};
@@ -16,14 +18,13 @@ const client = new dsteem.Client('https://testnet.steem.vc', opts);
 // //connect to a steem node, production in this case
 // const client = new dsteem.Client('https://api.steemit.com');
 
-
 //submit transfer function executes when you click "Transfer" button
 window.submitTransfer = async () => {
     //get all values from the UI
     //get account name of sender
     const username = document.getElementById('username').value;
     //get private active key
-    const privateKey = dsteem.PrivateKey.fromString(
+    const privateKey = PrivateKey.fromString(
         document.getElementById('privateKey').value
     );
     //get recipient
@@ -71,10 +72,8 @@ window.submitTransfer = async () => {
 };
 
 window.onload = async () => {
-    const response = await fetch("login.json");
-    const json = await response.json();
-    //console.log(json);
-    document.getElementById('privateKey').value = json.privActive1;
-    document.getElementById('username').value = json.username1;
-    document.getElementById('recipient').value = json.username2;
+    const account = accounts.testnet[0];
+    document.getElementById('username').value = account.username;
+    document.getElementById('postingKey').value = account.privPosting;
+    document.getElementById('recipient').value = accounts.testnet[1].username;
 };

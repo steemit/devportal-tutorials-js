@@ -1,11 +1,14 @@
 //Step 1.
-const dsteem = require('dsteem');
+import { Client, PrivateKey } from 'dsteem';
+import { accounts } from '../../configuration';
+
 //define network parameters
 let opts = {};
 opts.addressPrefix = 'STX';
-opts.chainId = '79276aea5d4877d9a25892eaa01b0adf019d3e5cb12a97478df3298ccdd01673';
+opts.chainId =
+    '79276aea5d4877d9a25892eaa01b0adf019d3e5cb12a97478df3298ccdd01673';
 //connect to a steem node, testnet in this case
-const client = new dsteem.Client('https://testnet.steem.vc', opts);
+const client = new Client('https://testnet.steem.vc', opts);
 
 // const dsteem = require('dsteem');
 // //define network parameters
@@ -21,7 +24,7 @@ const client = new dsteem.Client('https://testnet.steem.vc', opts);
 //Follow function
 window.submitFollow = async () => {
     //get private key
-    const privateKey = dsteem.PrivateKey.fromString(
+    const privateKey = PrivateKey.fromString(
         document.getElementById('postingKey').value
     );
     //get account name
@@ -71,18 +74,17 @@ window.submitFollow = async () => {
 
     client.broadcast.json(data, privateKey).then(
         function(result) {
-            console.log(
-                'user follow result: ', result
-            );
+            console.log('user follow result: ', result);
             document.getElementById('followResultContainer').style.display =
                 'flex';
             document.getElementById('followResult').className =
                 'form-control-plaintext alert alert-success';
             if (type == 'blog') {
-                document.getElementById('followResult').innerHTML = 'Author followed';
-
+                document.getElementById('followResult').innerHTML =
+                    'Author followed';
             } else {
-                document.getElementById('followResult').innerHTML = 'Author unfollowed';
+                document.getElementById('followResult').innerHTML =
+                    'Author unfollowed';
             }
         },
         function(error) {
@@ -94,14 +96,13 @@ window.submitFollow = async () => {
             document.getElementById('followResult').innerHTML =
                 error.jse_shortmsg;
         }
-
     );
 };
 
 window.onload = async () => {
-    const response = await fetch("login.json");
+    const response = await fetch('login.json');
     const json = await response.json();
-    //console.log(json);
-    document.getElementById('postingKey').value = json.privPosting1;
-    document.getElementById('username').value = json.username1;
+    const account = accounts.testnet[0];
+    document.getElementById('username').value = account.username;
+    document.getElementById('postingKey').value = account.privPosting;
 };

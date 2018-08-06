@@ -1,4 +1,5 @@
-const dsteem = require('dsteem');
+import { Client, PrivateKey } from 'dsteem';
+import { accounts } from '../../configuration';
 let opts = {};
 
 //connect to community testnet
@@ -6,7 +7,7 @@ opts.addressPrefix = 'STX';
 opts.chainId =
     '79276aea5d4877d9a25892eaa01b0adf019d3e5cb12a97478df3298ccdd01673';
 //connect to server which is connected to the network/testnet
-const client = new dsteem.Client('https://testnet.steem.vc', opts);
+const client = new Client('https://testnet.steem.vc', opts);
 
 const diff_match_patch = require('diff-match-patch');
 const dmp = new diff_match_patch();
@@ -45,7 +46,7 @@ function createPatch(text, out) {
 //submit post function
 window.submitPost = async () => {
     //get private key
-    const privateKey = dsteem.PrivateKey.fromString(
+    const privateKey = PrivateKey.fromString(
         document.getElementById('postingKey').value
     );
     //get account name
@@ -108,10 +109,8 @@ window.submitPost = async () => {
         );
 };
 
-window.onload = async () => {
-    const response = await fetch("login.json");
-    const json = await response.json();
-    //console.log(json);
-    document.getElementById('postingKey').value = json.privPosting1;
-    document.getElementById('username').value = json.username1;
-}
+window.onload = () => {
+    const account = accounts.testnet[0];
+    document.getElementById('username').value = account.username;
+    document.getElementById('postingKey').value = account.privPosting;
+};

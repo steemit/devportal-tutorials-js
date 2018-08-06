@@ -1,4 +1,5 @@
-const dsteem = require('dsteem');
+import { Client, PrivateKey } from 'dsteem';
+import { accounts } from '../../configuration';
 
 //define network parameters
 let opts = {};
@@ -6,9 +7,9 @@ opts.addressPrefix = 'STM';
 opts.chainId =
     '0000000000000000000000000000000000000000000000000000000000000000';
 //connect to a Steem node. This is currently setup on production, but we recommend using a testnet like https://testnet.steem.vc
-const client = new dsteem.Client('https://api.steemit.com', opts);
+const client = new Client('https://api.steemit.com', opts);
 window.client = client;
-window.dsteem = dsteem;
+
 //This is a convenience function for the UI.
 window.autofillAuthorAndPermlink = function(el) {
     console.log('thank you for using autofill', el);
@@ -52,7 +53,7 @@ window.submitPost = async () => {
     resteemOutput('preparing to submit');
     //get private key
     try {
-        const privateKey = dsteem.PrivateKey.from(
+        const privateKey = PrivateKey.from(
             document.getElementById('postingKey').value
         );
 
@@ -101,9 +102,7 @@ function resteemOutput(output) {
 
 window.onload = async () => {
     fetchBlog();
-    const response = await fetch("login.json");
-    const json = await response.json();
-    //console.log(json);
-    document.getElementById('postingKey').value = json.privPosting1;
-    document.getElementById('username').value = json.username1;
+    const account = accounts.testnet[0];
+    document.getElementById('username').value = account.username;
+    document.getElementById('postingKey').value = account.privPosting;
 };

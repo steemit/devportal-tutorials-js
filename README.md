@@ -57,10 +57,16 @@ Use the command line/terminal for the following instructions
 These tutorials favor use of the production Steem blockchain. However, some produce content that would be spammy. And
 spam on a blockchain, like everything else on a blockchain, is forever. Eww.
 
-So for those tutorials we use a [testnet](https://testnet.steem.vc/) setup and maintained by user [@almost-digital](https://steemit.com/@almost-digital).
-You can see its current status, and learn how to easily create accounts and connect to it at [https://testnet.steem.vc/](https://testnet.steem.vc/).
-And depending on the day, you can even use an outdated version of [condenser](https://github.com/steemit/condenser) to crawl it at [https://condenser.steem.vc/](https://condenser.steem.vc/)
-Demo accounts for use on the testnet has already been setup in the `login.json` file. This gets loaded once you run any of the tutorials that uses the testnet, automatically providing the user names and private keys you need for that tutorial.
+So for those tutorials we use a [testnet](https://testnet.steem.vc/) setup and maintained by user
+[@almost-digital](https://steemit.com/@almost-digital). You can see its current status, and learn how to easily create
+accounts and connect to it at [https://testnet.steem.vc/](https://testnet.steem.vc/). And depending on the day, you can
+even use an outdated version of [condenser](https://github.com/steemit/condenser) to crawl it at
+[https://condenser.steem.vc/](https://condenser.steem.vc/)
+
+Credentials for demo accounts on the testnet are in [tutorials/configuration.js](tutorials/configuration.js)`.
+Because this information is public, someone may have changed the keys of these accounts. If this has happened,
+you can either wait until the testnet reboots, or create an account or two of your own.
+_[It's super easy](https://testnet.steem.vc/#account-creation)_
 
 ## Contributing
 

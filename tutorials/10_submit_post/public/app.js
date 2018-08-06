@@ -9,12 +9,6 @@ opts.chainId =
 //connect to server which is connected to the network/testnet
 const client = new Client('https://testnet.steem.vc', opts);
 
-window.onload = () => {
-    const account = accounts.testnet[0];
-    document.getElementById('username').value = account.username;
-    document.getElementById('postingKey').value = account.privPosting;
-};
-
 //submit post function
 window.submitPost = async () => {
     //get private key
@@ -66,4 +60,10 @@ window.submitPost = async () => {
             console.error(error);
         }
     );
+};
+
+window.onload = () => {
+    const account = accounts.testnet[0];
+    document.getElementById('username').value = account.username;
+    document.getElementById('postingKey').value = account.privPosting;
 };

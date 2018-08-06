@@ -1,11 +1,12 @@
-const dsteem = require('dsteem');
+import { Client, PrivateKey } from 'dsteem';
+import { accounts } from '../../configuration';
 //define network parameters
 let opts = {};
 opts.addressPrefix = 'STX';
 opts.chainId =
     '79276aea5d4877d9a25892eaa01b0adf019d3e5cb12a97478df3298ccdd01673';
 //connect to a steem node, testnet in this case
-const client = new dsteem.Client('https://testnet.steem.vc', opts);
+const client = new Client('https://testnet.steem.vc', opts);
 
 // const dsteem = require('dsteem');
 // let opts = {};
@@ -40,37 +41,40 @@ window.submitVote = async () => {
     //get account name of voter
     const voter = document.getElementById('username').value;
     //get private active key
-    const privateKey = dsteem.PrivateKey.fromString(
+    const privateKey = PrivateKey.fromString(
         document.getElementById('activeKey').value
     );
     //get witness name
     const witness = document.getElementById('witness').value;
 
     //check if witness is already voted for
-    _data = new Array
+    _data = new Array();
     _data = await client.database.getAccounts([voter]);
-    const witnessvotes = _data[0]["witness_votes"];
+    const witnessvotes = _data[0]['witness_votes'];
     const approve = witnessvotes.includes(witness);
     if (approve) {
-        checkresult = "Witness has already been voted for, would you like to remove vote?"
-        votecheck = "Vote removed"
+        checkresult =
+            'Witness has already been voted for, would you like to remove vote?';
+        votecheck = 'Vote removed';
     } else {
-        checkresult = "Witness has not yet been voted for, would you like to vote?"
-        votecheck = "Vote added"
+        checkresult =
+            'Witness has not yet been voted for, would you like to vote?';
+        votecheck = 'Vote added';
     }
-    
+
     document.getElementById('voteCheckContainer').style.display = 'flex';
-    document.getElementById('voteCheck').className = 'form-control-plaintext alert alert-success';
+    document.getElementById('voteCheck').className =
+        'form-control-plaintext alert alert-success';
     document.getElementById('voteCheck').innerHTML = checkresult;
 
-    document.getElementById("submitYesBtn").style.visibility = "visible";
-    document.getElementById("submitNoBtn").style.visibility = "visible";
+    document.getElementById('submitYesBtn').style.visibility = 'visible';
+    document.getElementById('submitNoBtn').style.visibility = 'visible';
 
     window.submitYes = async () => {
         //create vote object
         const vote = [
-        'account_witness_vote',
-        { account: voter, witness: witness, approve: !approve },
+            'account_witness_vote',
+            { account: voter, witness: witness, approve: !approve },
         ];
 
         //broadcast the vote
@@ -96,26 +100,23 @@ window.submitVote = async () => {
                     error.jse_shortmsg;
             }
         );
-        document.getElementById("submitYesBtn").style.visibility = "hidden";
-        document.getElementById("submitNoBtn").style.visibility = "hidden";
+        document.getElementById('submitYesBtn').style.visibility = 'hidden';
+        document.getElementById('submitNoBtn').style.visibility = 'hidden';
     };
 
     window.submitNo = async () => {
-        document.getElementById('voteCheckContainer').style.display =
-            'flex';
+        document.getElementById('voteCheckContainer').style.display = 'flex';
         document.getElementById('voteCheck').className =
             'form-control-plaintext alert alert-success';
-        document.getElementById('voteCheck').innerHTML = "Vote process has ben cancelled";
-        document.getElementById("submitYesBtn").style.visibility = "hidden";
-        document.getElementById("submitNoBtn").style.visibility = "hidden";
+        document.getElementById('voteCheck').innerHTML =
+            'Vote process has ben cancelled';
+        document.getElementById('submitYesBtn').style.visibility = 'hidden';
+        document.getElementById('submitNoBtn').style.visibility = 'hidden';
     };
-
 };
 
 window.onload = async () => {
-    const response = await fetch("login.json");
-    const json = await response.json();
-    //console.log(json);
-    document.getElementById('activeKey').value = json.privActive1;
-    document.getElementById('username').value = json.username1;
+    const account = accounts.testnet[0];
+    document.getElementById('username').value = account.username;
+    document.getElementById('postingKey').value = account.privPosting;
 };
