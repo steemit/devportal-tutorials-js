@@ -1,6 +1,6 @@
 # Power up
 
-_In this tutorial, we will learn how to power up Steem to account itself or another account using Steemconnect as well as with Client-side signing method._
+_Power up an account's Steem using either Steemconnect or a client-side signing._
 
 This tutorial runs on the main Steem blockchain. And accounts queried are real users with liquid STEEM balances.
 

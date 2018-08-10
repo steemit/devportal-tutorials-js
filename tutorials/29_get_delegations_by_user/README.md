@@ -1,6 +1,6 @@
 # Get delegations by user
 
-_By the end of this tutorial you should know how to view the vesting delegations made by a user as well as the delegations that are expiring._
+_View the vesting delegations made by a user as well as the delegations that are expiring._
 
 This tutorial will take you through the process of calling delegation information from the steem blockchain using the `database API`. The account information provided has been chosen by random and the process is applicable to any user account on both the `production server` and the `testnet`.
 

@@ -1,6 +1,6 @@
 # Set withdraw route
 
-_This tutorial is about setting routes to your power downs or withdraws._
+_Set routes to an account's power downs or withdraws._
 
 We will learn how to allocate a percentage for withdrawal to other accounts using Steemconnect as well as with the client-side signing method. This tutorial runs on the main Steem blockchain. Therefore, any accounts used here will affect real funds on the live network. **Use with caution.**
 

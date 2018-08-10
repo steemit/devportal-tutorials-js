@@ -1,6 +1,6 @@
 # Power down vests
 
-_In this tutorial, we will show how to perform a power down on all or part of an account's VESTS using Steemconnect, as well as show a client-side signing method._
+_Perform a power down on all or part of an account's VESTS using either Steemconnect or client-side signing._
 
 This tutorial runs on the main Steem blockchain. Therefore, any accounts used here will affect real funds on the live network. **Use with caution.**
 

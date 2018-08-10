@@ -1,6 +1,6 @@
 # Claim rewards
 
-_In this tutorial, we will learn how to claim rewards from unclaimed reward balance using Steemconnect as well as client signing method._
+_Learn how to claim rewards from unclaimed reward balance using Steemconnect as well as client signing method._
 
 This tutorial runs on the main Steem blockchain. And accounts queried are real users with unclaimed balances.
 

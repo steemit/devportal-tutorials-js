@@ -1,6 +1,6 @@
 # Delegate STEEM POWER
 
-_In this tutorial, we will learn how to delegate power to other users using Steemconnect as well as with Client-side signing method._
+_Delegate power to other users using Steemconnect or Client-side signing._
 
 This tutorial runs on the main Steem blockchain. And accounts queried/searched are real accounts with their available VESTS balances and estimated STEEM POWER holdings.
 

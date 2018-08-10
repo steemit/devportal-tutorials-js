@@ -1,6 +1,6 @@
 # Witness listing and voting
 
-_By the end of this tutorial you should know how to create a list of available witnesses as well as vote for and remove your vote for a witness._
+_Create a list of available witnesses as well as vote for and remove your vote for a witness._
 
 This tutorial will take you through the process of preparing and submitting a `vote` using the `broadcast` operation. A demo account is provided to use on the `testnet` but all variables can be easily changed and applied to the `production server`.
 

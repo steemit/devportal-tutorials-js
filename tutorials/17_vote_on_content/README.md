@@ -1,6 +1,6 @@
 # Vote on Content
 
-_Create a weighted up or down vote on a comment (or post) and send it to Steem._
+_Create a weighted up or down vote on a comment/post._
 
 This tutorial will take you through the process of preparing and submitting a `vote` using the `broadcast` operation.
 Because this tutorial essentially produces spam, it will be pointed at a Steem testnet. The testnet is an open resource,

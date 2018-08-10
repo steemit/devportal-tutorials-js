@@ -1,6 +1,6 @@
 # Transfer STEEM and SBD
 
-_By the end of this tutorial you should know how to transfer both STEEM and SBD from one account to another._
+_Transfer both STEEM and SBD from one account to another._
 
 This tutorial will take you through the process of preparing and submitting a `transfer` using the `broadcast` operation. Two demo accounts are provided to use on the `testnet` but all variables can be easily changed and applied to the `production server`.
 

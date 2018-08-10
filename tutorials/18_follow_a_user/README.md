@@ -1,6 +1,6 @@
 # Follow / Unfollow user
 
-_By the end of this tutorial you should know how to follow and unfollow a user / author._
+_Follow and unfollow a user / author._
 
 This tutorial will take you through the process of checking the `follow status` of an author and either follow or unfollow that user depending on the current status. This is done with the `call` operation as well as the `broadcast.json` operation.
 

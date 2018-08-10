@@ -1,6 +1,6 @@
 # Create an account
 
-_In this tutorial, we will create Steem account using Steemconnect as well as with Client-side signing method._
+_Create Steem account using Steemconnect as well as with client-side signing._
 
 This tutorial runs on the main Steem blockchain. And accounts queried/searched are real accounts and creator account show have sufficient liquid balance to create new account.
 
