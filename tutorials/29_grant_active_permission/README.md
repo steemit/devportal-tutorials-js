@@ -4,7 +4,13 @@ _How to grant and revoke active permission to another user._
 
 This tutorial will take you through the process of checking a specific users' data, altering the array pertaining to the active `account_auths`, and then broadcasting the changes to the blockchain. Demo account information has been provided to assist with the tutorial. This tutorial has been set up for the `testnet` but can be easily be changed for `production`.
 
-Providing another user active permission for your account enables them to do fund transfers from your account. This can be usefull in setting up a secondary account(s) to manage funds for a main account or having a backup should you lose passwords for the main account. For a more in depth look at how the different authorities work you can read [THIS](https://steemit.com/steem/@good-karma/steem-multi-authority-permissions-and-how-active-authority-works-part-2-f158813ec0ec1) steemit post and follow the various links from there.
+Providing another user active permission for your account enables them to do fund transfers from your account. This can be usefull in setting up a secondary account(s) to manage funds for a main account or having a backup should you lose passwords for the main account.
+
+One of the common practice nowadays is to lend/delegate SP to another account, above same technique can be used to create market around it with minimum 3rd party trust. All your funds stay in your account. You can use/create automated system where you can lease for certain period of time and system can take care of payments and release of delegations (notify clients). Even better, you can use multi-signature feature to establish 100% trust where clients will have to confirm, approve transactions.
+
+Active permissions and authority should be used with utmost care, you don't want to loose your funds. It is really not easy to hack Steem accounts, let alone take control over it. But without careful use (revealing private keys) loosing liquid funds are not that difficult and it takes only couple seconds to do that, keeping most value powered up always helps.
+
+[This article](https://steemit.com/steem/@good-karma/steem-multi-authority-permissions-and-how-active-authority-works-part-2-f158813ec0ec1) has more detail around active authorities
 
 ## Intro
 
@@ -35,21 +41,32 @@ The tutorial is set up with three individual functions for each of the required 
 As usual, we have a `public/app.js` file which holds the Javascript segment of the tutorial. In the first few lines we define the configured library and packages:
 
 ```javascript
-const dsteem = require('dsteem');
+import {Client, PrivateKey} from 'dsteem';
+import {accounts} from '../../configuration';
 //define network parameters
 let opts = {};
 opts.addressPrefix = 'STX';
 opts.chainId =
     '79276aea5d4877d9a25892eaa01b0adf019d3e5cb12a97478df3298ccdd01673';
 //connect to a steem node, testnet in this case
-const client = new dsteem.Client('https://testnet.steem.vc', opts);
+const client = new Client('https://testnet.steem.vc', opts);
 ```
 
 Above, we have `dsteem` pointing to the testnet with the proper chainId, addressPrefix, and endpoint. Due to this tutorial altering the blockchain it is preferable to not work on production.
 
 #### 2. Input variables<a name="input"></a>
 
-The required parameters for the account status query is recorded via an HTML UI that can be found in the `public/index.html` file. The values are pre-populated in this case but any account name can be used.
+The required parameters for the account status query is recorded via an HTML UI that can be found in the `public/index.html` file. Any active account information can be used for this tutorial but to make things easier we populate these fields once the UI loads.
+
+```javascript
+window.onload = async () => {
+    const accountI = accounts.testnet[0];
+    document.getElementById('privateKey').value = accountI.privActive;
+    document.getElementById('username').value = accountI.username;
+    const accountII = accounts.testnet[1];
+    document.getElementById('newAccount').value = accountII.username;
+};
+```
 
 All of the functions use the same input variables. Once the function is activated via the UI the variables are allocated as seen below.
 
@@ -57,7 +74,7 @@ All of the functions use the same input variables. Once the function is activate
 //get username
 const username = document.getElementById('username').value;
 //get private active key
-const privateKey = dsteem.PrivateKey.fromString(
+const privateKey = PrivateKey.fromString(
     document.getElementById('privateKey').value
 );
 //get account to provide active auth
@@ -70,7 +87,7 @@ The queries are sent through to the steem blockchain with the `database API` usi
 
 ```javascript
 //query database for active array
-_data = new Array
+var _data = new Array
 _data = await client.database.getAccounts([username]);
 const activeAuth = _data[0].active;
 
@@ -162,5 +179,3 @@ This is similar to the steemconnect links that have been covered in previous tut
 1.  `npm i`
 1.  `npm run dev-server` or `npm run start`
 1.  After a few moments, the server should be running at http://localhost:3000/
-
-Running `dev-server` also fetches a json file containing usernames and private keys of demo accounts that can be used on the `testnet`. Once the tutorial is opened on your web browser the values are automatically populated in the relevant paramater fields to make the tutorials easy to use. This is done with a `fetch` function in `app.js` once the file has been initialised by `node`.
