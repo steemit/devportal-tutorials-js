@@ -1,6 +1,6 @@
 # Interpret account reputation
 
-_In this tutorial, we will show how to interpret account reputation_
+_Learn how to interpret account reputation._
 
 This tutorial runs on the main Steem blockchain. And accounts queried are real users with reputation.
 
