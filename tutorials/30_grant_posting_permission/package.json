@@ -1,12 +1,13 @@
 {
-    "name": "20_transfer_steem_and_sbd",
+    "name": "28_grant_posting_permission",
     "version": "1.0.0",
     "description": "",
     "main": "index.js",
     "scripts": {
         "start": "webpack && node ./index.js",
         "test": "echo \"Error: no test specified\" && exit 1",
-        "dev-server": "./node_modules/.bin/webpack-dev-server --mode development --content-base ./public --port 3000"
+        "dev-server":
+            "./node_modules/.bin/webpack-dev-server --mode development --content-base ./public --port 3000"
     },
     "author": "",
     "license": "ISC",

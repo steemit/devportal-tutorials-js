@@ -24,25 +24,26 @@ window.submitCheck = async () => {
     const newAccount = document.getElementById('newAccount').value;
 
     //query database for posting array
-    _data = new Array
+    _data = new Array();
     _data = await client.database.getAccounts([username]);
     const postingAuth = _data[0].posting;
 
     //check for username duplication
     const checkAuth = _data[0].posting.account_auths;
     var arrayindex = -1;
-    var checktext = " does not yet have posting permission"
-    for (var i = 0,len = checkAuth.length; i<len; i++) {
-        if (checkAuth[i][0]==newAccount) {
-            arrayindex = i
-            var checktext = " already has posting permission"
+    var checktext = ' does not yet have posting permission';
+    for (var i = 0, len = checkAuth.length; i < len; i++) {
+        if (checkAuth[i][0] == newAccount) {
+            arrayindex = i;
+            var checktext = ' already has posting permission';
         }
     }
     document.getElementById('permCheckContainer').style.display = 'flex';
-    document.getElementById('permCheck').className = 'form-control-plaintext alert alert-success';
+    document.getElementById('permCheck').className =
+        'form-control-plaintext alert alert-success';
     document.getElementById('permCheck').innerHTML = newAccount + checktext;
     console.log(checkAuth);
-}
+};
 
 //grant permission function
 window.submitPermission = async () => {
@@ -55,12 +56,15 @@ window.submitPermission = async () => {
     //get account to provide posting auth
     const newAccount = document.getElementById('newAccount').value;
 
-    _data = new Array
+    _data = new Array();
     _data = await client.database.getAccounts([username]);
     const postingAuth = _data[0].posting;
 
     //adding of new account to posting array
-    postingAuth.account_auths.push([newAccount, parseInt(postingAuth.weight_threshold)]);
+    postingAuth.account_auths.push([
+        newAccount,
+        parseInt(postingAuth.weight_threshold),
+    ]);
     //sort array required for steem blockchain
     postingAuth.account_auths.sort();
 
@@ -70,8 +74,8 @@ window.submitPermission = async () => {
         json_metadata: _data[0].json_metadata,
         memo_key: _data[0].memo_key,
         posting: postingAuth,
-    }
-    
+    };
+
     //account update broadcast
     client.broadcast.updateAccount(accObj, privateKey).then(
         function(result) {
@@ -79,18 +83,23 @@ window.submitPermission = async () => {
                 'included in block: ' + result.block_num,
                 'expired: ' + result.expired
             );
-            document.getElementById('permCheckContainer').style.display = 'flex';
-            document.getElementById('permCheck').className = 'form-control-plaintext alert alert-success';
-            document.getElementById('permCheck').innerHTML = "posting permission has been granted to " + newAccount;
+            document.getElementById('permCheckContainer').style.display =
+                'flex';
+            document.getElementById('permCheck').className =
+                'form-control-plaintext alert alert-success';
+            document.getElementById('permCheck').innerHTML =
+                'posting permission has been granted to ' + newAccount;
         },
         function(error) {
             console.error(error);
-            document.getElementById('permCheckContainer').style.display = 'flex';
-            document.getElementById('permCheck').className = 'form-control-plaintext alert alert-danger';
+            document.getElementById('permCheckContainer').style.display =
+                'flex';
+            document.getElementById('permCheck').className =
+                'form-control-plaintext alert alert-danger';
             document.getElementById('permCheck').innerHTML = error.jse_shortmsg;
         }
     );
-}
+};
 
 //revoke permission function
 window.submitRevoke = async () => {
@@ -103,28 +112,30 @@ window.submitRevoke = async () => {
     //get account to provide posting auth
     const newAccount = document.getElementById('newAccount').value;
 
-    _data = new Array
+    _data = new Array();
     _data = await client.database.getAccounts([username]);
     const postingAuth = _data[0].posting;
 
     //check for user index in posting array
     const checkAuth = _data[0].posting.account_auths;
     var arrayindex = -1;
-    for (var i = 0,len = checkAuth.length; i<len; i++) {
-        if (checkAuth[i][0]==newAccount) {
-            arrayindex = i
+    for (var i = 0, len = checkAuth.length; i < len; i++) {
+        if (checkAuth[i][0] == newAccount) {
+            arrayindex = i;
         }
-    }    
-    
-    if (arrayindex<0) {
+    }
+
+    if (arrayindex < 0) {
         document.getElementById('permCheckContainer').style.display = 'flex';
-        document.getElementById('permCheck').className = 'form-control-plaintext alert alert-danger';
-        document.getElementById('permCheck').innerHTML = newAccount + " does not yet have posting permission to revoke";
+        document.getElementById('permCheck').className =
+            'form-control-plaintext alert alert-danger';
+        document.getElementById('permCheck').innerHTML =
+            newAccount + ' does not yet have posting permission to revoke';
         return;
     }
 
     //removal of array element in order to revoke posting permission
-    postingAuth.account_auths.splice(arrayindex,1);
+    postingAuth.account_auths.splice(arrayindex, 1);
 
     //object creation
     const accObj = {
@@ -132,7 +143,7 @@ window.submitRevoke = async () => {
         json_metadata: _data[0].json_metadata,
         memo_key: _data[0].memo_key,
         posting: postingAuth,
-    }
+    };
 
     //account update broadcast
     client.broadcast.updateAccount(accObj, privateKey).then(
@@ -141,14 +152,19 @@ window.submitRevoke = async () => {
                 'included in block: ' + result.block_num,
                 'expired: ' + result.expired
             );
-            document.getElementById('permCheckContainer').style.display = 'flex';
-            document.getElementById('permCheck').className = 'form-control-plaintext alert alert-success';
-            document.getElementById('permCheck').innerHTML = "permission has been revoked for " + newAccount;
+            document.getElementById('permCheckContainer').style.display =
+                'flex';
+            document.getElementById('permCheck').className =
+                'form-control-plaintext alert alert-success';
+            document.getElementById('permCheck').innerHTML =
+                'permission has been revoked for ' + newAccount;
         },
         function(error) {
             console.error(error);
-            document.getElementById('permCheckContainer').style.display = 'flex';
-            document.getElementById('permCheck').className = 'form-control-plaintext alert alert-danger';
+            document.getElementById('permCheckContainer').style.display =
+                'flex';
+            document.getElementById('permCheck').className =
+                'form-control-plaintext alert alert-danger';
             document.getElementById('permCheck').innerHTML = error.jse_shortmsg;
         }
     );
