@@ -1,11 +1,12 @@
-const dsteem = require('dsteem');
+import {Client, PrivateKey} from 'dsteem';
+import {accounts} from '../../configuration';
 //define network parameters
 let opts = {};
 opts.addressPrefix = 'STX';
 opts.chainId =
     '79276aea5d4877d9a25892eaa01b0adf019d3e5cb12a97478df3298ccdd01673';
 //connect to a steem node, testnet in this case
-const client = new dsteem.Client('https://testnet.steem.vc', opts);
+const client = new Client('https://testnet.steem.vc', opts);
 
 // const dsteem = require('dsteem');
 // let opts = {};
@@ -24,7 +25,7 @@ window.submitCheck = async () => {
     const newAccount = document.getElementById('newAccount').value;
 
     //query database for posting array
-    _data = new Array
+    var _data = new Array
     _data = await client.database.getAccounts([username]);
     const postingAuth = _data[0].posting;
 
@@ -49,13 +50,13 @@ window.submitPermission = async () => {
     //get username
     const username = document.getElementById('username').value;
     //get private active key
-    const privateKey = dsteem.PrivateKey.fromString(
+    const privateKey = PrivateKey.fromString(
         document.getElementById('privateKey').value
     );
     //get account to provide posting auth
     const newAccount = document.getElementById('newAccount').value;
 
-    _data = new Array
+    var _data = new Array
     _data = await client.database.getAccounts([username]);
     const postingAuth = _data[0].posting;
 
@@ -97,13 +98,13 @@ window.submitRevoke = async () => {
     //get username
     const username = document.getElementById('username').value;
     //get private active key
-    const privateKey = dsteem.PrivateKey.fromString(
+    const privateKey = PrivateKey.fromString(
         document.getElementById('privateKey').value
     );
     //get account to provide posting auth
     const newAccount = document.getElementById('newAccount').value;
 
-    _data = new Array
+    var _data = new Array
     _data = await client.database.getAccounts([username]);
     const postingAuth = _data[0].posting;
 
@@ -152,4 +153,12 @@ window.submitRevoke = async () => {
             document.getElementById('permCheck').innerHTML = error.jse_shortmsg;
         }
     );
+};
+
+window.onload = async () => {
+    const accountI = accounts.testnet[0];
+    document.getElementById('privateKey').value = accountI.privPosting;
+    document.getElementById('username').value = accountI.username;
+    const accountII = accounts.testnet[1];
+    document.getElementById('newAccount').value = accountII.username;
 };
