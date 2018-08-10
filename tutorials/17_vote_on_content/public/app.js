@@ -1,4 +1,5 @@
-const dsteem = require('dsteem');
+import { Client, PrivateKey } from 'dsteem';
+import { accounts } from '../../configuration';
 
 //testnet configuration
 const addressPrefix = 'STX';
@@ -17,11 +18,11 @@ const opts = {
     chainId,
 };
 
-const client = new dsteem.Client(apiUrl, opts);
+const client = new Client(apiUrl, opts);
 
 const createPrivateKey = function() {
     try {
-        return dsteem.PrivateKey.fromString(
+        return PrivateKey.fromString(
             document.getElementById('postingKey').value
         );
     } catch (e) {
@@ -133,11 +134,14 @@ window.submitVote = async () => {
     );
 };
 
-window.onload = () => {
+window.onload = async () => {
     var voteWeightSlider = document.getElementById('voteWeight');
     var currentWeightDiv = document.getElementById('currentWeight');
     currentWeightDiv.innerHTML = voteWeightSlider.value;
     voteWeightSlider.oninput = function() {
         currentWeightDiv.innerHTML = this.value;
     };
+    const account = accounts.testnet[0];
+    document.getElementById('username').value = account.username;
+    document.getElementById('postingKey').value = account.privPosting;
 };
