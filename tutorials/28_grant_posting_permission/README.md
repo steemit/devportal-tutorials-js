@@ -68,7 +68,7 @@ All of the functions use the same input variables. Once the function is activate
 //get username
 const username = document.getElementById('username').value;
 //get private active key
-const privateKey = dsteem.PrivateKey.fromString(
+const privateKey = PrivateKey.fromString(
     document.getElementById('privateKey').value
 );
 //get account to provide posting auth
