@@ -10,11 +10,11 @@ There is also an alternative method to vote for a witness using a `hot signing` 
 
 We are using the `account witness vote` function to create the vote which we then commit to the steem blockchain with a `broadcast` operation from `dsteem`. We also look at the vote status for a specific user using the `getAccounts` function. The parameters required for the witness voting operation are:
 
- 1. _limit_ - Used in creating the witness list. Denotes the maximum number of witnesses to display
- 2. _voter_ - This is the account making the vote
- 3. _privatekey_ - The private active key of the voter account
- 4. _witness_ - The name of the witness being voted for
- 5. _approve_ - This is a boolean value determining whether the voting opration is to vote for, or to remove a vote
+1.  _limit_ - Used in creating the witness list. Denotes the maximum number of witnesses to display
+2.  _voter_ - This is the account making the vote
+3.  _privatekey_ - The private active key of the voter account
+4.  _witness_ - The name of the witness being voted for
+5.  _approve_ - This is a boolean value determining whether the voting opration is to vote for, or to remove a vote
 
 ## Steps
 
@@ -34,7 +34,8 @@ const dsteem = require('dsteem');
 //define network parameters
 let opts = {};
 opts.addressPrefix = 'STX';
-opts.chainId = '79276aea5d4877d9a25892eaa01b0adf019d3e5cb12a97478df3298ccdd01673';
+opts.chainId =
+    '79276aea5d4877d9a25892eaa01b0adf019d3e5cb12a97478df3298ccdd01673';
 //connect to a steem node, testnet in this case
 const client = new dsteem.Client('https://testnet.steem.vc', opts);
 ```
@@ -102,14 +103,13 @@ The `approve` parameter within the vote function determines whether the user is 
         checkresult = "Witness has not yet been voted for, would you like to vote?"
         votecheck = "Vote added"
     }
-    
+
     document.getElementById('voteCheckContainer').style.display = 'flex';
     document.getElementById('voteCheck').className = 'form-control-plaintext alert alert-success';
     document.getElementById('voteCheck').innerHTML = checkresult;
 
     document.getElementById("submitYesBtn").style.visibility = "visible";
     document.getElementById("submitNoBtn").style.visibility = "visible";
-
 ```
 
 #### 5. Broadcast<a name="broadcast"></a>
@@ -131,52 +131,49 @@ After the object has been created we can `broadcast` the operation to the steem 
 
 ```javascript
 //broadcast the vote
-        client.broadcast.sendOperations([vote], privateKey).then(
-            function(result) {
-                console.log(
-                    'included in block: ' + result.block_num,
-                    'expired: ' + result.expired
-                );
-                document.getElementById('voteCheckContainer').style.display =
-                    'flex';
-                document.getElementById('voteCheck').className =
-                    'form-control-plaintext alert alert-success';
-                document.getElementById('voteCheck').innerHTML = votecheck;
-            },
-            function(error) {
-                console.error(error);
-                document.getElementById('voteCheckContainer').style.display =
-                    'flex';
-                document.getElementById('voteCheck').className =
-                    'form-control-plaintext alert alert-danger';
-                document.getElementById('voteCheck').innerHTML =
-                    error.jse_shortmsg;
-            }
+client.broadcast.sendOperations([vote], privateKey).then(
+    function(result) {
+        console.log(
+            'included in block: ' + result.block_num,
+            'expired: ' + result.expired
         );
-        document.getElementById("submitYesBtn").style.visibility = "hidden";
-        document.getElementById("submitNoBtn").style.visibility = "hidden";
+        document.getElementById('voteCheckContainer').style.display = 'flex';
+        document.getElementById('voteCheck').className =
+            'form-control-plaintext alert alert-success';
+        document.getElementById('voteCheck').innerHTML = votecheck;
+    },
+    function(error) {
+        console.error(error);
+        document.getElementById('voteCheckContainer').style.display = 'flex';
+        document.getElementById('voteCheck').className =
+            'form-control-plaintext alert alert-danger';
+        document.getElementById('voteCheck').innerHTML = error.jse_shortmsg;
+    }
+);
+document.getElementById('submitYesBtn').style.visibility = 'hidden';
+document.getElementById('submitNoBtn').style.visibility = 'hidden';
 ```
 
 Should the user choose to stop the process the following function is executed.
 
 ```javascript
 window.submitNo = async () => {
-        document.getElementById('voteCheckContainer').style.display =
-            'flex';
-        document.getElementById('voteCheck').className =
-            'form-control-plaintext alert alert-success';
-        document.getElementById('voteCheck').innerHTML = "Vote process has ben cancelled";
-        document.getElementById("submitYesBtn").style.visibility = "hidden";
-        document.getElementById("submitNoBtn").style.visibility = "hidden";
-    };
+    document.getElementById('voteCheckContainer').style.display = 'flex';
+    document.getElementById('voteCheck').className =
+        'form-control-plaintext alert alert-success';
+    document.getElementById('voteCheck').innerHTML =
+        'Vote process has ben cancelled';
+    document.getElementById('submitYesBtn').style.visibility = 'hidden';
+    document.getElementById('submitNoBtn').style.visibility = 'hidden';
+};
 ```
 
 The option buttons (continue with voting process or stop) are disabled at the end of the process in order to remove confusion on what to do next or what the option buttons will do.
 
 ### To run this tutorial
 
- 1. clone this repo
- 2. `cd tutorials/21_witness_listing_and_voting`
- 3. `npm i`
- 4. `npm run dev-server` or `npm run start`
- 5. After a few moments, the server should be running at http://localhost:3000/
+1.  clone this repo
+2.  `cd tutorials/21_witness_listing_and_voting`
+3.  `npm i`
+4.  `npm run dev-server` or `npm run start`
+5.  After a few moments, the server should be running at http://localhost:3000/

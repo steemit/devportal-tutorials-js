@@ -1,4 +1,4 @@
-const dsteem = require('dsteem');
+import { Client, PrivateKey } from 'dsteem';
 
 //define network parameters
 let opts = {};
@@ -6,12 +6,11 @@ opts.addressPrefix = 'STM';
 opts.chainId =
     '0000000000000000000000000000000000000000000000000000000000000000';
 //connect to a Steem node. This is currently setup on production, but we recommend using a testnet like https://testnet.steem.vc
-const client = new dsteem.Client('https://api.steemit.com', opts);
+const client = new Client('https://api.steemit.com', opts);
 window.client = client;
-window.dsteem = dsteem;
+
 //This is a convenience function for the UI.
 window.autofillAuthorAndPermlink = function(el) {
-    console.log('thank you for using autofill', el);
     document.getElementById('theAuthor').value = el.dataset.author;
     document.getElementById('thePermLink').value = el.dataset.permlink;
 };
@@ -52,7 +51,7 @@ window.submitPost = async () => {
     resteemOutput('preparing to submit');
     //get private key
     try {
-        const privateKey = dsteem.PrivateKey.from(
+        const privateKey = PrivateKey.from(
             document.getElementById('postingKey').value
         );
 
@@ -99,4 +98,6 @@ function resteemOutput(output) {
     document.getElementById('results').innerText = output;
 }
 
-window.onload = fetchBlog;
+window.onload = async () => {
+    fetchBlog();
+};

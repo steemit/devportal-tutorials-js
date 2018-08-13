@@ -41,21 +41,32 @@ The tutorial is set up with three individual functions for each of the required 
 As usual, we have a `public/app.js` file which holds the Javascript segment of the tutorial. In the first few lines we define the configured library and packages:
 
 ```javascript
-const dsteem = require('dsteem');
+import {Client, PrivateKey} from 'dsteem';
+import {accounts} from '../../configuration';
 //define network parameters
 let opts = {};
 opts.addressPrefix = 'STX';
 opts.chainId =
     '79276aea5d4877d9a25892eaa01b0adf019d3e5cb12a97478df3298ccdd01673';
 //connect to a steem node, testnet in this case
-const client = new dsteem.Client('https://testnet.steem.vc', opts);
+const client = new Client('https://testnet.steem.vc', opts);
 ```
 
 Above, we have `dsteem` pointing to the testnet with the proper chainId, addressPrefix, and endpoint. Due to this tutorial altering the blockchain it is preferable to not work on production.
 
 #### 2. Input variables<a name="input"></a>
 
-The required parameters for the account status query is recorded via an HTML UI that can be found in the `public/index.html` file. The values are pre-populated in this case but any account name can be used.
+The required parameters for the account status query is recorded via an HTML UI that can be found in the `public/index.html` file. Any active account information can be used for this tutorial but to make things easier we populate these fields once the UI loads.
+
+```javascript
+window.onload = async () => {
+    const accountI = accounts.testnet[0];
+    document.getElementById('privateKey').value = accountI.privActive;
+    document.getElementById('username').value = accountI.username;
+    const accountII = accounts.testnet[1];
+    document.getElementById('newAccount').value = accountII.username;
+};
+```
 
 All of the functions use the same input variables. Once the function is activated via the UI the variables are allocated as seen below.
 
@@ -63,7 +74,7 @@ All of the functions use the same input variables. Once the function is activate
 //get username
 const username = document.getElementById('username').value;
 //get private active key
-const privateKey = dsteem.PrivateKey.fromString(
+const privateKey = PrivateKey.fromString(
     document.getElementById('privateKey').value
 );
 //get account to provide active auth
@@ -76,7 +87,7 @@ The queries are sent through to the steem blockchain with the `database API` usi
 
 ```javascript
 //query database for active array
-_data = new Array
+var _data = new Array
 _data = await client.database.getAccounts([username]);
 const activeAuth = _data[0].active;
 
@@ -168,5 +179,3 @@ This is similar to the steemconnect links that have been covered in previous tut
 1.  `npm i`
 1.  `npm run dev-server` or `npm run start`
 1.  After a few moments, the server should be running at http://localhost:3000/
-
-Running `dev-server` also fetches a json file containing usernames and private keys of demo accounts that can be used on the `testnet`. Once the tutorial is opened on your web browser the values are automatically populated in the relevant paramater fields to make the tutorials easy to use. This is done with a `fetch` function in `app.js` once the file has been initialised by `node`.

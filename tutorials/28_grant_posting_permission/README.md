@@ -11,12 +11,12 @@ Providing another user posting permission for your account can be used to allow 
 This tutorial uses the `database API` to gather account information for the user that is granting posting permission to another user. This information is used to check current permissions as well as to build the `broadcast` operation. Granting or revoking posting permission works by changing the array of usernames containing this information and then pushing those changes to the blockchain. The parameters for this `updateAccount` function are:
 
 1.  _account_ - The username of the main account
-2.  _active_ - Optional parameter to denote changes to the active authority type
-3.  _jsonMetadata_ - This is a string value obtained from the current account info
-4.  _memoKey_ - This is the public memoKey of the user
-5.  _owner_ - Optional parameter to denote changes to the owner authority type
-6.  _posting_ - Optional parameter to denote changes to the posting authority type. This is the parameter that we will be changing in this tutorial
-7.  _privateKey_ - The private `active` key of the user
+1.  _active_ - Optional parameter to denote changes to the active authority type
+1.  _jsonMetadata_ - This is a string value obtained from the current account info
+1.  _memoKey_ - This is the public memoKey of the user
+1.  _owner_ - Optional parameter to denote changes to the owner authority type
+1.  _posting_ - Optional parameter to denote changes to the posting authority type. This is the parameter that we will be changing in this tutorial
+1.  _privateKey_ - The private `active` key of the user
 
 The only other information required is the username of the account that the posting permission is being granted to.
 
@@ -25,31 +25,42 @@ The tutorial is set up with three individual functions for each of the required 
 ## Steps
 
 1.  [**Configure connection**](#connection) Configuration of `dsteem` to communicate with a Steem blockchain
-2.  [**Input variables**](#input) Collecting the required inputs via an HTML UI.
-3.  [**Database query**](#query) Sending a query to the blockchain for the posting permissions (status)
-4.  [**Object creation**](#object) Create the array and subsequent data object for the broadcast operation
-5.  [**Broadcast operation**](#broadcast) Broadcasting the changes to the blockchain
+1.  [**Input variables**](#input) Collecting the required inputs via an HTML UI.
+1.  [**Database query**](#query) Sending a query to the blockchain for the posting permissions (status)
+1.  [**Object creation**](#object) Create the array and subsequent data object for the broadcast operation
+1.  [**Broadcast operation**](#broadcast) Broadcasting the changes to the blockchain
 
 #### 1. Configure connection<a name="connection"></a>
 
 As usual, we have a `public/app.js` file which holds the Javascript segment of the tutorial. In the first few lines we define the configured library and packages:
 
 ```javascript
-const dsteem = require('dsteem');
+import {Client, PrivateKey} from 'dsteem';
+import {accounts} from '../../configuration';
 //define network parameters
 let opts = {};
 opts.addressPrefix = 'STX';
 opts.chainId =
     '79276aea5d4877d9a25892eaa01b0adf019d3e5cb12a97478df3298ccdd01673';
 //connect to a steem node, testnet in this case
-const client = new dsteem.Client('https://testnet.steem.vc', opts);
+const client = new Client('https://testnet.steem.vc', opts);
 ```
 
 Above, we have `dsteem` pointing to the testnet with the proper chainId, addressPrefix, and endpoint. Due to this tutorial altering the blockchain it is preferable to not work on production.
 
 #### 2. Input variables<a name="input"></a>
 
-The required parameters for the account status query is recorded via an HTML UI that can be found in the `public/index.html` file. The values are pre-populated in this case but any account name can be used.
+The required parameters for the account status query is recorded via an HTML UI that can be found in the `public/index.html` file. Any active account information can be used for this tutorial but to make things easier we populate these fields once the UI loads.
+
+```javascript
+window.onload = async () => {
+    const accountI = accounts.testnet[0];
+    document.getElementById('privateKey').value = accountI.privPosting;
+    document.getElementById('username').value = accountI.username;
+    const accountII = accounts.testnet[1];
+    document.getElementById('newAccount').value = accountII.username;
+};
+```
 
 All of the functions use the same input variables. Once the function is activated via the UI the variables are allocated as seen below.
 
@@ -69,21 +80,21 @@ const newAccount = document.getElementById('newAccount').value;
 The queries are sent through to the steem blockchain with the `database API` using the `getAccounts` function. The results of the query is used to check the status of the current posting authorisations and parameters as per the `intro`.
 
 ```javascript
-    //query database for posting array
-    _data = new Array
-    _data = await client.database.getAccounts([username]);
-    const postingAuth = _data[0].posting;
+//query database for posting array
+var _data = new Array
+_data = await client.database.getAccounts([username]);
+const postingAuth = _data[0].posting;
 
-     //check for username duplication
-    const checkAuth = _data[0].posting.account_auths;
-    var arrayindex = -1;
-    var checktext = " does not yet have posting permission"
-    for (var i = 0,len = checkAuth.length; i<len; i++) {
-        if (checkAuth[i][0]==newAccount) {
-            arrayindex = i
-            var checktext = " already has posting permission"
-        }
+//check for username duplication
+const checkAuth = _data[0].posting.account_auths;
+var arrayindex = -1;
+var checktext = " does not yet have posting permission"
+for (var i = 0,len = checkAuth.length; i<len; i++) {
+    if (checkAuth[i][0]==newAccount) {
+        arrayindex = i
+        var checktext = " already has posting permission"
     }
+}
 ```
 
 The result of this status query is then displayed on the UI along with the array on the console as a check.
