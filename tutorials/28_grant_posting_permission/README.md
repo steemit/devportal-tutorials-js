@@ -55,7 +55,7 @@ The required parameters for the account status query is recorded via an HTML UI 
 ```javascript
 window.onload = async () => {
     const accountI = accounts.testnet[0];
-    document.getElementById('privateKey').value = accountI.privPosting;
+    document.getElementById('privateKey').value = accountI.privActive;
     document.getElementById('username').value = accountI.username;
     const accountII = accounts.testnet[1];
     document.getElementById('newAccount').value = accountII.username;
