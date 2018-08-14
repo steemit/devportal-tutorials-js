@@ -1,11 +1,10 @@
 import { Client, PrivateKey } from 'dsteem';
-import { Testnet as NetConfig } from '../../configuration';
+import { Testnet as NetConfig } from '../../configuration'; //A Steem Testnet. Replace 'Testnet' with 'Mainnet' to connect to the main Steem blockchain.
 
 let opts = { ...NetConfig.net };
 //connect to a steem node, testnet in this case
 const client = new Client(NetConfig.url, opts);
 
-// const dsteem = require('dsteem');
 // let opts = {};
 // //define network parameters
 // opts.addressPrefix = 'STM';

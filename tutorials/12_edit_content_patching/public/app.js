@@ -1,5 +1,5 @@
 import { Client, PrivateKey } from 'dsteem';
-import { Testnet as NetConfig } from '../../configuration';
+import { Testnet as NetConfig } from '../../configuration'; //A Steem Testnet. Replace 'Testnet' with 'Mainnet' to connect to the main Steem blockchain.
 
 let opts = { ...NetConfig.net };
 
