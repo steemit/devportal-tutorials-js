@@ -1,12 +1,9 @@
 import { Client, PrivateKey } from 'dsteem';
-import { accounts } from '../../configuration';
-//define network parameters
-let opts = {};
-opts.addressPrefix = 'STX';
-opts.chainId =
-    '79276aea5d4877d9a25892eaa01b0adf019d3e5cb12a97478df3298ccdd01673';
+import { Testnet as NetConfig } from '../../configuration';
+
+let opts = { ...NetConfig.net };
 //connect to a steem node, testnet in this case
-const client = new Client('https://testnet.steem.vc', opts);
+const client = new Client(NetConfig.url, opts);
 
 // const dsteem = require('dsteem');
 // let opts = {};
@@ -116,7 +113,7 @@ window.submitVote = async () => {
 };
 
 window.onload = async () => {
-    const account = accounts.testnet[0];
+    const account = NetConfig.accounts[0];
     document.getElementById('username').value = account.username;
     document.getElementById('postingKey').value = account.privPosting;
 };

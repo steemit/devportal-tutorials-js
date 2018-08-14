@@ -1,24 +1,14 @@
 import { Client, PrivateKey } from 'dsteem';
-import { accounts } from '../../configuration';
+import { Testnet as NetConfig } from '../../configuration';
 
-//testnet configuration
-const addressPrefix = 'STX';
-const chainId =
-    '79276aea5d4877d9a25892eaa01b0adf019d3e5cb12a97478df3298ccdd01673';
-const apiUrl = 'https://testnet.steem.vc';
+let opts = { ...NetConfig.net };
 
 //production configuration
 //const addressPrefix = 'STM';
 //const chainId = '0000000000000000000000000000000000000000000000000000000000000000';
 //const apiUrl = 'https://api.steemit.com'
 
-//define network parameters
-const opts = {
-    addressPrefix,
-    chainId,
-};
-
-const client = new Client(apiUrl, opts);
+const client = new Client(NetConfig.url, opts);
 
 const createPrivateKey = function() {
     try {
@@ -141,7 +131,7 @@ window.onload = async () => {
     voteWeightSlider.oninput = function() {
         currentWeightDiv.innerHTML = this.value;
     };
-    const account = accounts.testnet[0];
+    const account = NetConfig.accounts[0];
     document.getElementById('username').value = account.username;
     document.getElementById('postingKey').value = account.privPosting;
 };
