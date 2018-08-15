@@ -111,7 +111,7 @@ const patch = createPatch(o_body, edited_body);
 if (patch && patch.length < new Buffer(o_body, 'utf-8').length) {
     body = patch;
 } else {
-    body = o_body;
+    body = edited_body;
 }
 
 //get tags and convert to array list

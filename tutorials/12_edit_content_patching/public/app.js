@@ -13,25 +13,26 @@ let o_permlink = '';
 
 //fetch list of comments for certain account
 async function getLatestPost() {
-    const query = { 
-        tag: document.getElementById('username').value, 
-        limit: '1' 
+    const query = {
+        tag: document.getElementById('username').value,
+        limit: '1',
     };
 
-    client.database.call('get_discussions_by_blog', [query])
-    .then(result => {
-        document.getElementById('title').value = result[0].title;
-        document.getElementById('body').value = result[0].body;
-        document.getElementById('tags').value = JSON.parse(
-            result[0].json_metadata
-        ).tags.join(' ');
-        o_body = result[0].body;
-        o_permlink = result[0].permlink;
-    })
-    .catch(err => {
-        console.log(err);
-        alert('Error occured, please reload the page');
-    });
+    client.database
+        .call('get_discussions_by_blog', [query])
+        .then(result => {
+            document.getElementById('title').value = result[0].title;
+            document.getElementById('body').value = result[0].body;
+            document.getElementById('tags').value = JSON.parse(
+                result[0].json_metadata
+            ).tags.join(' ');
+            o_body = result[0].body;
+            o_permlink = result[0].permlink;
+        })
+        .catch(err => {
+            console.log(err);
+            alert('Error occured, please reload the page');
+        });
 }
 
 window.getLatestPost = getLatestPost;
@@ -66,7 +67,7 @@ window.submitPost = async () => {
     if (patch && patch.length < new Buffer(o_body, 'utf-8').length) {
         body = patch;
     } else {
-        body = o_body;
+        body = edited_body;
     }
 
     //get tags and convert to array list
