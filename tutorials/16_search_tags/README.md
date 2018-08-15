@@ -11,23 +11,22 @@ This tutorial will show the method of capturing a queried tag name and matching 
 ## steps
 
 1.  [**Configure connection**](#configure-conn) Configuration of `dsteem` to use the proper connection and network.
-2.  [**Search input**](#search-input) Collecting the relevant search criteria
-3.  [**Run Search**](#run-search) Running the search on the blockchain
-4.  [**Output**](#output) Displaying the results of the search query
+1.  [**Search input**](#search-input) Collecting the relevant search criteria
+1.  [**Run Search**](#run-search) Running the search on the blockchain
+1.  [**Output**](#output) Displaying the results of the search query
 
 #### 1. Configure connection <a name="configure-conn"></a>
 
-Below we have `dsteem` pointing to the production network with the proper chainId, addressPrefix, and endpoint. There is a `public/app.js` file which holds the Javascript segment of this tutorial. In the first few lines we define the configured library and packages:
+Below we have `dsteem` pointing to the production network with the proper chainId, addressPrefix, and endpoint by importing from the `configuration.js` file. There is a `public/app.js` file which holds the Javascript segment of this tutorial. In the first few lines we define the configured library and packages:
 
 ```javascript
-const dsteem = require('dsteem');
-let opts = {};
-//connect to production server
-opts.addressPrefix = 'STM';
-opts.chainId =
-    '0000000000000000000000000000000000000000000000000000000000000000';
-//connect to server which is connected to the network/production
-const client = new dsteem.Client('https://api.steemit.com');
+import { Client } from 'dsteem';
+import { Mainnet as NetConfig } from '../../configuration'; //A Steem Testnet. Replace 'Testnet' with 'Mainnet' to connect to the main Steem blockchain.
+
+let opts = { ...NetConfig.net };
+
+//connect to a steem node, mainnet in this case
+const client = new Client(NetConfig.url, opts);
 ```
 
 #### 2. Search input <a name="search-input"></a>

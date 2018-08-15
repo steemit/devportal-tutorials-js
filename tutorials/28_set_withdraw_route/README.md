@@ -11,23 +11,22 @@ This tutorial will demonstrate a few functions such as querying account by name 
 ## Steps
 
 1.  [**App setup**](#app-setup) Setup `dsteem` to use the proper connection and network.
-2.  [**Get account routes**](#search-account) Get account's current routes
-3.  [**Fill form**](#fill-form) Fill form with appropriate data
-4.  [**Set withdraw route**](#withdraw-route) Set route with Steemconnect or client-side signing
+1.  [**Get account routes**](#search-account) Get account's current routes
+1.  [**Fill form**](#fill-form) Fill form with appropriate data
+1.  [**Set withdraw route**](#withdraw-route) Set route with Steemconnect or client-side signing
 
 #### 1. App setup <a name="app-setup"></a>
 
-Below, we have `dsteem` pointing to the production network with the proper chainId, addressPrefix, and endpoint. There is a `public/app.js` file which holds the Javascript segment of this tutorial. In the first few lines we define the configured library and packages:
+Below, we have `dsteem` pointing to the production network with the proper chainId, addressPrefix, and endpoint by importing it from the `configuration.js` file. There is a `public/app.js` file which holds the Javascript segment of this tutorial. In the first few lines we define the configured library and packages:
 
 ```javascript
-const dsteem = require('dsteem');
-let opts = {};
-//connect to production server
-opts.addressPrefix = 'STM';
-opts.chainId =
-    '0000000000000000000000000000000000000000000000000000000000000000';
-//connect to server which is connected to the network/production
-const client = new dsteem.Client('https://api.steemit.com');
+import { Client } from 'dsteem';
+import { Mainnet as NetConfig } from '../../configuration'; //A Steem Testnet. Replace 'Testnet' with 'Mainnet' to connect to the main Steem blockchain.
+
+let opts = { ...NetConfig.net };
+
+//connect to a steem node, mainnet in this case
+const client = new Client(NetConfig.url, opts);
 ```
 
 #### 2. Get account routes <a name="search-account"></a>
@@ -114,7 +113,7 @@ That's it!
 ### To run this tutorial
 
 1.  `git clone https://github.com/steemit/devportal-tutorials-js.git`
-1.  `cd devportal-tutorials-js/tutorials/26_set_withdraw_route`
+1.  `cd devportal-tutorials-js/tutorials/28_set_withdraw_route`
 1.  `npm i`
 1.  `npm run dev-server` or `npm run start`
 1.  After a few moments, the server should be running at [http://localhost:3000/](http://localhost:3000/)

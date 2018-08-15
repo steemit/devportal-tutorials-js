@@ -3,7 +3,7 @@ import { Testnet as NetConfig } from '../../configuration'; //A Steem Testnet. R
 
 let opts = { ...NetConfig.net };
 
-//connect to server which is connected to the network/testnet
+//connect to a steem node, testnet in this case
 const client = new Client(NetConfig.url, opts);
 
 //submit post function
@@ -61,6 +61,6 @@ window.submitPost = async () => {
 
 window.onload = () => {
     const account = NetConfig.accounts[0];
-    document.getElementById('username').value = account.username;
+    document.getElementById('username').value = account.address;
     document.getElementById('postingKey').value = account.privPosting;
 };

@@ -4,7 +4,7 @@ import { Testnet as NetConfig } from '../../configuration'; //A Steem Testnet. R
 
 let opts = { ...NetConfig.net };
 
-//connect to server which is connected to the network/testnet
+//connect to a steem node, testnet in this case
 const client = new Client(NetConfig.url, opts);
 
 //Step 2. user fills in the values for 'parent_author' and 'parent_permlink'
@@ -67,6 +67,6 @@ window.clearFields = function() {
 
 window.onload = () => {
     const account = NetConfig.accounts[0];
-    document.getElementById('username').value = account.username;
+    document.getElementById('username').value = account.address;
     document.getElementById('postingKey').value = account.privPosting;
 };

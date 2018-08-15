@@ -3,11 +3,7 @@ import { Testnet as NetConfig } from '../../configuration'; //A Steem Testnet. R
 
 let opts = { ...NetConfig.net };
 
-//production configuration
-//const addressPrefix = 'STM';
-//const chainId = '0000000000000000000000000000000000000000000000000000000000000000';
-//const apiUrl = 'https://api.steemit.com'
-
+//connect to a steem node, testnet in this case
 const client = new Client(NetConfig.url, opts);
 
 const createPrivateKey = function() {
@@ -132,6 +128,6 @@ window.onload = async () => {
         currentWeightDiv.innerHTML = this.value;
     };
     const account = NetConfig.accounts[0];
-    document.getElementById('username').value = account.username;
+    document.getElementById('username').value = account.address;
     document.getElementById('postingKey').value = account.privPosting;
 };

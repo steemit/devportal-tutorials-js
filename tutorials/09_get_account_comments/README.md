@@ -16,18 +16,17 @@ We are using the `get_state` function with `dsteem` that returns the current sta
 
 #### 1. App setup<a name="app-setup"></a>
 
-Below we have `dsteem` pointing to the main network with the proper chainId, addressPrefix and connection server.
+Below we have `dsteem` pointing to the main network with the proper chainId, addressPrefix and connection server by importing from the `configuration.js` file.
 There is a `public/app.js` file which holds the Javascript segment of this tutorial. In the first few lines we define and configure library and packages.
 
 ```javascript
-const dsteem = require('dsteem');
-let opts = {};
-//connect to production server
-opts.addressPrefix = 'STM';
-opts.chainId =
-    '0000000000000000000000000000000000000000000000000000000000000000';
-//connect to server which is connected to the network/production
-const client = new dsteem.Client('https://api.steemit.com');
+import { Client } from 'dsteem';
+import { Mainnet as NetConfig } from '../../configuration'; //A Steem Testnet. Replace 'Testnet' with 'Mainnet' to connect to the main Steem blockchain.
+
+let opts = { ...NetConfig.net };
+
+//connect to a steem node, mainnet in this case
+const client = new Client(NetConfig.url, opts);
 
 const Remarkable = require('remarkable');
 const md = new Remarkable({ html: true, linkify: true });

@@ -20,24 +20,22 @@ This tutorial makes use of the This function is taken from the tutorial [Blog Fe
 ## Steps
 
 1.  [**Configure connection**](#configure_connection) Configuration of `dsteem` to use the proper connection and network.
-2.  [**Collecting information**](#collecting_information) Generating relevant posting information with an HTML interface.
-3.  [**Broadcasting the reblog**](#broadcasting_the_reblog) Assigning variables and executing the reblog.
+1.  [**Collecting information**](#collecting_information) Generating relevant posting information with an HTML interface.
+1.  [**Broadcasting the reblog**](#broadcasting_the_reblog) Assigning variables and executing the reblog.
 
 #### 1. Configure connection\*\*<a name="configure_connection"></a>
 
-Below we have `dsteem` pointing to the production network with the proper chainId, addressPrefix, and endpoint. Although this tutorial is interactive, we will not post to the testnet due to the prerequisites of reblogging.
+Below we have `dsteem` pointing to the production network with the proper chainId, addressPrefix, and endpoint by importing from the `configuration.js` file. Although this tutorial is interactive, we will not post to the testnet due to the prerequisites of reblogging.
 There is a `public/app.js` file which holds the Javascript segment of this tutorial. In the first few lines we define the configured library and packages:
 
 ```javascript
-const dsteem = require('dsteem');
+import { Client, PrivateKey } from 'dsteem';
+import { Mainnet as NetConfig } from '../../configuration'; //A Steem Testnet. Replace 'Testnet' with 'Mainnet' to connect to the main Steem blockchain.
 
-//define network parameters
-let opts = {};
-opts.addressPrefix = 'STM';
-opts.chainId =
-    '0000000000000000000000000000000000000000000000000000000000000000';
-//connect to a Steem node. This is currently setup on production, but we recommend using a testnet like https://testnet.steem.vc
-const client = new dsteem.Client('https://api.steemit.com', opts);
+let opts = { ...NetConfig.net };
+
+//connect to a steem node, testnet in this case
+const client = new Client(NetConfig.url, opts);
 ```
 
 #### 2. Collecting information<a name="collecting_information"></a>
@@ -131,7 +129,7 @@ It should be noted that reblogging a post does not create a new post on the bloc
 ## To run this tutorial
 
 1.  clone this repo
-2.  `cd tutorials/14_reblogging_post`
-3.  `npm i`
-4.  `npm run dev-server` or `npm run start`
-5.  After a few moments, the server should be running at http://localhost:3000/
+1.  `cd tutorials/14_reblogging_post`
+1.  `npm i`
+1.  `npm run dev-server` or `npm run start`
+1.  After a few moments, the server should be running at http://localhost:3000/

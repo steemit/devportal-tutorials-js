@@ -1,11 +1,10 @@
-const dsteem = require('dsteem');
-let opts = {};
-//connect to production server
-opts.addressPrefix = 'STM';
-opts.chainId =
-    '0000000000000000000000000000000000000000000000000000000000000000';
-//connect to server which is connected to the network/production
-const client = new dsteem.Client('https://api.steemit.com');
+import { Client } from 'dsteem';
+import { Mainnet as NetConfig } from '../../configuration'; //A Steem Testnet. Replace 'Testnet' with 'Mainnet' to connect to the main Steem blockchain.
+
+let opts = { ...NetConfig.net };
+
+//connect to a steem node, mainnet in this case
+const client = new Client(NetConfig.url, opts);
 
 /**
     This is a rough approximation of log10 that works with huge digit-strings.

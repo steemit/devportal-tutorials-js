@@ -11,23 +11,22 @@ This tutorial will demonstrate a few functions such as querying account by name 
 ## Steps
 
 1.  [**App setup**](#app-setup) Setup `dsteem` to use the proper connection and network.
-2.  [**Search account**](#search-account) Get account details after input has account name
-3.  [**Calculate and Fill form**](#fill-form) Calculate available vesting shares and fill the form with details
-4.  [**Power down**](#power-down) Power down VESTS with Steemconnect or client-side signing.
+1.  [**Search account**](#search-account) Get account details after input has account name
+1.  [**Calculate and Fill form**](#fill-form) Calculate available vesting shares and fill the form with details
+1.  [**Power down**](#power-down) Power down VESTS with Steemconnect or client-side signing.
 
 #### 1. App setup <a name="app-setup"></a>
 
-Below, we have `dsteem` pointing to the production network with the proper chainId, addressPrefix, and endpoint. There is a `public/app.js` file which holds the Javascript segment of this tutorial. In the first few lines we define the configured library and packages:
+Below, we have `dsteem` pointing to the production network with the proper chainId, addressPrefix, and endpoint by inporting it from the `configuration.js` file. There is a `public/app.js` file which holds the Javascript segment of this tutorial. In the first few lines we define the configured library and packages:
 
 ```javascript
-const dsteem = require('dsteem');
-let opts = {};
-//connect to production server
-opts.addressPrefix = 'STM';
-opts.chainId =
-    '0000000000000000000000000000000000000000000000000000000000000000';
-//connect to server which is connected to the network/production
-const client = new dsteem.Client('https://api.steemit.com');
+import { Client } from 'dsteem';
+import { Mainnet as NetConfig } from '../../configuration'; //A Steem Testnet. Replace 'Testnet' with 'Mainnet' to connect to the main Steem blockchain.
+
+let opts = { ...NetConfig.net };
+
+//connect to a steem node, mainnet in this case
+const client = new Client(NetConfig.url, opts);
 ```
 
 #### 2. Search account <a name="search-account"></a>
@@ -108,7 +107,7 @@ That's it!
 ### To run this tutorial
 
 1.  `git clone https://github.com/steemit/devportal-tutorials-js.git`
-1.  `cd devportal-tutorials-js/tutorials/23_power_down`
+1.  `cd devportal-tutorials-js/tutorials/25_power_down`
 1.  `npm i`
 1.  `npm run dev-server` or `npm run start`
 1.  After a few moments, the server should be running at [http://localhost:3000/](http://localhost:3000/)

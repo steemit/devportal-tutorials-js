@@ -1,12 +1,10 @@
 import { Client, PrivateKey } from 'dsteem';
+import { Mainnet as NetConfig } from '../../configuration'; //A Steem Testnet. Replace 'Testnet' with 'Mainnet' to connect to the main Steem blockchain.
 
-//define network parameters
-let opts = {};
-opts.addressPrefix = 'STM';
-opts.chainId =
-    '0000000000000000000000000000000000000000000000000000000000000000';
-//connect to a Steem node. This is currently setup on production, but we recommend using a testnet like https://testnet.steem.vc
-const client = new Client('https://api.steemit.com', opts);
+let opts = { ...NetConfig.net };
+
+//connect to a steem node, testnet in this case
+const client = new Client(NetConfig.url, opts);
 window.client = client;
 
 //This is a convenience function for the UI.

@@ -1,21 +1,12 @@
 //Step 1.
 
-// const dsteem = require('dsteem');
-// //define network parameters
-// let opts = {};
-// opts.addressPrefix = 'STX';
-// opts.chainId = '79276aea5d4877d9a25892eaa01b0adf019d3e5cb12a97478df3298ccdd01673';
-// //connect to a steem node, testnet in this case
-// const client = new dsteem.Client('https://testnet.steem.vc', opts);
+import { Client } from 'dsteem';
+import { Mainnet as NetConfig } from '../../configuration'; //A Steem Testnet. Replace 'Testnet' with 'Mainnet' to connect to the main Steem blockchain.
 
-const dsteem = require('dsteem');
-let opts = {};
-//define network parameters
-opts.addressPrefix = 'STM';
-opts.chainId =
-    '0000000000000000000000000000000000000000000000000000000000000000';
-//connect to a steem node, production in this case
-const client = new dsteem.Client('https://api.steemit.com');
+let opts = { ...NetConfig.net };
+
+//connect to a steem node, mainnet in this case
+const client = new Client(NetConfig.url, opts);
 
 
 //Step 2. user fills in the values on the UI

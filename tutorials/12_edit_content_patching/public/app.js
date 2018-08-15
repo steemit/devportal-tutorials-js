@@ -3,6 +3,7 @@ import { Testnet as NetConfig } from '../../configuration'; //A Steem Testnet. R
 
 let opts = { ...NetConfig.net };
 
+//connect to a steem node, testnet in this case
 const client = new Client(NetConfig.url, opts);
 
 const diff_match_patch = require('diff-match-patch');
@@ -12,25 +13,25 @@ let o_permlink = '';
 
 //fetch list of comments for certain account
 async function getLatestPost() {
-    const query = {
-        tag: document.getElementById('username').value,
-        limit: '1',
+    const query = { 
+        tag: document.getElementById('username').value, 
+        limit: '1' 
     };
-    client.database
-        .call('get_discussions_by_blog', [query])
-        .then(result => {
-            document.getElementById('title').value = result[0].title;
-            document.getElementById('body').value = result[0].body;
-            document.getElementById('tags').value = JSON.parse(
-                result[0].json_metadata
-            ).tags.join(' ');
-            o_body = result[0].body;
-            o_permlink = result[0].permlink;
-        })
-        .catch(err => {
-            console.log(err);
-            alert('Error occured, please reload the page');
-        });
+
+    client.database.call('get_discussions_by_blog', [query])
+    .then(result => {
+        document.getElementById('title').value = result[0].title;
+        document.getElementById('body').value = result[0].body;
+        document.getElementById('tags').value = JSON.parse(
+            result[0].json_metadata
+        ).tags.join(' ');
+        o_body = result[0].body;
+        o_permlink = result[0].permlink;
+    })
+    .catch(err => {
+        console.log(err);
+        alert('Error occured, please reload the page');
+    });
 }
 
 window.getLatestPost = getLatestPost;
@@ -111,8 +112,8 @@ window.submitPost = async () => {
 
 window.onload = () => {
     const account = NetConfig.accounts[0];
-    document.getElementById('username').value = account.username;
-    document.getElementById('usernameInText').innerHTML = account.username;
+    document.getElementById('username').value = account.address;
+    document.getElementById('usernameInText').innerHTML = account.address;
     document.getElementById('postingKey').value = account.privPosting;
 
     getLatestPost().catch(console.error);
