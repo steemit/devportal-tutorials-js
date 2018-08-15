@@ -1,21 +1,10 @@
-import {Client, PrivateKey} from 'dsteem';
-import {accounts} from '../../configuration';
-//define network parameters
-let opts = {};
-opts.addressPrefix = 'STX';
-opts.chainId =
-    '79276aea5d4877d9a25892eaa01b0adf019d3e5cb12a97478df3298ccdd01673';
-//connect to a steem node, testnet in this case
-const client = new Client('https://testnet.steem.vc', opts);
+import { Client, PrivateKey } from 'dsteem';
+import { Testnet as NetConfig } from '../../configuration'; //A Steem Testnet. Replace 'Testnet' with 'Mainnet' to connect to the main Steem blockchain.
 
-// const dsteem = require('dsteem');
-// let opts = {};
-// //define network parameters
-// opts.addressPrefix = 'STM';
-// opts.chainId =
-//     '0000000000000000000000000000000000000000000000000000000000000000';
-// //connect to a steem node, production in this case
-// const client = new dsteem.Client('https://api.steemit.com');
+let opts = { ...NetConfig.net };
+
+//connect to a steem node, testnet in this case
+const client = new Client(NetConfig.url, opts);
 
 //check permission status
 window.submitCheck = async () => {
@@ -156,9 +145,9 @@ window.submitRevoke = async () => {
 };
 
 window.onload = async () => {
-    const accountI = accounts.testnet[0];
-    document.getElementById('privateKey').value = accountI.privActive;
-    document.getElementById('username').value = accountI.username;
-    const accountII = accounts.testnet[1];
-    document.getElementById('newAccount').value = accountII.username;
+    const account = NetConfig.accounts[0];
+    const accountI = NetConfig.accounts[1];
+    document.getElementById('username').value = account.address;
+    document.getElementById('privateKey').value = account.privActive;
+    document.getElementById('newAccount').value = accountI.address;
 };

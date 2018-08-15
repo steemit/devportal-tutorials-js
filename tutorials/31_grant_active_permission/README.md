@@ -41,18 +41,16 @@ The tutorial is set up with three individual functions for each of the required 
 As usual, we have a `public/app.js` file which holds the Javascript segment of the tutorial. In the first few lines we define the configured library and packages:
 
 ```javascript
-import {Client, PrivateKey} from 'dsteem';
-import {accounts} from '../../configuration';
-//define network parameters
-let opts = {};
-opts.addressPrefix = 'STX';
-opts.chainId =
-    '79276aea5d4877d9a25892eaa01b0adf019d3e5cb12a97478df3298ccdd01673';
+import { Client, PrivateKey } from 'dsteem';
+import { Testnet as NetConfig } from '../../configuration'; //A Steem Testnet. Replace 'Testnet' with 'Mainnet' to connect to the main Steem blockchain.
+
+let opts = { ...NetConfig.net };
+
 //connect to a steem node, testnet in this case
-const client = new Client('https://testnet.steem.vc', opts);
+const client = new Client(NetConfig.url, opts);
 ```
 
-Above, we have `dsteem` pointing to the testnet with the proper chainId, addressPrefix, and endpoint. Due to this tutorial altering the blockchain it is preferable to not work on production.
+Above, we have `dsteem` pointing to the testnet with the proper chainId, addressPrefix, and endpoint by importing it from the `configuration.js` file. Due to this tutorial altering the blockchain it is preferable to not work on production.
 
 #### 2. Input variables<a name="input"></a>
 
@@ -60,11 +58,11 @@ The required parameters for the account status query is recorded via an HTML UI 
 
 ```javascript
 window.onload = async () => {
-    const accountI = accounts.testnet[0];
-    document.getElementById('privateKey').value = accountI.privActive;
-    document.getElementById('username').value = accountI.username;
-    const accountII = accounts.testnet[1];
-    document.getElementById('newAccount').value = accountII.username;
+    const account = NetConfig.accounts[0];
+    const accountI = NetConfig.accounts[1];
+    document.getElementById('username').value = account.address;
+    document.getElementById('privateKey').value = account.privActive;
+    document.getElementById('newAccount').value = accountI.address;
 };
 ```
 
@@ -175,7 +173,7 @@ This is similar to the steemconnect links that have been covered in previous tut
 ### To run this tutorial
 
 1.  clone this repo
-1.  `cd tutorials/29_grant_active_permission`
+1.  `cd tutorials/31_grant_active_permission`
 1.  `npm i`
 1.  `npm run dev-server` or `npm run start`
 1.  After a few moments, the server should be running at http://localhost:3000/
