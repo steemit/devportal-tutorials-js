@@ -150,4 +150,4 @@ If either of the values for the user or author does not exist the proper error r
 1.  `cd tutorials/18_follow_user`
 1.  `npm i`
 1.  `npm run dev-server` or `npm run start`
-1.  After a few moments, the server should be running at http://localhost:3000/
+1.  After a few moments, the server should be running at [http://localhost:3000/](http://localhost:3000/)

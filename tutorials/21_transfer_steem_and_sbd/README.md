@@ -127,4 +127,4 @@ client.broadcast.transfer(transf, privateKey).then(
 1.  `cd tutorials/21_transfer_STEEM_and_SBD`
 1.  `npm i`
 1.  `npm run dev-server` or `npm run start`
-1.  After a few moments, the server should be running at http://localhost:3000/
+1.  After a few moments, the server should be running at [http://localhost:3000/](http://localhost:3000/)

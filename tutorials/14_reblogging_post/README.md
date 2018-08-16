@@ -132,4 +132,4 @@ It should be noted that reblogging a post does not create a new post on the bloc
 1.  `cd tutorials/14_reblogging_post`
 1.  `npm i`
 1.  `npm run dev-server` or `npm run start`
-1.  After a few moments, the server should be running at http://localhost:3000/
+1.  After a few moments, the server should be running at [http://localhost:3000/](http://localhost:3000/)

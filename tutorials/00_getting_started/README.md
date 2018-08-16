@@ -30,7 +30,7 @@ Let's say you wanted to run the very [first tutorial](../01_blog_feed), `01_blog
     npm run dev-server
     ```
 
-1.  open http://localhost:3000/ in your web browser
+1.  open [http://localhost:3000/](http://localhost:3000/) in your web browser
 
 ```
 ### Github

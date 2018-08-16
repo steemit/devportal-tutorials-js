@@ -180,4 +180,4 @@ The option buttons (continue with voting process or stop) are disabled at the en
 1.  `cd tutorials/22_witness_listing_and_voting`
 1.  `npm i`
 1.  `npm run dev-server` or `npm run start`
-1.  After a few moments, the server should be running at http://localhost:3000/
+1.  After a few moments, the server should be running at [http://localhost:3000/](http://localhost:3000/)
