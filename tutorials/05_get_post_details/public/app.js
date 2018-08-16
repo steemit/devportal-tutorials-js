@@ -47,7 +47,7 @@ window.openPost = async (author, permlink) => {
     client.database.call('get_content', [author, permlink]).then(result => {
         const md = new Remarkable({ html: true, linkify: true });
         const body = md.render(result.body);
-        const content = `<div class='pull-right'><button onclick=goback()>Close</button></div><br><h2>${
+        const content = `<div class='pull-right'><button class="btn btn-danger" onclick="goback()"">Close</button></div><br><h2>${
             result.title
         }</h2><br>${body}<br>`;
 

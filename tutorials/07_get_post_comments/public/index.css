@@ -1,11 +1,15 @@
 #postBody img,
 #postBody iframe {
-    max-width: 100%;
+	max-width: 100%;
 }
 #postBody .pull-right {
-    float: right !important;
+	float: right !important;
 }
 
 .list-group-item-heading {
-    cursor:pointer;
+	cursor: pointer;
+}
+
+#postComments img {
+	max-width: 120px;
 }

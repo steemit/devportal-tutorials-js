@@ -26,7 +26,7 @@ async function main() {
                 const permlink = post.permlink;
                 const created = new Date(post.created).toDateString();
                 posts.push(
-                    `<div class="list-group-item" onclick=openPost("${author}","${permlink}")><h4 class="list-group-item-heading">${title}</h4><p>by ${author}</p><center><img src="${image}" class="img-responsive center-block" style="max-width: 450px"/></center><p class="list-group-item-text text-right text-nowrap">${created}</p></div>`
+                    `<div class="list-group-item" onclick="openPost('${author}','${permlink}')"><h4 class="list-group-item-heading">${title}</h4><p>by ${author}</p><center><img src="${image}" class="img-responsive center-block" style="max-width: 450px"/></center><p class="list-group-item-text text-right text-nowrap">${created}</p></div>`
                 );
             });
             document.getElementById('postList').style.display = 'block';
@@ -49,7 +49,7 @@ window.openPost = async (author, permlink) => {
 
             var voters = [];
             voters.push(
-                `<div class='pull-right'><button onclick=goback()>Close</button></div><br>`
+                `<div class='pull-right'><button class="btn btn-danger"onclick="goback()">Close</button></div><br>`
             );
             result.forEach(voter => {
                 const name = voter.voter;

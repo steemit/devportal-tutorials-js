@@ -26,18 +26,18 @@ if (access_token) {
     api.setAccessToken(access_token);
 
     // Logout button
-    lt = `<a href="#" onclick='logOut()'>Log Out</a>`;
+    lt = `<a class="btn btn-danger" href="#" onclick='logOut()'>Log Out</a>`;
     // User name after successfull login
     ut = `<p>User: <b>${username}</b></p>`;
     // Get user details button
-    lo = `<a href="#" onclick='getUserDetails()'>Get User details</a>`;
+    lo = `<a class="btn btn-primary" href="#" onclick='getUserDetails()'>Get User details</a>`;
     // User details JSON output
     jt = `<pre id="userDetailsJSON"></pre>`;
 
     t = lt + ut + lo + jt;
 } else {
     // Login button
-    t = `<a href=${link}>Log In</a>`;
+    t = `<a class="btn btn-primary" href=${link}>Log In</a>`;
 }
 
 // set template

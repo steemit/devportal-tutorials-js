@@ -69,4 +69,7 @@ window.onload = () => {
     const account = NetConfig.accounts[0];
     document.getElementById('username').value = account.address;
     document.getElementById('postingKey').value = account.privPosting;
+    document.getElementById('condenser').href = NetConfig.condenser + 'created';
+    document.getElementById('condenser').innerHTML =
+        NetConfig.condenser + 'created';
 };
