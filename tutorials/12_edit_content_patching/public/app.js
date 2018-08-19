@@ -65,11 +65,11 @@ window.submitPost = async () => {
     //computes a list of patches to turn o_body to edited_body
     const patch = createPatch(o_body, edited_body);
 
-    //check if patch size is smaller than original content
-    if (patch && patch.length < new Buffer(o_body, 'utf-8').length) {
+    //check if patch size is smaller than edited content itself
+    if (patch && patch.length < new Buffer(edited_body, 'utf-8').length) {
         body = patch;
     } else {
-        body = o_body;
+        body = edited_body;
     }
 
     //get tags and convert to array list
