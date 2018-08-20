@@ -11,37 +11,41 @@ There is also an alternative method to vote for a witness using a `hot signing` 
 We are using the `account witness vote` function to create the vote which we then commit to the steem blockchain with a `broadcast` operation from `dsteem`. We also look at the vote status for a specific user using the `getAccounts` function. The parameters required for the witness voting operation are:
 
 1.  _limit_ - Used in creating the witness list. Denotes the maximum number of witnesses to display
-2.  _voter_ - This is the account making the vote
-3.  _privatekey_ - The private active key of the voter account
-4.  _witness_ - The name of the witness being voted for
-5.  _approve_ - This is a boolean value determining whether the voting opration is to vote for, or to remove a vote
+1.  _voter_ - This is the account making the vote
+1.  _privatekey_ - The private active key of the voter account
+1.  _witness_ - The name of the witness being voted for
+1.  _approve_ - This is a boolean value determining whether the voting opration is to vote for, or to remove a vote
 
 ## Steps
 
 1.  [**Configure connection**](#connection) Configuration of `dsteem` to communicate with a Steem blockchain
-2.  [**Create witness list**](#createlist) Displaying a list of active witnesses
-3.  [**Input variables**](#input) Collecting the required inputs via an HTML UI
-4.  [**Voting status**](#status) Confirming the current vote status for the selected witness
-5.  [**Broadcast**](#broadcast) Creating an object and broadcasting the vote to the blockchain
+1.  [**Create witness list**](#createlist) Displaying a list of active witnesses
+1.  [**Input variables**](#input) Collecting the required inputs via an HTML UI
+1.  [**Voting status**](#status) Confirming the current vote status for the selected witness
+1.  [**Broadcast**](#broadcast) Creating an object and broadcasting the vote to the blockchain
 
 #### 1. Configure connection<a name="connection"></a>
 
 As usual, we have a `public/app.js` file which holds the Javascript segment of the tutorial. In the first few lines we define the configured library and packages:
 
 ```javascript
-const dsteem = require('dsteem');
+import { Client, PrivateKey } from 'dsteem';
+import { Testnet as NetConfig } from '../../configuration'; //A Steem Testnet. Replace 'Testnet' with 'Mainnet' to connect to the main Steem blockchain.
 
-//define network parameters
-let opts = {};
-opts.addressPrefix = 'STX';
-opts.chainId =
-    '79276aea5d4877d9a25892eaa01b0adf019d3e5cb12a97478df3298ccdd01673';
+let opts = { ...NetConfig.net };
 //connect to a steem node, testnet in this case
-const client = new dsteem.Client('https://testnet.steem.vc', opts);
+const client = new Client(NetConfig.url, opts);
 ```
 
-Above, we have `dsteem` pointing to the test network with the proper chainId, addressPrefix, and endpoint.  
-Because this tutorial modifies the blockchain, we will use a testnet and a predefined account to demonstrate voting.
+Above, we have `dsteem` pointing to the test network with the proper chainId, addressPrefix, and endpoint by importing from the `configuration.js` file. Because this tutorial is interactive, we will not publish test content to the main network. Instead, we're using the testnet and a predefined account which is imported once the application loads, to demonstrate witness voting.
+
+```javascript
+window.onload = async () => {
+    const account = NetConfig.accounts[0];
+    document.getElementById('username').value = account.address;
+    document.getElementById('activeKey').value = account.privActive;
+};
+```
 
 #### 2. Create witness list<a name="createlist"></a>
 
@@ -173,7 +177,7 @@ The option buttons (continue with voting process or stop) are disabled at the en
 ### To run this tutorial
 
 1.  clone this repo
-2.  `cd tutorials/21_witness_listing_and_voting`
-3.  `npm i`
-4.  `npm run dev-server` or `npm run start`
-5.  After a few moments, the server should be running at http://localhost:3000/
+1.  `cd tutorials/22_witness_listing_and_voting`
+1.  `npm i`
+1.  `npm run dev-server` or `npm run start`
+1.  After a few moments, the server should be running at [http://localhost:3000/](http://localhost:3000/)
