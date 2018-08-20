@@ -9,34 +9,35 @@ This tutorial will take you through the process of calling both the `follower` a
 We are using the `call` operation provided by the `dsteem` library to pull the follow information for a specified user account. There are 4 variables required to execute this operation:
 
 1.  _username_ - The specific user for which the follower(ing) list will be retrieved.
-1.  _startFollower(ing)_ - The starting letter(s) or name for the search query.
-1.  _followType_ - This value is set to `blog` and includes all users following or being followed by the `user`.
-1.  _limit_ - The maximum number of lines to be returned by the query.
+2.  _startFollower(ing)_ - The starting letter(s) or name for the search query.
+3.  _followType_ - This value is set to `blog` and includes all users following or being followed by the `user`.
+4.  _limit_ - The maximum number of lines to be returned by the query.
 
 A simple HTML interface is used to capture the required information after which the function is executed.
 
 ## Steps
 
 1.  [**Configure connection**](#connection) Configuration of `dsteem` to communicate with the Steem blockchain
-1.  [**Input variables**](#input) Collecting the required inputs via an HTML UI
-1.  [**Get followers/following**](#query) Get the followers or users being followed
-1.  [**Display**](#display) Display the array of results on the UI
+2.  [**Input variables**](#input) Collecting the required inputs via an HTML UI
+3.  [**Get followers/following**](#query) Get the followers or users being followed
+4.  [**Display**](#display) Display the array of results on the UI
 
 #### 1. Configure connection<a name="connection"></a>
 
 As usual, we have a `public/app.js` file which holds the Javascript segment of the tutorial. In the first few lines we define the configured library and packages:
 
 ```javascript
-import { Client } from 'dsteem';
-import { Mainnet as NetConfig } from '../../configuration'; //A Steem Testnet. Replace 'Testnet' with 'Mainnet' to connect to the main Steem blockchain.
-
-let opts = { ...NetConfig.net };
-
-//connect to a steem node, mainnet in this case
-const client = new Client(NetConfig.url, opts);
+const dsteem = require('dsteem');
+let opts = {};
+//define network parameters
+opts.addressPrefix = 'STM';
+opts.chainId =
+    '0000000000000000000000000000000000000000000000000000000000000000';
+//connect to a steem node, production in this case
+const client = new dsteem.Client('https://api.steemit.com');
 ```
 
-Above, we have `dsteem` pointing to the production network with the proper chainId, addressPrefix, and endpoint by importing from the `configuration.js` file.
+Above, we have `dsteem` pointing to the production network with the proper chainId, addressPrefix, and endpoint.
 
 #### 2. Input variables<a name="input"></a>
 
@@ -108,7 +109,7 @@ followlist.forEach(newObj => {
 ### To run this tutorial
 
 1.  clone this repo
-1.  `cd tutorials/19_get_follower_and_following_list`
-1.  `npm i`
-1.  `npm run dev-server` or `npm run start`
-1.  After a few moments, the server should be running at [http://localhost:3000/](http://localhost:3000/)
+2.  `cd tutorials/19_get_follower_and_following_list`
+3.  `npm i`
+4.  `npm run dev-server` or `npm run start`
+5.  After a few moments, the server should be running at http://localhost:3000/

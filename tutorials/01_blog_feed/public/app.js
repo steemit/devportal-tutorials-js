@@ -1,10 +1,6 @@
 import { Client } from 'dsteem';
-import { Mainnet as NetConfig } from '../../configuration'; //A Steem Testnet. Replace 'Testnet' with 'Mainnet' to connect to the main Steem blockchain.
 
-let opts = { ...NetConfig.net };
-
-//connect to a steem node, mainnet in this case
-const client = new Client(NetConfig.url, opts);
+const client = new Client('https://api.steemit.com');
 
 function fetchBlog() {
     const query = {

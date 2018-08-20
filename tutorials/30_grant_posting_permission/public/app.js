@@ -1,11 +1,20 @@
-import { Client, PrivateKey } from 'dsteem';
+const dsteem = require('dsteem');
+//define network parameters
+let opts = {};
+opts.addressPrefix = 'STX';
+opts.chainId =
+    '79276aea5d4877d9a25892eaa01b0adf019d3e5cb12a97478df3298ccdd01673';
+//connect to a steem node, testnet in this case
+const client = new dsteem.Client('https://testnet.steem.vc', opts);
 
-import { Testnet as NetConfig } from '../../configuration'; //A Steem Testnet. Replace 'Testnet' with 'Mainnet' to connect to the main Steem blockchain.
-
-let opts = { ...NetConfig.net };
-
-//connect to a steem node, mainnet in this case
-const client = new Client(NetConfig.url, opts);
+// const dsteem = require('dsteem');
+// let opts = {};
+// //define network parameters
+// opts.addressPrefix = 'STM';
+// opts.chainId =
+//     '0000000000000000000000000000000000000000000000000000000000000000';
+// //connect to a steem node, production in this case
+// const client = new dsteem.Client('https://api.steemit.com');
 
 //check permission status
 window.submitCheck = async () => {
@@ -15,7 +24,8 @@ window.submitCheck = async () => {
     const newAccount = document.getElementById('newAccount').value;
 
     //query database for posting array
-    const _data = await client.database.getAccounts([username]);
+    _data = new Array();
+    _data = await client.database.getAccounts([username]);
     const postingAuth = _data[0].posting;
 
     //check for username duplication
@@ -40,13 +50,14 @@ window.submitPermission = async () => {
     //get username
     const username = document.getElementById('username').value;
     //get private active key
-    const privateKey = PrivateKey.fromString(
+    const privateKey = dsteem.PrivateKey.fromString(
         document.getElementById('privateKey').value
     );
     //get account to provide posting auth
     const newAccount = document.getElementById('newAccount').value;
 
-    const _data = await client.database.getAccounts([username]);
+    _data = new Array();
+    _data = await client.database.getAccounts([username]);
     const postingAuth = _data[0].posting;
 
     //adding of new account to posting array
@@ -95,13 +106,14 @@ window.submitRevoke = async () => {
     //get username
     const username = document.getElementById('username').value;
     //get private active key
-    const privateKey = PrivateKey.fromString(
+    const privateKey = dsteem.PrivateKey.fromString(
         document.getElementById('privateKey').value
     );
     //get account to provide posting auth
     const newAccount = document.getElementById('newAccount').value;
 
-    const _data = await client.database.getAccounts([username]);
+    _data = new Array();
+    _data = await client.database.getAccounts([username]);
     const postingAuth = _data[0].posting;
 
     //check for user index in posting array
@@ -156,12 +168,4 @@ window.submitRevoke = async () => {
             document.getElementById('permCheck').innerHTML = error.jse_shortmsg;
         }
     );
-};
-
-window.onload = () => {
-    const account = NetConfig.accounts[0];
-    const account2 = NetConfig.accounts[1];
-    document.getElementById('username').value = account.address;
-    document.getElementById('privateKey').value = account.privActive;
-    document.getElementById('newAccount').value = account2.address;
 };

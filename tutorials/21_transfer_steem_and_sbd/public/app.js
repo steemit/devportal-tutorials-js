@@ -3,8 +3,16 @@ import { Testnet as NetConfig } from '../../configuration'; //A Steem Testnet. R
 
 let opts = { ...NetConfig.net };
 
-// //connect to a steem node, tesetnet in this case
 const client = new Client(NetConfig.url, opts);
+
+// const dsteem = require('dsteem');
+// let opts = {};
+// //define network parameters
+// opts.addressPrefix = 'STM';
+// opts.chainId =
+//     '0000000000000000000000000000000000000000000000000000000000000000';
+// //connect to a steem node, production in this case
+// const client = new dsteem.Client('https://api.steemit.com');
 
 //submit transfer function executes when you click "Transfer" button
 window.submitTransfer = async () => {
@@ -61,8 +69,7 @@ window.submitTransfer = async () => {
 
 window.onload = async () => {
     const account = NetConfig.accounts[0];
-    const accountI = NetConfig.accounts[1];
-    document.getElementById('username').value = account.address;
-    document.getElementById('privateKey').value = account.privActive;
-    document.getElementById('recipient').value = accountI.address;
+    document.getElementById('username').value = account.username;
+    document.getElementById('postingKey').value = account.privPosting;
+    document.getElementById('recipient').value = accounts.testnet[1].username;
 };

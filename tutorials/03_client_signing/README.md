@@ -24,14 +24,14 @@ Client side signing of transaction is yet another way of interacting with Steem 
 
 #### 1. App setup<a name="app-setup"></a>
 
-Testnet and Production networks only differ with few settings which helps developers to switch their application from testnet to production. One of these settings is `addressPrefix` - string that is defined and will be in front of every public address on that chain/network. Another one is `chainId` - id of that network. By defining those parameters we are selecting Testnet and connecting to publicly available server with help of `dsteem` library. First few lines of code in `public/app.js` gives you example of connection to different networks, testnet and production. These values are imported from the configuration file.
+Testnet and Production networks only differ with few settings which helps developers to switch their application from testnet to production. One of these settings is `addressPrefix` - string that is defined and will be in front of every public address on that chain/network. Another one is `chainId` - id of that network. By defining those parameters we are selecting Testnet and connecting to publicly available server with help of `dsteem` library. First few lines of code in `public/app.js` gives you example of connection to different networks, testnet and production.
 
 ```javascript
-import { Client, PrivateKey } from 'dsteem'; //import the api client library
-import { Testnet as NetConfig } from '../../configuration'; //A Steem Testnet. Replace 'Testnet' with 'Mainnet' to connect to the main Steem blockchain.
-
-let opts = { ...NetConfig.net };
-const client = new Client(NetConfig.url, opts);
+opts.addressPrefix = 'TST';
+opts.chainId =
+    '46d82ab7d8db682eb1959aed0ada039a6d49afa1602491f93dde9cac3e8e6c32';
+//connect to server which is connected to the network/testnet
+const client = new dsteem.Client('https://testnet.steemitdev.com', opts);
 ```
 
 *   _Disclaimer: In this tutorial we are using testnet powered by community member (`@almost-digital`) and predefined accounts reside on this network only._

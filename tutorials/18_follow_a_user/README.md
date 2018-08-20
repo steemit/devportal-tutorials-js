@@ -9,44 +9,35 @@ This tutorial will take you through the process of checking the `follow status` 
 We are using the `broadcast.json` operation provided by the `dsteem` library to follow or unfollow a selected author. There are 4 variables required to execute this operation:
 
 1.  _follower_ - The specific user that will select the author to follow/unfollow (`username`).
-1.  _privatekey_ - This is the private posting key of the user(`postingKey`).
-1.  _following_ - The account/author that the user would like to follow (`author`).
-1.  _what_ - The `type` of follow operation. This variable can have one of two values: `blog`, to follow an author, and a `null value`, unfollow the selected author.
+2.  _privatekey_ - This is the private posting key of the user(`postingKey`).
+3.  _following_ - The account/author that the user would like to follow (`author`).
+4.  _what_ - The `type` of follow operation. This variable can have one of two values: `blog`, to follow an author, and a `null value`, unfollow the selected author.
 
 A simple HTML UI is used to capture the required information, after which the broadcast operation can be compiled.
 
 ## Steps
 
 1.  [**Configure connection**](#connection) Configuration of `dsteem` to communicate with the Steem blockchain
-1.  [**Input variables**](#input) Collecting the required inputs via an HTML UI
-1.  [**Get status**](#status) Get the follow status for the specified author
-1.  [**Follow operation**](#follow) Execute the `follow` operation
+2.  [**Input variables**](#input) Collecting the required inputs via an HTML UI
+3.  [**Get status**](#status) Get the follow status for the specified author
+4.  [**Follow operation**](#follow) Execute the `follow` operation
 
 #### 1. Configure connection<a name="connection"></a>
 
 As usual, we have a `public/app.js` file which holds the Javascript segment of the tutorial. In the first few lines we define the configured library and packages:
 
 ```javascript
-import { Client, PrivateKey } from 'dsteem';
-import { Testnet as NetConfig } from '../../configuration'; //A Steem Testnet. Replace 'Testnet' with 'Mainnet' to connect to the main Steem blockchain.
-
-let opts = { ...NetConfig.net };
-
+const dsteem = require('dsteem');
+//define network parameters
+let opts = {};
+opts.addressPrefix = 'STX';
+opts.chainId =
+    '79276aea5d4877d9a25892eaa01b0adf019d3e5cb12a97478df3298ccdd01673';
 //connect to a steem node, testnet in this case
-const client = new Client(NetConfig.url, opts);
+const client = new dsteem.Client('https://testnet.steem.vc', opts);
 ```
 
-Above, we have `dsteem` pointing to the test network with the proper chainId, addressPrefix, and endpoint by importing from the `configuration.js` file. Because this tutorial is interactive, we will not publish test content to the main network. Instead, we're using the testnet and a predefined account which is imported once the application loads, to demonstrate following of an author.
-
-```javascript
-window.onload = async () => {
-    const account = NetConfig.accounts[0];
-    const accountI = NetConfig.accounts[1];
-    document.getElementById('username').value = account.address;
-    document.getElementById('postingKey').value = account.privPosting;
-    document.getElementById('author').value = accountI.address;
-};
-```
+Above, we have `dsteem` pointing to the test network with the proper chainId, addressPrefix, and endpoint.
 
 #### 2. Input variables<a name="input"></a>
 
@@ -147,7 +138,7 @@ If either of the values for the user or author does not exist the proper error r
 ### To run this tutorial
 
 1.  clone this repo
-1.  `cd tutorials/18_follow_user`
-1.  `npm i`
-1.  `npm run dev-server` or `npm run start`
-1.  After a few moments, the server should be running at [http://localhost:3000/](http://localhost:3000/)
+2.  `cd tutorials/18_follow_user`
+3.  `npm i`
+4.  `npm run dev-server` or `npm run start`
+5.  After a few moments, the server should be running at http://localhost:3000/

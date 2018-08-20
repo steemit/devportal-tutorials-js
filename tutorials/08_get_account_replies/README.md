@@ -21,19 +21,20 @@ We are using `get_state` function with `dsteem`, which is straight-forward and t
 As usual, we have `public/app.js` file which holds the javascript part of the tutorial. In first few lines we define, configure library and packages.
 
 ```javascript
-import { Client } from 'dsteem';
-import { Mainnet as NetConfig } from '../../configuration'; //A Steem Testnet. Replace 'Testnet' with 'Mainnet' to connect to the main Steem blockchain.
-
-let opts = { ...NetConfig.net };
-
-//connect to a steem node, mainnet in this case
-const client = new Client(NetConfig.url, opts);
+const dsteem = require('dsteem');
+let opts = {};
+//connect to production server
+opts.addressPrefix = 'STM';
+opts.chainId =
+    '0000000000000000000000000000000000000000000000000000000000000000';
+//connect to server which is connected to the network/production
+const client = new dsteem.Client('https://api.steemit.com');
 
 const Remarkable = require('remarkable');
 const md = new Remarkable({ html: true, linkify: true });
 ```
 
-`dsteem` is pointing to the main network and proper chain_id, addressPrefix and connection server by importing from the `configuration.js` file.
+`dsteem` is pointing to the main network and proper chain_id, addressPrefix and connection server.
 `remarkable` is assigned to `md` variable with linkify and html options, allowing markdown parsing links and html properly.
 
 #### 2. Query result<a name="query-result"></a>

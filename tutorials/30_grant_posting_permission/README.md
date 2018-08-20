@@ -35,13 +35,14 @@ The tutorial is set up with three individual functions for each of the required 
 As usual, we have a `public/app.js` file which holds the Javascript segment of the tutorial. In the first few lines we define the configured library and packages:
 
 ```javascript
-import { Client, PrivateKey } from 'dsteem';
-import { Testnet as NetConfig } from '../../configuration'; //A Steem Testnet. Replace 'Testnet' with 'Mainnet' to connect to the main Steem blockchain.
-
-let opts = { ...NetConfig.net };
-
-//connect to server which is connected to the network/testnet
-const client = new Client(NetConfig.url, opts);
+const dsteem = require('dsteem');
+//define network parameters
+let opts = {};
+opts.addressPrefix = 'STX';
+opts.chainId =
+    '79276aea5d4877d9a25892eaa01b0adf019d3e5cb12a97478df3298ccdd01673';
+//connect to a steem node, testnet in this case
+const client = new dsteem.Client('https://testnet.steem.vc', opts);
 ```
 
 Above, we have `dsteem` pointing to the testnet with the proper chainId, addressPrefix, and endpoint. Due to this tutorial altering the blockchain it is preferable to not work on production.
@@ -56,7 +57,7 @@ All of the functions use the same input variables. Once the function is activate
 //get username
 const username = document.getElementById('username').value;
 //get private active key
-const privateKey = PrivateKey.fromString(
+const privateKey = dsteem.PrivateKey.fromString(
     document.getElementById('privateKey').value
 );
 //get account to provide posting auth
@@ -69,7 +70,8 @@ The queries are sent through to the steem blockchain with the `database API` usi
 
 ```javascript
     //query database for posting array
-    const _data = await client.database.getAccounts([username]);
+    _data = new Array
+    _data = await client.database.getAccounts([username]);
     const postingAuth = _data[0].posting;
 
      //check for username duplication
@@ -160,7 +162,7 @@ This is similar to the steemconnect links that have been covered in previous tut
 ### To run this tutorial
 
 1.  clone this repo
-1.  `cd tutorials/30_grant_posting_permission`
-1.  `npm i`
-1.  `npm run dev-server` or `npm run start`
-1.  After a few moments, the server should be running at [http://localhost:3000/](http://localhost:3000/)
+2.  `cd tutorials/28_grant_posting_permission`
+3.  `npm i`
+4.  `npm run dev-server` or `npm run start`
+5.  After a few moments, the server should be running at http://localhost:3000/

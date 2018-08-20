@@ -24,24 +24,18 @@ We are using the `broadcast.comment` function provided by the `dsteem` library w
 As usual, we have a `public/app.js` file which holds the Javascript segment of the tutorial. In the first few lines we define the configured library and packages:
 
 ```javascript
-import { Client, PrivateKey } from 'dsteem';
-import { Testnet as NetConfig } from '../../configuration'; //A Steem Testnet. Replace 'Testnet' with 'Mainnet' to connect to the main Steem blockchain.
-
-let opts = { ...NetConfig.net };
-
+const dsteem = require('dsteem');
+let opts = {};
+//connect to community testnet
+opts.addressPrefix = 'STX';
+opts.chainId =
+    '79276aea5d4877d9a25892eaa01b0adf019d3e5cb12a97478df3298ccdd01673';
 //connect to server which is connected to the network/testnet
-const client = new Client(NetConfig.url, opts);
+const client = new dsteem.Client('https://testnet.steem.vc', opts);
 ```
 
-Above we have `dsteem` pointing to the test network with the proper chainId, addressPrefix, and endpoint by importing from the `configuration.js` file. Because this tutorial is interactive, we will not publish test content to the main network. Instead, we're using the testnet and a predefined account which is imported once the application loads, to demonstrate commenting on a post.
-
-```javascript
-window.onload = () => {
-    const account = NetConfig.accounts[0];
-    document.getElementById('username').value = account.address;
-    document.getElementById('postingKey').value = account.privPosting;
-};
-```
+Above, we have `dsteem` pointing to the test network with the proper chainId, addressPrefix, and endpoint.  
+Because this tutorial modifies the blockchain, we will use a testnet and a predefined account to demonstrate comment publishing.
 
 #### 2. Choose parent post<a name="choose-post"></a>
 
@@ -66,7 +60,7 @@ We gather information from the UI.
 
 ```javascript
 //get private key
-const privateKey = PrivateKey.fromString(
+const privateKey = dsteem.PrivateKey.fromString(
     document.getElementById('postingKey').value
 );
 //get account name
@@ -144,4 +138,4 @@ The `broadcast` operation has more to offer than just committing a post/comment 
 1.  `cd tutorials/11_submit_comment_reply`
 1.  `npm i`
 1.  `npm run dev-server` or `npm run start`
-1.  After a few moments, the server should be running at [http://localhost:3000/](http://localhost:3000/)
+1.  After a few moments, the server should be running at http://localhost:3000/

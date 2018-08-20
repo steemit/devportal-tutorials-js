@@ -21,16 +21,20 @@ We are using the `blockchain.getBlockStream` function provided by `dsteem` which
 As usual, we have a file called `public/app.js`, which holds the Javascript segment of the tutorial. In the first few lines, we have defined the configured library and packages:
 
 ```javascript
-import { Client } from 'dsteem';
-import { Mainnet as NetConfig } from '../../configuration'; //A Steem Testnet. Replace 'Testnet' with 'Mainnet' to connect to the main Steem blockchain.
+const dsteem = require('dsteem');
 
-let opts = { ...NetConfig.net };
+let opts = {};
 
-//connect to a steem node, mainnet in this case
-const client = new Client(NetConfig.url, opts);
+//connect to production server
+opts.addressPrefix = 'STM';
+opts.chainId =
+    '0000000000000000000000000000000000000000000000000000000000000000';
+
+//connect to server which is connected to the network/production
+const client = new dsteem.Client('https://api.steemit.com');
 ```
 
-Above, we have `dsteem` pointing to the live network with the proper chainId, addressPrefix, and endpoint by importing from the `configuration.js` file. Because this tutorial requires active transactions to see some data.
+Above, we have `dsteem` pointing to the live network with the proper chainId, addressPrefix, and endpoint. Because this tutorial requires active transactions to see some data.
 
 #### 2. Stream blocks<a name="stream-blocks"></a>
 

@@ -22,14 +22,10 @@ In order to connect to the live Steem network, all we have to do is provide conn
 
 In first couple lines we require package and define connection server:
 
-```javascript
-import { Client } from 'dsteem';
-import { Mainnet as NetConfig } from '../../configuration'; //A Steem Testnet. Replace 'Testnet' with 'Mainnet' to connect to the main Steem blockchain.
+```
+const { Client } = require('dsteem');
 
-let opts = { ...NetConfig.net };
-
-//connect to a steem node, mainnet in this case
-const client = new Client(NetConfig.url, opts);
+const client = new Client('https://api.steemit.com');
 ```
 
 #### 2. Query format<a name="Query-format"></a>
@@ -48,7 +44,7 @@ var query = {
 
 `client.database.getDiscussions` function is used for fetching discussions or posts. The first argument to this function determines which equivalent of the appbase `condenser_api.get_discussions_by_*` api calls it's going to use.  Below is example of query and keyword **'blog'** indicates `condenser_api.get_discussions_by_blog` and somewhat counter-intuitively _query.tag_ indicates the account from which we want to get posts.
 
-```javascript
+```
     client.database
         .getDiscussions('blog', query)
         .then(result => {

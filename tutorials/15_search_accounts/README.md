@@ -9,30 +9,31 @@ This tutorial will show the method of capturing a queried user name, matching th
 We are using the `call` function provided by the `dsteem` library to pull user names from the steem blockchain. The information being pulled is dependent on two variables:
 
 1.  The max number of user names that needs to be displayed by the search
-1.  The string representing the first characters of the user name you are searching for
+2.  The string representing the first characters of the user name you are searching for
 
 A simple HTML interface is used to both capture the string query as well as display the completed search. The layout can be found in the "index.html" file.
 
 ## Steps
 
-1.  [**Configure connection**](#configure_connection) Configuration of `dsteem` to use the proper connection and network.
-1.  [**Collecting input variables**](#collecting_input_variables) Assigning and collecting the necessary variables
-1.  [**Blockchain query**](#blockchain_query) Finding the data on the blockchain based on the inputs
-1.  [**Output**](#output) Displaying query results
+1. [**Configure connection**](#configure_connection) Configuration of `dsteem` to use the proper connection and network.
+2. [**Collecting input variables**](#collecting_input_variables) Assigning and collecting the necessary variables
+3. [**Blockchain query**](#blockchain_query) Finding the data on the blockchain based on the inputs
+4. [**Output**](#output) Displaying query results
 
 
 #### 1. **Configure connection**<a name="configure_connection"></a>
 
-Below we have `dsteem` pointing to the production network with the proper chainId, addressPrefix, and endpoint by importing from the `configuration.js` file. There is a `public/app.js` file which holds the Javascript segment of this tutorial. In the first few lines we define the configured library and packages:
+Below we have `dsteem` pointing to the production network with the proper chainId, addressPrefix, and endpoint. There is a `public/app.js` file which holds the Javascript segment of this tutorial. In the first few lines we define the configured library and packages:
 
 ```javascript
-import { Client } from 'dsteem';
-import { Mainnet as NetConfig } from '../../configuration'; //A Steem Testnet. Replace 'Testnet' with 'Mainnet' to connect to the main Steem blockchain.
-
-let opts = { ...NetConfig.net };
-
-//connect to a steem node, mainnet in this case
-const client = new Client(NetConfig.url, opts);
+const dsteem = require('dsteem');
+let opts = {};
+//connect to production server
+opts.addressPrefix = 'STM';
+opts.chainId =
+	'0000000000000000000000000000000000000000000000000000000000000000';
+//connect to server which is connected to the network/production
+const client = new dsteem.Client('https://api.steemit.com');
 ```
 
 #### 2.  **Collecting input variables**<a name="collecting_input_variables"></a>
@@ -66,7 +67,7 @@ document.getElementById('accList').innerHTML = _accounts.join('<br>');
 ## To run this tutorial
 
 1.  clone this repo
-1.  `cd tutorials/15_search_accounts`
-1.  `npm i`
-1.  `npm run dev-server` or `npm run start`
-1.  After a few moments, the server should be running at [http://localhost:3000/](http://localhost:3000/)
+2.  `cd tutorials/15_search_accounts`
+3.  `npm i`
+4.  `npm run dev-server` or `npm run start`
+5.  After a few moments, the server should be running at http://localhost:3000/

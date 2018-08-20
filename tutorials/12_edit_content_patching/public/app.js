@@ -3,7 +3,6 @@ import { Testnet as NetConfig } from '../../configuration'; //A Steem Testnet. R
 
 let opts = { ...NetConfig.net };
 
-//connect to a steem node, testnet in this case
 const client = new Client(NetConfig.url, opts);
 
 const diff_match_patch = require('diff-match-patch');
@@ -17,7 +16,6 @@ async function getLatestPost() {
         tag: document.getElementById('username').value,
         limit: '1',
     };
-
     client.database
         .call('get_discussions_by_blog', [query])
         .then(result => {
@@ -67,7 +65,7 @@ window.submitPost = async () => {
     if (patch && patch.length < new Buffer(o_body, 'utf-8').length) {
         body = patch;
     } else {
-        body = edited_body;
+        body = o_body;
     }
 
     //get tags and convert to array list
@@ -113,8 +111,8 @@ window.submitPost = async () => {
 
 window.onload = () => {
     const account = NetConfig.accounts[0];
-    document.getElementById('username').value = account.address;
-    document.getElementById('usernameInText').innerHTML = account.address;
+    document.getElementById('username').value = account.username;
+    document.getElementById('usernameInText').innerHTML = account.username;
     document.getElementById('postingKey').value = account.privPosting;
 
     getLatestPost().catch(console.error);

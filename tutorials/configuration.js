@@ -39,7 +39,6 @@ export const TestnetSteemit = {
         },
     ],
     url: 'https://testnet.steemitdev.com',
-    condenser: 'http://condenser.steem.vc/',
     net: {
         addressPrefix: 'TST',
         chainId:
@@ -61,7 +60,6 @@ export const TestnetVC = {
         },
     ],
     url: 'https://testnet.steem.vc',
-    condenser: 'http://condenser.steem.vc/',
     net: {
         addressPrefix: 'STX',
         chainId:
@@ -74,7 +72,6 @@ export const Testnet = TestnetVC;
 export const Mainnet = {
     accounts: [],
     url: 'https://api.steemit.com',
-    condenser: 'https://steemit.com/',
     net: {
         addressPrefix: 'STM',
         chainId:

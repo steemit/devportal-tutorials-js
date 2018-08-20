@@ -1,12 +1,14 @@
-import { Client } from 'dsteem';
-import { Mainnet as NetConfig } from '../../configuration'; //A Steem Testnet. Replace 'Testnet' with 'Mainnet' to connect to the main Steem blockchain.
-
-let opts = { ...NetConfig.net };
-
-//connect to a steem node, mainnet in this case
-const client = new Client(NetConfig.url, opts);
-
+const dsteem = require('dsteem');
 const Remarkable = require('remarkable');
+
+let opts = {};
+
+//connect to production server
+opts.addressPrefix = 'STM';
+opts.chainId =
+    '0000000000000000000000000000000000000000000000000000000000000000';
+//connect to server which is connected to the network/production
+const client = new dsteem.Client('https://api.steemit.com');
 
 //fetch list of trending posts
 async function main() {
@@ -47,7 +49,7 @@ window.openPost = async (author, permlink) => {
     client.database.call('get_content', [author, permlink]).then(result => {
         const md = new Remarkable({ html: true, linkify: true });
         const body = md.render(result.body);
-        const content = `<div class='pull-right'><button class="btn btn-danger" onclick="goback()"">Close</button></div><br><h2>${
+        const content = `<div class='pull-right'><button onclick=goback()>Close</button></div><br><h2>${
             result.title
         }</h2><br>${body}<br>`;
 
