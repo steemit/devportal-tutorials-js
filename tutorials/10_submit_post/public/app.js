@@ -61,6 +61,6 @@ window.submitPost = async () => {
 
 window.onload = () => {
     const account = NetConfig.accounts[0];
-    document.getElementById('username').value = account.username;
+    document.getElementById('username').value = account.address;
     document.getElementById('postingKey').value = account.privPosting;
 };
