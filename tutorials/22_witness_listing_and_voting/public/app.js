@@ -1,21 +1,9 @@
 import { Client, PrivateKey } from 'dsteem';
-import { accounts } from '../../configuration';
-//define network parameters
-let opts = {};
-opts.addressPrefix = 'STX';
-opts.chainId =
-    '79276aea5d4877d9a25892eaa01b0adf019d3e5cb12a97478df3298ccdd01673';
-//connect to a steem node, testnet in this case
-const client = new Client('https://testnet.steem.vc', opts);
+import { Testnet as NetConfig } from '../../configuration'; //A Steem Testnet. Replace 'Testnet' with 'Mainnet' to connect to the main Steem blockchain.
 
-// const dsteem = require('dsteem');
-// let opts = {};
-// //define network parameters
-// opts.addressPrefix = 'STM';
-// opts.chainId =
-//     '0000000000000000000000000000000000000000000000000000000000000000';
-// //connect to a steem node, production in this case
-// const client = new dsteem.Client('https://api.steemit.com');
+let opts = { ...NetConfig.net };
+//connect to a steem node, testnet in this case
+const client = new Client(NetConfig.url, opts);
 
 //create witness list function
 window.createList = async () => {
@@ -48,18 +36,17 @@ window.submitVote = async () => {
     const witness = document.getElementById('witness').value;
 
     //check if witness is already voted for
-    _data = new Array();
-    _data = await client.database.getAccounts([voter]);
+    var _data = await client.database.getAccounts([voter]);
     const witnessvotes = _data[0]['witness_votes'];
     const approve = witnessvotes.includes(witness);
     if (approve) {
-        checkresult =
+        var checkresult =
             'Witness has already been voted for, would you like to remove vote?';
-        votecheck = 'Vote removed';
+        var votecheck = 'Vote removed';
     } else {
-        checkresult =
+        var checkresult =
             'Witness has not yet been voted for, would you like to vote?';
-        votecheck = 'Vote added';
+        var votecheck = 'Vote added';
     }
 
     document.getElementById('voteCheckContainer').style.display = 'flex';
@@ -116,7 +103,7 @@ window.submitVote = async () => {
 };
 
 window.onload = async () => {
-    const account = accounts.testnet[0];
-    document.getElementById('username').value = account.username;
-    document.getElementById('postingKey').value = account.privPosting;
+    const account = NetConfig.accounts[0];
+    document.getElementById('username').value = account.address;
+    document.getElementById('activeKey').value = account.privActive;
 };

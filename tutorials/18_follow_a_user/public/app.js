@@ -1,23 +1,11 @@
 //Step 1.
 import { Client, PrivateKey } from 'dsteem';
-import { accounts } from '../../configuration';
+import { Testnet as NetConfig } from '../../configuration'; //A Steem Testnet. Replace 'Testnet' with 'Mainnet' to connect to the main Steem blockchain.
 
-//define network parameters
-let opts = {};
-opts.addressPrefix = 'STX';
-opts.chainId =
-    '79276aea5d4877d9a25892eaa01b0adf019d3e5cb12a97478df3298ccdd01673';
+let opts = { ...NetConfig.net };
+
 //connect to a steem node, testnet in this case
-const client = new Client('https://testnet.steem.vc', opts);
-
-// const dsteem = require('dsteem');
-// //define network parameters
-// let opts = {};
-// opts.addressPrefix = 'STM';
-// opts.chainId =
-//     '0000000000000000000000000000000000000000000000000000000000000000';
-// //connect to a steem node, production in this case
-// const client = new dsteem.Client('https://api.steemit.com');
+const client = new Client(NetConfig.url, opts);
 
 //Step 2. user fills in the values for 'parent_author' and 'parent_permlink'
 
@@ -35,8 +23,6 @@ window.submitFollow = async () => {
     //Step 3. checking whether author is already followed
     //for full explanation of the process refer to tutorial 19_get_follower_and_following_list
 
-    console.log({ follower: follower, following: following });
-
     let status = await client.call('follow_api', 'get_following', [
         follower,
         following,
@@ -47,13 +33,13 @@ window.submitFollow = async () => {
     console.log({ status: status });
 
     if (status.length > 0 && status[0].following == following) {
-        type = '';
+        var type = '';
     } else {
-        type = 'blog';
+        var type = 'blog';
     }
 
     //Step 4. follow and unfollow is executed by the same operation with a change in only one of the parameters
-
+    
     const json = JSON.stringify([
         'follow',
         {
@@ -100,9 +86,9 @@ window.submitFollow = async () => {
 };
 
 window.onload = async () => {
-    const response = await fetch('login.json');
-    const json = await response.json();
-    const account = accounts.testnet[0];
-    document.getElementById('username').value = account.username;
+    const account = NetConfig.accounts[0];
+    const accountI = NetConfig.accounts[1];
+    document.getElementById('username').value = account.address;
     document.getElementById('postingKey').value = account.privPosting;
+    document.getElementById('author').value = accountI.address;
 };

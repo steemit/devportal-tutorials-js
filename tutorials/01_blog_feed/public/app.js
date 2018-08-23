@@ -1,4 +1,4 @@
-const { Client } = require('dsteem');
+import { Client } from 'dsteem';
 
 const client = new Client('https://api.steemit.com');
 
