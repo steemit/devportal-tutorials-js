@@ -1,13 +1,9 @@
 import { Client, PrivateKey } from 'dsteem';
-import { accounts } from '../../configuration';
-let opts = {};
+import { Testnet as NetConfig } from '../../configuration'; //A Steem Testnet. Replace 'Testnet' with 'Mainnet' to connect to the main Steem blockchain.
 
-//connect to community testnet
-opts.addressPrefix = 'STX';
-opts.chainId =
-    '79276aea5d4877d9a25892eaa01b0adf019d3e5cb12a97478df3298ccdd01673';
-//connect to server which is connected to the network/testnet
-const client = new Client('https://testnet.steem.vc', opts);
+let opts = { ...NetConfig.net };
+
+const client = new Client(NetConfig.url, opts);
 
 const diff_match_patch = require('diff-match-patch');
 const dmp = new diff_match_patch();
@@ -65,11 +61,11 @@ window.submitPost = async () => {
     //computes a list of patches to turn o_body to edited_body
     const patch = createPatch(o_body, edited_body);
 
-    //check if patch size is smaller than original content
-    if (patch && patch.length < new Buffer(o_body, 'utf-8').length) {
+    //check if patch size is smaller than edited content itself
+    if (patch && patch.length < new Buffer(edited_body, 'utf-8').length) {
         body = patch;
     } else {
-        body = o_body;
+        body = edited_body;
     }
 
     //get tags and convert to array list
@@ -114,9 +110,9 @@ window.submitPost = async () => {
 };
 
 window.onload = () => {
-    const account = accounts.testnet[0];
-    document.getElementById('username').value = account.username;
-    document.getElementById('usernameInText').innerHTML = account.username;
+    const account = NetConfig.accounts[0];
+    document.getElementById('username').value = account.address;
+    document.getElementById('usernameInText').innerHTML = account.address;
     document.getElementById('postingKey').value = account.privPosting;
 
     getLatestPost().catch(console.error);

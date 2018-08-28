@@ -148,17 +148,17 @@ client.broadcast
 
 As you can see from the above function, we get the relevant values from the defined fields. Tags are separated by spaces in this example, but the structure of how to enter tags totally depends on your needs. We have separated tags with whitespaces and stored them in an array list called `taglist`, for later use. Posts on the blockchain can hold additional information in the `json_metadata` field, such as the `tags` list which we have assigned. Posts must also have a unique permanent link scoped to each account. In this case we are just creating a random character string.
 
-In the follow code, we patch the old content with new (or edited) content and make sure that the patch size is smaller than original content, otherwise patching is unnecessary.
+In the follow code, we patch the old content with new (or edited) content and make sure that the patch size is smaller than edited content, otherwise patching is unnecessary.
 
 ```javascript
 //computes a list of patches to turn o_body to edited_body
 const patch = createPatch(o_body, edited_body);
 
-//check if patch size is smaller than original content
-if (patch && patch.length < new Buffer(o_body, 'utf-8').length) {
+//check if patch size is smaller than edited content itself
+if (patch && patch.length < new Buffer(edited_body, 'utf-8').length) {
     body = patch;
 } else {
-    body = o_body;
+    body = edited_body;
 }
 ```
 

@@ -1,14 +1,11 @@
 //Step 1.
 import { Client, PrivateKey } from 'dsteem';
-import { accounts } from '../../configuration';
-let opts = {};
+import { Testnet as NetConfig } from '../../configuration'; //A Steem Testnet. Replace 'Testnet' with 'Mainnet' to connect to the main Steem blockchain.
 
-//connect to community testnet
-opts.addressPrefix = 'STX';
-opts.chainId =
-    '79276aea5d4877d9a25892eaa01b0adf019d3e5cb12a97478df3298ccdd01673';
+let opts = { ...NetConfig.net };
+
 //connect to server which is connected to the network/testnet
-const client = new Client('https://testnet.steem.vc', opts);
+const client = new Client(NetConfig.url, opts);
 
 //Step 2. user fills in the values for 'parent_author' and 'parent_permlink'
 //Step 3. user adds content for the comment in the 'body' textarea
@@ -69,7 +66,7 @@ window.clearFields = function() {
 };
 
 window.onload = () => {
-    const account = accounts.testnet[0];
-    document.getElementById('username').value = account.username;
+    const account = NetConfig.accounts[0];
+    document.getElementById('username').value = account.address;
     document.getElementById('postingKey').value = account.privPosting;
 };
