@@ -86,6 +86,8 @@ The call `routes` that will be covered are for:
 }
 ```
 
+## Use cases and data sets
+
 #### Route: getState('accounts')<a name="accounts"></a>
 
 - Purpose: Returns a list of account objects for the top 20 trending post authors or a single account if specified.

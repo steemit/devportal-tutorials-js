@@ -10,15 +10,6 @@ opts.chainId =
 //connect to server which is connected to the network/production
 const client = new dsteem.Client('https://api.steemit.com');
 
-// import { Client, PrivateKey } from 'dsteem';
-// import { Mainnet as NetConfig } from '../../configuration'; //A Steem Testnet. Replace 'Testnet' with 'Mainnet' to connect to the main Steem blockchain.
-
-// let opts = { ...NetConfig.net };
-
-// //connect to a steem node, testnet in this case
-// const client = new Client(NetConfig.url, opts);
-
-
 
 window.showAccount = async () => {
     console.log('account : ');
