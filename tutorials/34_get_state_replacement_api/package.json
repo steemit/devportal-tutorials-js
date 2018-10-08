@@ -1,0 +1,27 @@
+{
+    "name": "34_get_state_replacement_api",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "start": "webpack && node ./index.js",
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "dev-server": "./node_modules/.bin/webpack-dev-server --mode development --content-base ./public --port 3000"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "bootstrap": "^4.1.0",
+        "dsteem": "^0.8.7",
+        "koa": "^2.5.0",
+        "koa-static": "^4.0.2",
+        "remarkable": "^1.7.1"
+    },
+    "devDependencies": {
+        "css-loader": "^0.28.11",
+        "style-loader": "^0.21.0",
+        "webpack": "^4.3.0",
+        "webpack-cli": "^2.0.13",
+        "webpack-dev-server": "^3.1.3"
+    }
+}
