@@ -1,11 +1,9 @@
-const dsteem = require('dsteem');
-let opts = {};
-//connect to production server
-opts.addressPrefix = 'STM';
-opts.chainId =
-    '0000000000000000000000000000000000000000000000000000000000000000';
-//connect to server which is connected to the network/production
-const client = new dsteem.Client('https://api.steemit.com');
+import { Client, PrivateKey } from 'dsteem';
+import { Mainnet as NetConfig } from '../../configuration'; //A Steem Testnet. Replace 'Testnet' with 'Mainnet' to connect to the main Steem blockchain.
+
+let opts = { ...NetConfig.net };
+//connect to a steem node, testnet in this case
+const client = new Client(NetConfig.url, opts);
 
 //submitAcc function from html input
 const max = 5;
@@ -44,7 +42,7 @@ window.openSC = async () => {
     window.open(link);
 };
 window.submitTx = async () => {
-    const privateKey = dsteem.PrivateKey.fromString(
+    const privateKey = PrivateKey.fromString(
         document.getElementById('wif').value
     );
     const op = [

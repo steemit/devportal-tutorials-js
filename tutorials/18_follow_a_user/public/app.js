@@ -1,13 +1,11 @@
 //Step 1.
 import { Client, PrivateKey } from 'dsteem';
-import { Testnet as NetConfig } from '../../configuration'; //A Steem Testnet. Replace 'Testnet' with 'Mainnet' to connect to the main Steem blockchain.
+import { Mainnet as NetConfig } from '../../configuration'; //A Steem Testnet. Replace 'Testnet' with 'Mainnet' to connect to the main Steem blockchain.
 
 let opts = { ...NetConfig.net };
 
 //connect to a steem node, testnet in this case
 const client = new Client(NetConfig.url, opts);
-
-//Step 2. user fills in the values for 'parent_author' and 'parent_permlink'
 
 //Follow function
 window.submitFollow = async () => {

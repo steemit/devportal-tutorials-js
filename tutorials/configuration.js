@@ -49,14 +49,14 @@ export const TestnetSteemit = {
 export const TestnetVC = {
     accounts: [
         {
-            address: 'cdemo',
-            privPosting: '5JEZ1EiUjFKfsKP32b15Y7jybjvHQPhnvCYZ9BW62H1LDUnMvHz',
-            privActive: '5KaNM84WWSqzwKzY82fXPaUW43idbLnPqf5SfjGxLfw6eV2kAP3',
+            address: 'demo01',
+            privPosting: '5KNckabfv4i793ymx4NWrTLDQZMjhgQTJbPSTroeBY4Bh5Eg6Tm',
+            privActive: '5HxTntgeoLm4trnTz94YBsY6MpAap1qRVXEKsU5n1v2du1gAgVH',
         },
         {
-            address: 'ddemo',
-            privPosting: '5KgXiETcV17PU2EpZSnV5t4W4FdAK6khCTNGDCG3PYxdDZ8fLm1',
-            privActive: '5JxfTEnJtm2D9VAHs3VUffpZWPcpithQEU1AykqZUSvfm7cLVa5',
+            address: 'demo02',
+            privPosting: '5KHUais1mfUn7A3M6pLZw1WF1v6WetFGCB1YDNctcPizLyCT1vW',
+            privActive: '5KgMKfnTQTzrmZP3RxrQs3CEckHTPXxFzJWHV3cJjetmXwLUWZj',
         },
     ],
     url: 'https://testnet.steem.vc',
