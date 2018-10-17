@@ -33,7 +33,7 @@ window.submitAcc = async () => {
 };
 
 window.submitTx = async () => {
-    const privateKey = dsteem.PrivateKey.fromString(
+    const privateKey = PrivateKey.fromString(
         document.getElementById('wif').value
     );
     const op = [
