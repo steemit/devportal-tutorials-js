@@ -1,0 +1,105 @@
+<html>
+    <head>
+        <title>Transfer STEEM and SBD to savings</title>
+        <script src="bundle.js"></script>
+    </head>
+    <body>
+        <div class="container" id="content">
+            <h4>Transfer STEEM and SBD to savings</h4>
+            <form>
+                <div class="form-group row">
+                    <label for="username" class="col-sm-2 col-form-label">
+                        Username
+                    </label>
+                    <div class="col-sm-10">
+                        <input
+                            id="username"
+                            type="text"
+                            class="form-control"
+                        />
+                        <br><input
+                            id="submitSearch"
+                            type="button"
+                            value="Check Balances"
+                            onclick="submitAcc()"
+                            class="btn btn-primary"
+                        /><br>
+                        <div class="col-form-label" id="accBalance"></div>
+                        <div class="col-form-label" id="savingsBalance"></div>
+                    </div>
+                </div>
+                
+                <div class="form-group row">
+                    <label for="privateKey" class="col-sm-2 col-form-label">
+                        Private active key
+                    </label>
+                    <div class="col-sm-10">
+                        <input
+                            type="password"
+                            class="form-control"
+                            id="privateKey"
+                        />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="quantity" class="col-sm-2 col-form-label">
+                        Convert amount (3 decimals)
+                    </label>
+                    <div class="col-sm-10">
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="quantity"
+                        />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="type" class="col-sm-2 col-form-label">
+                        SBD or STEEM (allcaps)
+                    </label>
+                    <div class="col-sm-10">
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="type"
+                        />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="offset-sm-2 col-sm-10">
+                        <input
+                            id="transferBtn"
+                            type="button"
+                            value="Transfer"
+                            onclick="submitTransfer()"
+                            class="btn btn-primary"
+                        />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="offset-sm-2 col-sm-10">
+                        <input
+                            id="withdrawBtn"
+                            type="button"
+                            value="Withdraw"
+                            onclick="submitWithdraw()"
+                            class="btn btn-primary"
+                        />
+                    </div>
+                </div>
+                <div
+                    class="form-group row"
+                    id="transferResultContainer"
+                    style="display: none;"
+                >
+                    <label for="transferResult" class="col-sm-2 col-form-label">
+                        Transfer result
+                    </label>
+                    <div class="col-sm-10">
+                        <div id="transferResult" class="form-control-plaintext" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </body>
+</html>
