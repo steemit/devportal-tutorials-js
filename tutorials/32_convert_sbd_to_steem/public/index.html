@@ -1,0 +1,93 @@
+<html>
+    <head>
+        <title>Convert SBD to STEEM</title>
+        <script src="bundle.js"></script>
+    </head>
+    <body>
+        <div class="container" id="content">
+            <h4>Convert SBD to STEEM</h4>
+            <form>
+                <div class="form-group row">
+                    <label for="username" class="col-sm-2 col-form-label">
+                        Username
+                    </label>
+                    <div class="col-sm-10">
+                        <input
+                            id="username"
+                            type="text"
+                            class="form-control"
+                        />
+                        <br><input
+                            id="submitSearch"
+                            type="button"
+                            value="Search"
+                            onclick="submitAcc()"
+                            class="btn btn-primary"
+                        /><br>
+                        <div class="col-form-label" id="accBalance"></div>
+                    </div>
+                </div>
+                
+                <div class="form-group row">
+                    <label for="privateKey" class="col-sm-2 col-form-label">
+                        Private active key
+                    </label>
+                    <div class="col-sm-10">
+                        <input
+                            type="password"
+                            class="form-control"
+                            id="privateKey"
+                        />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="quantity" class="col-sm-2 col-form-label">
+                        Convert amount (3 decimals)
+                    </label>
+                    <div class="col-sm-10">
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="quantity"
+                        />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="requestID" class="col-sm-2 col-form-label">
+                        Request ID
+                    </label>
+                    <div class="col-sm-10">
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="requestID"
+                        />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="offset-sm-2 col-sm-10">
+                        <input
+                            id="transferBtn"
+                            type="button"
+                            value="Convert"
+                            onclick="submitConvert()"
+                            class="btn btn-primary"
+                        />
+                    </div>
+                </div>
+                <div
+                    class="form-group row"
+                    id="convertResultContainer"
+                    style="display: none;"
+                >
+                    <label for="convertResult" class="col-sm-2 col-form-label">
+                        Transfer result
+                    </label>
+                    <div class="col-sm-10">
+                        <div id="convertResult" class="form-control-plaintext" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </body>
+</html>
