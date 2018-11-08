@@ -46,25 +46,27 @@ window.submitTx = async () => {
         password,
         'posting'
     );
-    const memoKey = dsteem.PrivateKey.fromLogin(username, password, 'memo').createPublic();
+    const memoKey = dsteem.PrivateKey.fromLogin(
+        username,
+        password,
+        'memo'
+    ).createPublic(opts.addressPrefix);
 
     const ownerAuth = {
         weight_threshold: 1,
         account_auths: [],
-        key_auths: [[ownerKey.createPublic(), 1]],
+        key_auths: [[ownerKey.createPublic(opts.addressPrefix), 1]],
     };
     const activeAuth = {
         weight_threshold: 1,
         account_auths: [],
-        key_auths: [[activeKey.createPublic(), 1]],
+        key_auths: [[activeKey.createPublic(opts.addressPrefix), 1]],
     };
     const postingAuth = {
         weight_threshold: 1,
         account_auths: [],
-        key_auths: [[postingKey.createPublic(), 1]],
+        key_auths: [[postingKey.createPublic(opts.addressPrefix), 1]],
     };
-
-
 
     const privateKey = dsteem.PrivateKey.fromString(
         document.getElementById('wif').value
@@ -107,9 +109,16 @@ window.submitDisc = async () => {
     //create keys
     const ownerKey = dsteem.PrivateKey.fromLogin(username, password, 'owner');
     const activeKey = dsteem.PrivateKey.fromLogin(username, password, 'active');
-    const postingKey = dsteem.PrivateKey.fromLogin(username, password, 'posting');
-    const memoKey = dsteem.PrivateKey.fromLogin(username, password, 'memo').createPublic(opts.addressPrefix);
-                        
+    const postingKey = dsteem.PrivateKey.fromLogin(
+        username,
+        password,
+        'posting'
+    );
+    const memoKey = dsteem.PrivateKey.fromLogin(
+        username,
+        password,
+        'memo'
+    ).createPublic(opts.addressPrefix);
 
     const ownerAuth = {
         weight_threshold: 1,
@@ -127,19 +136,20 @@ window.submitDisc = async () => {
         key_auths: [[postingKey.createPublic(opts.addressPrefix), 1]],
     };
 
-
-
     //private active key of creator account
-    const privateKey = dsteem.PrivateKey.fromString(document.getElementById('wif').value);
+    const privateKey = dsteem.PrivateKey.fromString(
+        document.getElementById('wif').value
+    );
 
     let ops = [];
 
     //claim discounted account operation
-    const creator = document.getElementById('account').value
-    const _account = await client.database.call('get_accounts', [
-        [creator],
-    ]);
-    console.log('current pending claimed accounts: ' + _account[0].pending_claimed_accounts)
+    const creator = document.getElementById('account').value;
+    const _account = await client.database.call('get_accounts', [[creator]]);
+    console.log(
+        'current pending claimed accounts: ' +
+            _account[0].pending_claimed_accounts
+    );
     if (_account[0].pending_claimed_accounts == 0) {
         const claim_op = [
             'claim_account',
@@ -147,12 +157,12 @@ window.submitDisc = async () => {
                 creator: creator,
                 fee: '0.000 STEEM',
                 extensions: [],
-            }
+            },
         ];
-        console.log('You have claimed a token')
-        ops.push(claim_op)
+        console.log('You have claimed a token');
+        ops.push(claim_op);
     }
-    
+
     //create operation to transmit
     const create_op = [
         'create_claimed_account',
@@ -164,11 +174,11 @@ window.submitDisc = async () => {
             posting: postingAuth,
             memo_key: memoKey,
             json_metadata: '',
-            extensions: []
+            extensions: [],
         },
     ];
-    ops.push(create_op)
-    
+    ops.push(create_op);
+
     //broadcast operation to blockchain
     client.broadcast.sendOperations(ops, privateKey).then(
         function(result) {
