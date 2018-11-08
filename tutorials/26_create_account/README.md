@@ -63,22 +63,26 @@ const password = document.getElementById('password').value;
 const ownerKey = dsteem.PrivateKey.fromLogin(username, password, 'owner');
 const activeKey = dsteem.PrivateKey.fromLogin(username, password, 'active');
 const postingKey = dsteem.PrivateKey.fromLogin(username, password, 'posting');
-const memoKey = dsteem.PrivateKey.fromLogin(username, password, 'memo').createPublic();
+const memoKey = dsteem.PrivateKey.fromLogin(
+    username,
+    password,
+    'memo'
+).createPublic(opts.addressPrefix);
 
 const ownerAuth = {
     weight_threshold: 1,
     account_auths: [],
-    key_auths: [[ownerKey.createPublic(), 1]],
+    key_auths: [[ownerKey.createPublic(opts.addressPrefix), 1]],
 };
 const activeAuth = {
     weight_threshold: 1,
     account_auths: [],
-    key_auths: [[activeKey.createPublic(), 1]],
+    key_auths: [[activeKey.createPublic(opts.addressPrefix), 1]],
 };
 const postingAuth = {
     weight_threshold: 1,
     account_auths: [],
-    key_auths: [[postingKey.createPublic(), 1]],
+    key_auths: [[postingKey.createPublic(opts.addressPrefix), 1]],
 };
 ```
 
@@ -149,7 +153,7 @@ if (_account[0].pending_claimed_accounts == 0) {
     console.log('You have claimed a token')
     ops.push(claim_op)
 }
-    
+
 //create operation to transmit
 const create_op = [
     'create_claimed_account',
@@ -165,7 +169,7 @@ const create_op = [
     },
 ];
 ops.push(create_op)
-    
+
 //broadcast operation to blockchain
 client.broadcast.sendOperations(ops, privateKey).then(
     function(result) {
