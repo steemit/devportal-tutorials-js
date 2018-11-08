@@ -2,11 +2,11 @@
 
 _Create Steem account using Steemconnect as well as with client-side signing._
 
-This tutorial runs on the main Steem blockchain. And accounts queried/searched are real accounts and creator account should have sufficient liquid balance to create new account.
+This tutorial will show how to search for a valid account name and then create a new account by means of Resource Credits or STEEM. This tutorial runs on the main Steem blockchain so extra care needs to be taken as any operation will affect real accounts.
 
 ## Intro
 
-This tutorial will show few functions such as querying account by name and check if username is taken or available to register. We are using the `call` function provided by the `dsteem` library to pull account from the Steem blockchain. We then create proper private keys for new account. A simple HTML interface is used to enter payment of account creation fee and create account right inside tutorial. We use the `account_create` function to commit the transaction to the blockchain. This function is used to create what is called a "non-discounted account". This means that the creator account needs to supply the exact `account_creation_fee` in STEEM in order for the transaction to process successfully. Currently this value is set to 3 STEEM. There is a second method of creating accounts using tokes. These are called "discounted accounts". In stead of STEEM, the `account_creation_fee` is paid in RC (resource credits). There are however a limited amount of discounted accounts that can be claimed which is decided upon by the witnesses. This account creation process is done in two steps, first claiming an account and then creating the account.
+This tutorial will show few functions such as querying account by name and check if username is taken or available to register. We are using the `call` function provided by the `dsteem` library to pull account from the Steem blockchain. We then create proper private keys for new account. A simple HTML interface is used to enter payment of account creation fee and create account right inside tutorial. We use the `account_create` function to commit the transaction to the blockchain. This function is used to create what is called a "non-discounted account". This means that the creator account needs to supply the exact `account_creation_fee` in STEEM in order for the transaction to process successfully. Currently this value is set to 3 STEEM. There is a second method of creating accounts using tokens. These are called "discounted accounts". In stead of STEEM, the `account_creation_fee` is paid in RC (resource credits). There are however a limited amount of discounted accounts that can be claimed which is decided upon by the witnesses. This account creation process is done in two steps, first claiming an account and then creating the account.
 
 ## Steps
 
@@ -35,23 +35,26 @@ const client = new dsteem.Client('https://api.steemit.com');
 After account name field is filled with some name, tutorial has Search button to search for account by name. HTML input forms can be found in the `index.html` file. The values are pulled from that screen with the below:
 
 ```javascript
-    const accSearch = document.getElementById('username').value;
-    let avail = 'Account is NOT available to register'
-    if (accSearch.length>2) {
-        const _account = await client.database.call('get_accounts', [[accSearch]]);
-        console.log(`_account:`, _account, accSearch.length);
+const accSearch = document.getElementById('username').value;
+let avail = 'Account is NOT available to register';
+if (accSearch.length > 2) {
+    const _account = await client.database.call('get_accounts', [
+        [accSearch],
+    ]);
+    console.log(`_account:`, _account, accSearch.length);
 
-        if (_account.length==0) {
-            avail = 'Account is available to register'
-        }
+    if (_account.length == 0) {
+        avail = 'Account is available to register';
     }
+}
+document.getElementById('accInfo').innerHTML = avail;
 ```
 
 We will then do simple check if account is taken or not.
 
 #### 3. Generate private keys <a name="generate-keys"></a>
 
-After we know that account is available to register, we will fill form with password we wish for that account and enter creation fee. Note, that creation fees are "burned" once the new account is created. The the creator account wishes to provide the new account with VEST (as per previous account creation process) they can do so by following the `delegate_vesting_shares` process (refer tutorial [#27](https://developers.steem.io/tutorials-javascript/delegate_power)).
+After we know that account is available to register, we will fill form with password we wish for that account and enter creation fee. Note, that creation fees are "burned" once the new account is created. The creator account wishes to provide the new account with VEST (as per previous account creation process) they can do so by following the `delegate_vesting_shares` process (refer tutorial [#27](https://developers.steem.io/tutorials-javascript/delegate_power)). Irrespective of which account creation method is being followed, the process for generating new accounts keys is the same for both.
 
 ```javascript
 const username = document.getElementById('username').value;
@@ -119,7 +122,7 @@ client.broadcast.sendOperations([op], privateKey).then(
 );
 ```
 
-Discounted account creation uses the same eventual `account_create` parameters but does not include the optional `fee` parameter.
+Discounted account creation uses the same eventual `account_create` parameters but does not include the optional `fee` parameter. We also check to see if the creator account has an `account_creation_token` available already and then skips the first section of claiming this token.
 
 ```javascript
 //discounted account creation
@@ -129,16 +132,24 @@ const privateKey = dsteem.PrivateKey.fromString(document.getElementById('wif').v
 let ops = [];
 
 //claim discounted account operation
-const claim_op = [
-    'claim_account',
-    {
-        creator: document.getElementById('account').value,
-        fee: '0.000 STEEM',
-        extensions: [],
-    }
-];
-ops.push(claim_op)
-
+const creator = document.getElementById('account').value
+const _account = await client.database.call('get_accounts', [
+    [creator],
+]);
+console.log('current pending claimed accounts: ' + _account[0].pending_claimed_accounts)
+if (_account[0].pending_claimed_accounts == 0) {
+    const claim_op = [
+        'claim_account',
+        {
+            creator: creator,
+            fee: '0.000 STEEM',
+            extensions: [],
+        }
+    ];
+    console.log('You have claimed a token')
+    ops.push(claim_op)
+}
+    
 //create operation to transmit
 const create_op = [
     'create_claimed_account',
@@ -171,14 +182,12 @@ client.broadcast.sendOperations(ops, privateKey).then(
 );
 ```
 
-Note in above creator's account name and active private keys are used for creation.
-
 That's it!
 
 ### To run this tutorial
 
 1.  clone this repo
-1.  `cd tutorials/24_create_account`
+1.  `cd tutorials/26_create_account`
 1.  `npm i`
 1.  `npm run dev-server` or `npm run start`
 1.  After a few moments, the server should be running at [http://localhost:3000/](http://localhost:3000/)
